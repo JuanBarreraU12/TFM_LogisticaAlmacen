@@ -1,8 +1,10 @@
+const router = require('express').Router();
 const { checkSchema } = require('express-validator');
 const { nuevoUsuario, checkError } = require('../../helpers/validators');
-const { getAll, getById, create, update, deleteById } = require('../../models/user.model');
+const { getAll, getById, create, update, deleteById, register } = require('../../models/user.model');
 
-const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+
 
 
 router.get('/', (req, res) => {
@@ -36,7 +38,13 @@ router.post('/',
         } catch (error) {
             res.json({ fatal: error.message });
         }
-    });
+});
+
+router.post('/register', async (req, res) => {
+    req.body.password = bcrypt.hashSync(req.body.password, 8);
+    const result = await register(req.body);
+    res.json(result);
+})
 
 router.put('/:userId', async (req, res) => {
     const { userId } = req.params;
@@ -47,7 +55,7 @@ router.put('/:userId', async (req, res) => {
 router.delete('/:userId', async (req, res) => {
     const { userId } = req.params;
     const result = await deleteById(userId);
-    res.json(result)
+    res.json(result);
 });
 
 module.exports = router;
