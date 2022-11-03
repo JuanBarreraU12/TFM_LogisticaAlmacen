@@ -1,10 +1,10 @@
 const { validationResult } = require('express-validator');
 
 
-const nuevoUsuario = {
-    user_name: {
+const nuevoEmployee = {
+    name: {
         exists: true,
-        errorMessage: 'El campo user_name es obligatgorio'
+        errorMessage: 'El campo name es obligatgorio'
     },
 }
 
@@ -17,5 +17,5 @@ const checkError = (req, res, next) => {
 }
 
 module.exports = {
-    nuevoUsuario, checkError
+    nuevoEmployee, checkError
 }
