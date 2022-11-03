@@ -1,1 +1,27 @@
-GET http://localhost:3000/api/user
+
+GET http://localhost:3000/api/user  
+
+###
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "user_name": "talcivar", 
+    "password": 23456,
+    "rol_id": 1, 
+    "employee_id": 1
+}
+
+###
+PUT http://localhost:3000/api/user/1
+Content-Type: application/json
+
+{
+    "user_name": "belenaz",
+    "password": 26456,
+    "rol_id": 1, 
+    "employee_id": 1
+}
+
+###
+DELETE http://localhost:3000/api/user/4
