@@ -25,5 +25,5 @@ const deleteById = (employeeId) => {
 }
 
 module.exports = {
-    getAll, getById, create, update, deleteById,getEmployeeById
+    getAll, getById, create, update, deleteById, getEmployeeById
 }

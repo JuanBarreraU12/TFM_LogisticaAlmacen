@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 
-const { register, getByEmail } = require('../../models/usuario.model');
+const { register, getByEmail, getById } = require('../../models/usuario.model');
+const { getRolById } = require('../../models/rol.model');
+const { getEmployeeById } = require('../../models/employee.model');
 
 router.post('/register', async (req, res) => {
     try {
@@ -16,19 +18,27 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await getByEmail(email);
-
-    if (!user) {
-        return res.json({ fatal: 'Error en email y/o contraseña'})
-    }
-
     const iguales = bcrypt.compareSync(password, user.password);
-     if (!iguales) {
+      if (!iguales) {
         return res.json({ fatal: 'Error en email y/o contraseña'})
     }
-    res.json({success: true});
 
+    if(user)
+    {
+      const rol= await getRolById(user.rol_id);
+      const employee=await getEmployeeById(user.employee_id);
+      const response={
+        "userName" : user.user_name,
+        "email": user.email,
+        "rol":rol,
+        "employee":employee
+      }
+      res.json(response);
+    }
+    else {
+        return res.json({ fatal: 'Error en email y/o contraseña'})
+    }
 })
-
 
 
 module.exports = router;
