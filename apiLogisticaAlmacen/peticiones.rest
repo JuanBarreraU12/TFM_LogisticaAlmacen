@@ -1,5 +1,5 @@
 
-GET http://localhost:3000/api/employee/2  
+GET http://localhost:3000/api/employee 
 
 ###
 POST http://localhost:3000/api/employee
@@ -31,13 +31,4 @@ DELETE http://localhost:3000/api/employee/2
 
 
 
-###
-POST http://localhost:3000/api/user/register
-Content-Type: application/json
 
-{
-    "user_name": "talcivar", 
-    "password": "23456",
-    "rol_id": 1, 
-    "employee_id": 1
-}
