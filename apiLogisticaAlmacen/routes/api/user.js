@@ -2,12 +2,14 @@ const router = require('express').Router();
 const { checkSchema } = require('express-validator');
 const { nuevoUsuario, checkError } = require('../../helpers/validators');
 const { getAll, getById, create, update, deleteById, register } = require('../../models/user.model');
+const { getEmployeeById } = require('../../models/employee.model');
+const { getRolById } = require('../../models/rol.model');
 
 const bcrypt = require('bcryptjs');
 
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     getAll()
         .then(user => {
             res.json(user);
@@ -21,6 +23,7 @@ router.get('/:userId', async (req, res) => {
     const { userId } = req.params;
     const user = await getById(userId);
     if (user) {
+      
         res.json(user)
     } else {
         res.json({ error: 'No existe un usuario con ese ID' })
