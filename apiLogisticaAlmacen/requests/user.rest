@@ -7,7 +7,7 @@ Content-Type: application/json
     "email": "talcivat@gmail.com", 
     "password": "23456",
     "rol_id": "1",
-    "employee_id": "5"
+    "employee_id": "4"
 }
 
 ###
