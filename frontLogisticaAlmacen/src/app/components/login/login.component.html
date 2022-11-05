@@ -1,14 +1,16 @@
-<h1>🕴️ Login</h1>
-<section class="container m-3">
+<section class="container m-12">
   <form #loginForm="ngForm" (ngSubmit)="getLogin(loginForm)">
-        <div>
-            <label for="email" class="form-label">Email</label>
-            <input class="form-control" type="text" id="email" name="email" ngModel>
-        </div>
-        <div>
-            <label for="password" class="form-label">Password</label>
-            <input class="form-control" type="password" id="password" name="password" ngModel>
-        </div>
-        <button class="btn btn-danger m-2" type="submit">Sig in</button>
-    </form>
+    <div class="form-group">
+      <label class="form-label mt-4">Login</label>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" placeholder="name@example.com" name="email" ngModel>
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" placeholder="Password" name="password" ngModel>
+        <label for="floatingPassword">Password</label>
+      </div>
+    </div>
+    <button class="btn btn-danger m-2" type="submit">Sig in</button>
+  </form>
 </section>
