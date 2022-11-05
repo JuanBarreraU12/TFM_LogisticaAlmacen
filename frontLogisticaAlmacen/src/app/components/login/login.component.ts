@@ -22,11 +22,27 @@ export class LoginComponent implements OnInit {
 
     let response = await this.usersService.login(pForm.value);
     console.log(response);
-    if(response){
+    if(response.fatal){
+      Swal.fire(response.fatal, '', 'error');
+    }
+    else{
+      switch(response.rol.description)
+      {
+        case "Operador":
+          Swal.fire("Hola Operador", '', 'success');
+          break;
+        case "Jefe":
+            Swal.fire("Hola Jefe", '', 'success');
+            break;
+        case "Encargado":
+              Swal.fire("Hola Encargado", '', 'success');
+              break;
+        default:
+          Swal.fire("Rol no encontrado", '', 'error');
+          break;
+      }
       localStorage.setItem('user', response);
       this.router.navigate(['/home'])
-    }else{
-      Swal.fire(response.error, '', 'error');
     }
   }
 
