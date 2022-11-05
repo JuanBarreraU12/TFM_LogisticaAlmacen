@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
-
+import Swal from'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +17,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-   
-   async getLogin(pForm: any): Promise<void> {
+
+  async getLogin(pForm: any): Promise<void> {
+
     let response = await this.usersService.login(pForm.value);
     console.log(response);
-    if(response.token){
-      localStorage.setItem('user-token', response.token);
+    if(response){
+      localStorage.setItem('user', response);
       this.router.navigate(['/home'])
-
     }else{
-      alert(response.error)
+      Swal.fire(response.error, '', 'error');
     }
   }
 

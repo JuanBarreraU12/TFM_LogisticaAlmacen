@@ -1,26 +1,14 @@
 <h1>🕴️ Login</h1>
-
 <section class="container m-3">
-
-    <form #loginForm="" (ngSubmit)="getLogin(loginForm)">
+  <form #loginForm="ngForm" (ngSubmit)="getLogin(loginForm)">
         <div>
             <label for="email" class="form-label">Email</label>
             <input class="form-control" type="text" id="email" name="email" ngModel>
         </div>
-
         <div>
             <label for="password" class="form-label">Password</label>
             <input class="form-control" type="password" id="password" name="password" ngModel>
         </div>
-
-
-
-
-        <!--<input class="btn btn-danger mt-3" type="submit" value="Logarse">-->
-
-        <button class="btn btn-danger m-2" [routerLink]="['/home']">Sig in</button>
-
-
-
+        <button class="btn btn-danger m-2" type="submit">Sig in</button>
     </form>
 </section>
