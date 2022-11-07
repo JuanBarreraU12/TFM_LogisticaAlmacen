@@ -1,0 +1,35 @@
+GET http://localhost:3000/api/employees
+
+###
+GET http://localhost:3000/api/employees/2
+
+### 
+POST http://localhost:3000/api/employees
+Content-Type: application/json
+
+{
+  "name": "Esteban",
+  "first_last_name": "Marín",
+  "second_last_name": "Murillo", 
+  "email": "emarin@hotmail.com", 
+  "dni": "116380004", 
+  "cell_phone": "87075909",
+  "birth_date": "1996-03-31"
+}
+
+### 
+PUT http://localhost:3000/api/employees/1
+Content-Type: application/json
+
+{
+  "name": "Esteban Andrés",
+  "first_last_name": "Marín",
+  "second_last_name": "Murillo", 
+  "email": "emarin@hotmail.com", 
+  "dni": "116380004", 
+  "cell_phone": "87075909",
+  "birth_date": "1996-03-31"
+}
+
+### 
+DELETE http://localhost:3000/api/employees/1
