@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       Swal.fire(response.fatal, '', 'error');
     }
     else{
-      switch(response.rol.description)
+      switch(response.rol.name)
       {
         case "Operario":
           Swal.fire("Hola Operador", '', 'success');
