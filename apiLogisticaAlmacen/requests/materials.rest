@@ -5,19 +5,21 @@ POST http://localhost:3000/api/materials
 Content-Type: application/json
 
 {
-    "name": "Cemento", 
-    "price": 25.00, 
-    "sku": "MP-0000001", 
-    "material_type_id": 1
+    "name": "Papel", 
+    "sku": "MP-0000002", 
+    "material_type_id": 3
 }
 
 ###
-PUT http://localhost:3000/api/materials/1
+PUT http://localhost:3000/api/materials/25
 Content-Type: application/json
 
 {
-    "name": "Martillo", 
-    "price": 4.50, 
-    "sku": "PT-0000001", 
+    "name": "Cemento", 
+    "price": 25, 
+    "sku": "MP-0000001", 
     "material_type_id": 3
 }
+
+###
+DELETE http://localhost:3000/api/materials/45

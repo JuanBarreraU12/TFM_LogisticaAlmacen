@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { checkSchema } = require('express-validator');
-const { nuevoEmployee, checkError } = require('../../helpers/validators');
+const { newEmployee } = require('../../helpers/schemas/employee.schema');
+const { badRequest } = require('../../helpers/validators');
 const { getAll, getById, create, update, deleteById } = require('../../models/employee.model');
 
 
@@ -26,8 +27,8 @@ router.get('/:employeeId', async (req, res) => {
 });
 
 router.post('/',
-    checkSchema(nuevoEmployee),
-    checkError
+    checkSchema(newEmployee),
+    badRequest
     , async (req, res) => {
         try {
             const result = await create(req.body);
