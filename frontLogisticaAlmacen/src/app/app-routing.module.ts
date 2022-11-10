@@ -1,5 +1,7 @@
+import { formatCurrency } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormComponent } from './components/form/form.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
@@ -12,6 +14,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "home-operario", component: HomeOperarioComponent },
   { path: "home-jefe", component: HomeJefeComponent },
+  { path: "newEmployee", component: FormComponent },
   { path: "home-encargado", component: HomeEncargadoComponent },
   { path: "**", redirectTo: "login" }
 ];

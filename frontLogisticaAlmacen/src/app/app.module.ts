@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
     LoginComponent,
     HomeOperarioComponent,
     HomeEncargadoComponent,
-    HomeJefeComponent
+    HomeJefeComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

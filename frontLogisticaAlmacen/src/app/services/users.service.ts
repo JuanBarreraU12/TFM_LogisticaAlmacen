@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from '../interfaces/user.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,5 +24,7 @@ export class UsersService {
       }
     return lastValueFrom(this.httpClient.post<any>(this.baseUrl, pFormValue,httpOptions));
   }
+
+  
 
 }

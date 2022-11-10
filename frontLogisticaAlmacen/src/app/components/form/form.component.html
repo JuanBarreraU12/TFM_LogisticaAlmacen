@@ -1,0 +1,53 @@
+<section class="container mt-3">
+
+    <h1>{{type}} usuario</h1>
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+
+        <div>
+            <label class="form-label" for="name">Nombre</label>
+            <input class="form-control" type="text" id="name" formControlName="name">
+            <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3 caracteres</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="first_last_name">Primer Apellido</label>
+            <input class="form-control" type="text" id="first_last_name" formControlName="first_last_name">
+            <p class="error" *ngIf="checkControl('first_last_name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">La longitud del camo tiene que ser al menos de 5 caracteres</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="second_last_name">Segundo Apellido</label>
+            <input class="form-control" type="text" id="second_last_name" formControlName="second_last_name">
+        </div>
+
+        <div>
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="text" id="email" formControlName="email">
+            <p class="error" *ngIf="checkControl('email', 'required')">Campo requerido</p>
+
+        </div>
+
+        <div>
+            <label class="form-label" for="dni">DNI</label>
+            <input class="form-control" type="text" id="image" formControlName="dni">
+            <p class="error" *ngIf="checkControl('dni', 'required')">Campo requerido</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="cell_phone">Numero de Telefono</label>
+            <input class="form-control" type="text" id="image" formControlName="cell_phone">
+            <p class="error" *ngIf="checkControl('cell_phone', 'required')">Campo requerido</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="birth_date">Fecha de nacimiento</label>
+            <input class="form-control" type="date" id="image" formControlName="birth_date">
+            <p class="error" *ngIf="checkControl('birth_date', 'required')">Campo requerido</p>
+        </div>
+
+        <input type="submit" [value]="type" class="btn btn-outline-dark mt-3" [disabled]="!userForm.valid">
+    </form>
+
+</section>

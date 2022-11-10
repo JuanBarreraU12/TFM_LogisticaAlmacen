@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
     const user = await getByEmail(email);
     const iguales = bcrypt.compareSync(password, user.password);
       if (!iguales) {
-        return res.json({ fatal: 'Error en email y/o contraseña'})
+        return res.json({ fatal: 'Error en email y/o contraseña2'})
     }
 
     if(user)
