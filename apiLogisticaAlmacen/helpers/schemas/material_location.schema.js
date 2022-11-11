@@ -25,20 +25,18 @@ const newMaterialLocation = {
     }
 }
 
-const warehouseParams = {
+const warehouseParam = {
     warehouseId: {
         isInt: {
             errorMessage: 'El id del almacén debe ser un número entero'
         },
         toInt: true
-    },
+    }
+}
+
+const locationParam = {
     locationId: {
-        in: ['query'],
-        custom: {
-            options: (value) => {
-                if (!value) return true;
-                return Number.isInteger(parseInt(value));
-            },
+        isInt: {
             errorMessage: 'El id de la localización debe ser un número entero'
         },
         toInt: true
@@ -47,5 +45,6 @@ const warehouseParams = {
 
 module.exports = {
     newMaterialLocation,
-    warehouseParams
+    warehouseParam,
+    locationParam
 }

@@ -1,7 +1,7 @@
-GET http://localhost:3000/api/materials-locations
+GET http://localhost:3000/api/materials-locations/1
 
 ###
-GET http://localhost:3000/api/materials-locations/warehouses/1
+GET http://localhost:3000/api/materials-locations/2/locations/6
 
 ###
 POST http://localhost:3000/api/materials-locations
