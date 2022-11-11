@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { checkSchema } = require('express-validator');
 const { badRequest, serverError } = require('../../helpers/validators');
-const { newMaterialLocation } = require('../../helpers/schemas/material_location.schema');
+const { newMaterialLocation, warehouseParams } = require('../../helpers/schemas/material_location.schema');
 const { create, getAll, getByWarehouse, getByLocation, getByMaterial } = require('../../models/material_location.model');
 
 router.get('/', async (req, res) => {
@@ -13,9 +13,14 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/warehouses/:warehouseId', async (req, res) => {
+router.get('/warehouses/:warehouseId',
+    checkSchema(warehouseParams),
+    badRequest,
+    async (req, res) => {
+    const { page = 1, limit = 10, locationId } = req.query;
+    const { warehouseId } = req.params;
     try {
-        const materials_locations = await getByWarehouse(req.params.warehouseId, req.query);
+        const materials_locations = await getByWarehouse(warehouseId, locationId, parseInt(page), parseInt(limit));
         res.json(materials_locations);
     } catch (error) {
         serverError(res, error.message);

@@ -5,8 +5,9 @@ POST http://localhost:3000/api/materials
 Content-Type: application/json
 
 {
-    "name": "Papel", 
-    "sku": "MP-0000002", 
+    "name": "Madera",
+    "price": 12.50, 
+    "sku": "MP-0000003", 
     "material_type_id": 3
 }
 
@@ -22,4 +23,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/materials/45
+DELETE http://localhost:3000/api/materials/14
