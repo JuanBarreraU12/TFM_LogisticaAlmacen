@@ -12,6 +12,7 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { FormComponent } from './components/formEmployee/form.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
+import { CardEmployeeComponent } from './components/card-employee/card-employee.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormWarehousesComponent } from './components/form-warehouses/form-wareh
     FormComponent,
     HeaderComponent,
     FormWarehousesComponent,
+    CardEmployeeComponent,
   ],
   imports: [
     BrowserModule,

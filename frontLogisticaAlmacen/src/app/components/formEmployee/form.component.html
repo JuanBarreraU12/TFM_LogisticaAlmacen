@@ -1,6 +1,10 @@
+<header>
+    <app-header></app-header>
+</header>
+
 <section class="container mt-3">
 
-    <h1>{{type}} usuario</h1>
+    <h1>{{type}} empleado</h1>
     <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
 
         <div>
@@ -46,6 +50,37 @@
             <input class="form-control" type="date" id="image" formControlName="birth_date">
             <p class="error" *ngIf="checkControl('birth_date', 'required')">Campo requerido</p>
         </div>
+
+        
+
+        <div>
+            <label class="form-label" for="">Almacen del empleado y rol</label>
+            <div class="input-group mb-3">
+                
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>ROL</option>
+                    <option value="1">Operario de camion</option>
+                    <option value="2">Encargado</option>
+                    <option value="3">Jefe de equipo</option>
+                    
+                </select>
+                <span>👨‍💻</span>
+
+               
+                
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Almacen</option>
+                    <option value="1">001</option>
+                    <option value="2">002</option>
+                    <option value="3">003</option>
+                </select>
+
+
+            </div>
+        </div>
+            
+
+
 
         <input type="submit" [value]="type" class="btn btn-outline-dark mt-3" [disabled]="!userForm.valid">
     </form>
