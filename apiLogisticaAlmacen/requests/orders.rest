@@ -1,0 +1,31 @@
+GET http://localhost:3000/api/orders
+
+###
+GET http://localhost:3000/api/orders/1
+
+###
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+    "out_date": "2022-03-05", 
+    "truck_plate": "BLG-412", 
+    "state": 1, 
+    "origin": 1, 
+    "destiny": 2
+}
+
+###
+PUT http://localhost:3000/api/orders/5
+Content-Type: application/json
+
+{
+    "out_date": "2022-06-15", 
+    "truck_plate": "BLG-415", 
+    "state": 2, 
+    "origin": 2, 
+    "destiny": 3
+}
+
+###
+DELETE http://localhost:3000/api/orders/1

@@ -1,0 +1,26 @@
+GET http://localhost:3000/api/materials
+
+###
+POST http://localhost:3000/api/materials
+Content-Type: application/json
+
+{
+    "name": "Madera",
+    "price": 12.50, 
+    "sku": "MP-0000003", 
+    "material_type_id": 3
+}
+
+###
+PUT http://localhost:3000/api/materials/25
+Content-Type: application/json
+
+{
+    "name": "Cemento", 
+    "price": 25, 
+    "sku": "MP-0000001", 
+    "material_type_id": 3
+}
+
+###
+DELETE http://localhost:3000/api/materials/14
