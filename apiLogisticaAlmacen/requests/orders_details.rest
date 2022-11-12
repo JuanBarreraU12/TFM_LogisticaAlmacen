@@ -1,0 +1,13 @@
+GET http://localhost:3000/api/orders-details/2
+
+###
+POST http://localhost:3000/api/orders-details/4
+Content-Type: application/json
+
+{
+    "material_location": 5, 
+    "quantity": 2
+}
+
+###
+DELETE http://localhost:3000/api/orders-details/4/details/5

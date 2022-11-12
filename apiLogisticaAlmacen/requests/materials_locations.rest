@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/materials-locations/1
+
+###
+GET http://localhost:3000/api/materials-locations/2/locations/6
+
+###
+POST http://localhost:3000/api/materials-locations
+Content-Type: application/json
+
+{
+    "material_id": 11,
+    "location_id": 1,
+    "stock": 325
+}
