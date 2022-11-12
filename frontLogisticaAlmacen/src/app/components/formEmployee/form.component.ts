@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Rol } from 'src/app/interfaces/rol.interface';
 import { User } from 'src/app/interfaces/user.interface';
+import { Werehouse } from 'src/app/interfaces/werehouse.interface';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { RolService } from 'src/app/services/rol.service';
+import { WerehouseService } from 'src/app/services/werehouse.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,10 +16,14 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
+  arrRol: Rol[] = [];
+  arrWerehouse: Werehouse[] = [];
   userForm: FormGroup
   type: string = 'Registrar';
   constructor(
     private employeeServices: EmployeeService,
+    private rolServices: RolService,
+    private werehouseService: WerehouseService,
     private router: Router,
     private activateRoute: ActivatedRoute
   ) { 
@@ -113,6 +121,8 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRoles()
+    this.getWerehouses()
     this.activateRoute.params.subscribe(async(params:any) => {
       let id: number = parseInt(params.iduser);
       if (id) {
@@ -131,7 +141,6 @@ export class FormComponent implements OnInit {
         }, [])
       }
     })
-
   }
 
   checkControl(pControlName: string, pError: string): boolean{
@@ -141,6 +150,27 @@ export class FormComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  async getRoles(): Promise<void> {
+    try {
+      let response = await this.rolServices.getAll()
+      this.arrRol = response;
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async getWerehouses(): Promise<void> {
+    try {
+      let response = await this.werehouseService.getAllWerehouse()
+      this.arrWerehouse = response;
+    } catch (err) {
+      console.log(err)
+    }
+    
+
+
   }
 
 }

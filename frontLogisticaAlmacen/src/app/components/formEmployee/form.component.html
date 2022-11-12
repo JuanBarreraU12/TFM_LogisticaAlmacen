@@ -57,11 +57,10 @@
             <label class="form-label" for="">Almacen del empleado y rol</label>
             <div class="input-group mb-3">
                 
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>ROL</option>
-                    <option value="1">Operario de camion</option>
-                    <option value="2">Encargado</option>
-                    <option value="3">Jefe de equipo</option>
+                <select class="form-select" aria-label="Default select example" >
+                    <option selected>--- </option>
+                    <option [value]="rol.id" *ngFor="let rol of arrRol" >{{rol.name}}</option>
+                    
                     
                 </select>
                 <span>👨‍💻</span>
@@ -70,9 +69,7 @@
                 
                 <select class="form-select" aria-label="Default select example">
                     <option selected>Almacen</option>
-                    <option value="1">001</option>
-                    <option value="2">002</option>
-                    <option value="3">003</option>
+                    <option [value]="werehouse.id" *ngFor="let werehouse of arrWerehouse">{{werehouse.description}}</option>
                 </select>
 
 
