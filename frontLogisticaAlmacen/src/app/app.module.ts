@@ -9,7 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
-import { FormComponent } from './components/form/form.component';
+import { FormComponent } from './components/formEmployee/form.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormComponent } from './components/form/form.component';
     HomeOperarioComponent,
     HomeEncargadoComponent,
     HomeJefeComponent,
-    FormComponent
+    FormComponent,
+    HeaderComponent,
+    FormWarehousesComponent,
   ],
   imports: [
     BrowserModule,
