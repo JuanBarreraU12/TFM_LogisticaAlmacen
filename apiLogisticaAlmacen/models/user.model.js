@@ -9,7 +9,12 @@ const getByEmail = (email) => {
     return executeQueryOne('SELECT * FROM users WHERE email = ?', [email]);
 }
 
+const getByUserId = (userId) => {
+    return executeQueryOne('SELECT * FROM users WHERE id = ?', [userId]);
+}
+
 module.exports = {
     register,
-    getByEmail
+    getByEmail,
+    getByUserId
 }

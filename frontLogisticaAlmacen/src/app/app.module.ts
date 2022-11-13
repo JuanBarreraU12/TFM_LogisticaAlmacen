@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
+import { FormComponent } from './components/formEmployee/form.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
+import { CardEmployeeComponent } from './components/card-employee/card-employee.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +20,18 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
     LoginComponent,
     HomeOperarioComponent,
     HomeEncargadoComponent,
-    HomeJefeComponent
+    HomeJefeComponent,
+    FormComponent,
+    HeaderComponent,
+    FormWarehousesComponent,
+    CardEmployeeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
