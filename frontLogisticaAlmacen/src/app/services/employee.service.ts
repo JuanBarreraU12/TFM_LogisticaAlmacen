@@ -11,6 +11,10 @@ export class EmployeeService {
   urlEmployee: string = "http://localhost:3000/api/employees"
   constructor(private httpClient: HttpClient) { }
 
+  getAll(): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.urlEmployee}`))
+  }
+
   getById (pId: number): Promise<any> {
     return lastValueFrom(this.httpClient.get<any>(`${this.urlEmployee}${pId}`))
   }

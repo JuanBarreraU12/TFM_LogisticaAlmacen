@@ -12,7 +12,7 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { FormComponent } from './components/formEmployee/form.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
-import { CardEmployeeComponent } from './components/card-employee/card-employee.component';
+import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { CardEmployeeComponent } from './components/card-employee/card-employee.
     FormComponent,
     HeaderComponent,
     FormWarehousesComponent,
-    CardEmployeeComponent,
+    ViewEmployeeComponent,
   ],
   imports: [
     BrowserModule,
