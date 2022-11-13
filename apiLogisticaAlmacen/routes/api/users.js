@@ -1,15 +1,17 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 
-const { register, getByEmail } = require('../../models/user.model');
+const { register, getByEmail, getByUserId } = require('../../models/user.model');
 const { getRolById } = require('../../models/role.model');
-const { getEmployeeById } = require('../../models/employee.model');
+const { getEmployeeById, getById } = require('../../models/employee.model');
 
 router.post('/register', async (req, res) => {
     try {
-        req.body.password = bcrypt.hashSync(req.body.password, 8);
-        const result = await register(req.body);
-        res.json(result);
+      req.body.password = bcrypt.hashSync(req.body.password, 8);
+      const result = await register(req.body);
+      console.log(result);
+      const regist = await getByUserId(result.insertId)
+        res.json(regist);
     } catch (error) {
         res.json({ fatal: error.message });
     }

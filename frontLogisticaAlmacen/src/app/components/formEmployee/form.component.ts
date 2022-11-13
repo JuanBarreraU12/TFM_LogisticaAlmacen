@@ -7,6 +7,7 @@ import { Werehouse } from 'src/app/interfaces/werehouse.interface';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { RolService } from 'src/app/services/rol.service';
 import { WerehouseService } from 'src/app/services/werehouse.service';
+import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,12 +21,15 @@ export class FormComponent implements OnInit {
   arrWerehouse: Werehouse[] = [];
   userForm: FormGroup
   type: string = 'Registrar';
+ 
+
   constructor(
     private employeeServices: EmployeeService,
     private rolServices: RolService,
     private werehouseService: WerehouseService,
     private router: Router,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private userService: UsersService
   ) { 
     this.userForm = new FormGroup({
       name: new FormControl('', [
@@ -63,6 +67,7 @@ export class FormComponent implements OnInit {
     })
 
   }
+  
 
   async getDataForm(): Promise<void>{
     if (this.userForm.valid) { }
@@ -74,9 +79,9 @@ export class FormComponent implements OnInit {
       );
     }
 
-    let newEmployee = this.userForm.value;
-    if (newEmployee.id) {
-      let response = await this.employeeServices.update(newEmployee);
+    let infoFormulario = this.userForm.value;
+    if (infoFormulario.id) {
+      let response = await this.employeeServices.update(infoFormulario);
       if (response.id) {
         Swal.fire(
           'OK!',
@@ -97,15 +102,27 @@ export class FormComponent implements OnInit {
       }
     }  
     else {
-      let response = await this.employeeServices.create(newEmployee)
-      if(response.id) {
-        Swal.fire(
-          'OK!',
-          'Usuario creado',
-          'success')
-          .then((result) => {
-            this.router.navigate(['/home-jefe']);
-        });
+      let employeeResponse = await this.employeeServices.create(infoFormulario)
+      if (employeeResponse.id) {
+        infoFormulario.password = infoFormulario.dni;
+        infoFormulario.username = infoFormulario.email;
+        infoFormulario.employee_id = employeeResponse.id;
+        infoFormulario.role_id = 1;
+        let userResponse = await this.userService.register(infoFormulario);
+        if (userResponse.id) { 
+          infoFormulario.user_id = userResponse.id;
+          infoFormulario.warehouse_id = 1;
+          let userWarehouseResponse = await this.userService.userswerehouse(infoFormulario);
+          if (userWarehouseResponse.id) { 
+            Swal.fire(
+              'OK!',
+              'Usuario creado',
+              'success')
+              .then((result) => {
+                this.router.navigate(['/home-jefe']);
+            });
+          }  
+        }
       }
     
       else {

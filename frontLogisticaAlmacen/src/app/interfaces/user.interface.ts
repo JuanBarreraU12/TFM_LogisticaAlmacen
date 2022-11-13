@@ -7,4 +7,12 @@ export interface User {
     dni: string;
     cell_phone: number;
     birth_date: string;
+    username: string;
+    password: string;
+    role_id: number;
+    employee_id: number;
+    warehouse_id: number;
+    users_id: number;
+    warehouses_id: number;
+    
 }
