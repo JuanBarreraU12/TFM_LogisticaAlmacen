@@ -56,7 +56,7 @@
             <div class="input-group mb-3">
                 <select class="form-select" aria-label="Default select example" (change)="seleccionarRol($event)">
                     <option selected>--- </option>
-                    <option [value]="rol.id" *ngFor="let rol of arrRol" >{{rol.name}}</option>
+                    <option [value]="rol.id" *ngFor="let rol of arrRol">{{rol.name}}</option>
                 </select>
                 <span>👨‍💻</span>
 
@@ -70,3 +70,5 @@
         <input type="submit" [value]="type" class="btn btn-outline-dark mt-3" [disabled]="!userForm.valid">
     </form>
 </section>
+
+
