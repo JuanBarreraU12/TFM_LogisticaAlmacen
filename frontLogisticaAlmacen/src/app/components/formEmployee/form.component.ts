@@ -21,6 +21,8 @@ export class FormComponent implements OnInit {
   arrWerehouse: Werehouse[] = [];
   userForm: FormGroup
   type: string = 'Registrar';
+  rolSelected: number = 0;
+  warehouseSelected: number = 0;
  
 
   constructor(
@@ -107,11 +109,11 @@ export class FormComponent implements OnInit {
         infoFormulario.password = infoFormulario.dni;
         infoFormulario.username = infoFormulario.email;
         infoFormulario.employee_id = employeeResponse.id;
-        infoFormulario.role_id = 1;
+        infoFormulario.role_id = this.rolSelected;
         let userResponse = await this.userService.register(infoFormulario);
         if (userResponse.id) { 
           infoFormulario.user_id = userResponse.id;
-          infoFormulario.warehouse_id = 1;
+          infoFormulario.warehouse_id = this.warehouseSelected;
           let userWarehouseResponse = await this.userService.userswerehouse(infoFormulario);
           if (userWarehouseResponse.id) { 
             Swal.fire(
@@ -185,9 +187,14 @@ export class FormComponent implements OnInit {
     } catch (err) {
       console.log(err)
     }
-    
 
+  }
 
+  seleccionarRol($event: any) {
+    this.rolSelected = parseInt($event.target.value);
+  }
+  seleccionarAlmacen($event: any) {
+    this.warehouseSelected = parseInt($event.target.value);
   }
 
 }
