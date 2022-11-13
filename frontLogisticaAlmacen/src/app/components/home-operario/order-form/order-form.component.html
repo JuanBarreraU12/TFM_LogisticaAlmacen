@@ -1,0 +1,42 @@
+<div class="container my-3">
+    <h1 class="h1 mb-3">{{ action }} Pedido</h1>
+    <form [formGroup]="orderForm" (ngSubmit)="getDataForm()">
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <label class="form-label" for="outDate">Fecha de Salida</label>
+                <input class="form-control" type="date" formControlName="outDate" id="outDate">
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label" for="truckPlate">Matrícula del Camión</label>
+                <input class="form-control" type="text" formControlName="truckPlate" id="truckPlate">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <label class="form-label" for="origin">Origen</label>
+                <select class="form-select" formControlName="origin" id="origin" (change)="changeOrigin($event)">
+                    <option value="">Elige el almacén de origen</option>
+                    <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+                        {{ warehouse.description }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label" for="destiny">Destino</label>
+                <select class="form-select" formControlName="destiny" id="destiny" (change)="changeDestiny($event)">
+                    <option value="">Elige el almacén de destino</option>
+                    <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+                        {{ warehouse.description }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label" for="comment">Comentario</label>
+                <textarea class="form-control" formControlName="comment" id="comment" rows="3"></textarea>
+            </div>
+        </div>
+        <input class="btn btn-primary me-2" type="submit" [value]="this.action">
+    </form>
+</div>

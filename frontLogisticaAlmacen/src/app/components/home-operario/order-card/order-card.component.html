@@ -1,0 +1,14 @@
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="card-title">Pedido: {{ myOrder.id }}</h5>
+        <h6 class="card-subtitle mb-2">Estado: {{ myOrder.state }}</h6>
+        <p class="card-text m-0">Fecha de salida: {{ myOrder.out_date }}</p>
+        <p class="card-text m-0">Almacén de Origen: {{ myOrder.origin }}</p>
+        <p class="card-text m-0">Almacén de Destino: {{ myOrder.destiny }}</p>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary me-2" [routerLink]="['/home-operario', 'updateorder', myOrder.id]">Editar</button>
+        <button class="btn btn-danger me-2">Eliminar</button>
+        <button class="btn btn-dark">Ver detalle</button>
+    </div>
+</div>

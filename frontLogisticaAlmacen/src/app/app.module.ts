@@ -5,10 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
+import { OrdersListComponent } from './components/home-operario/orders-list/orders-list.component';
+import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
+import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
+import { HeaderComponent } from './components/home-operario/header/header.component';
+import { OrderCardComponent } from './components/home-operario/order-card/order-card.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +21,19 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
     LoginComponent,
     HomeOperarioComponent,
     HomeEncargadoComponent,
-    HomeJefeComponent
+    HomeJefeComponent,
+    OrdersListComponent,
+    OrderFormComponent,
+    OrderViewComponent,
+    HeaderComponent,
+    OrderCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
