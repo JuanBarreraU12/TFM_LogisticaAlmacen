@@ -1,5 +1,5 @@
 const newMaterialLocation = {
-    material_id: {
+    materialId: {
         exists: {
             errorMessage: 'El id del material es obligatorio'
         },
@@ -7,7 +7,7 @@ const newMaterialLocation = {
             errorMessage: 'El id del material debe ser un número entero'
         }
     },
-    location_id: {
+    locationId: {
         exists: {
             errorMessage: 'El id de la localización es obligatorio'
         },
@@ -27,6 +27,7 @@ const newMaterialLocation = {
 
 const warehouseParam = {
     warehouseId: {
+        in: ['params'],
         isInt: {
             errorMessage: 'El id del almacén debe ser un número entero'
         },
@@ -36,6 +37,7 @@ const warehouseParam = {
 
 const locationParam = {
     locationId: {
+        in: ['params'],
         isInt: {
             errorMessage: 'El id de la localización debe ser un número entero'
         },

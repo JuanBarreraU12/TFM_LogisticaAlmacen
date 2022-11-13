@@ -1,13 +1,25 @@
-GET http://localhost:3000/api/orders-details/2
+GET http://localhost:3000/api/orders-details/4
 
 ###
-POST http://localhost:3000/api/orders-details/4
+POST http://localhost:3000/api/orders-details/2
 Content-Type: application/json
 
 {
-    "material_location": 5, 
-    "quantity": 2
+    "materialLocationId": 9, 
+    "quantity": 35
+}
+
+###
+PUT http://localhost:3000/api/orders-details/4/details/7
+Content-Type: application/json
+
+{
+    "materialLocationId": 1, 
+    "quantity": 25
 }
 
 ###
 DELETE http://localhost:3000/api/orders-details/4/details/5
+
+###
+DELETE http://localhost:3000/api/orders-details/2
