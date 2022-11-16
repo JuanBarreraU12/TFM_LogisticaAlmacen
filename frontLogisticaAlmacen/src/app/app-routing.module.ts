@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: "home-operario", component: HomeOperarioComponent },
   { path: "home-jefe", component: HomeJefeComponent },
   { path: "newEmployee", component: FormComponent },
-  { path: "viewEmployee", component: ViewEmployeeComponent },
   { path: "updateEmployee/:idemployee", component: FormComponent },
+  { path: "viewEmployee", component: ViewEmployeeComponent },
   { path: "newWerehouse", component: FormWarehousesComponent},
   { path: "home-encargado", component: HomeEncargadoComponent },
   { path: "**", redirectTo: "login" }

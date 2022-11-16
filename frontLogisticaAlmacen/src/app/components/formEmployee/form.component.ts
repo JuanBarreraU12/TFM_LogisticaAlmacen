@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
-import { User } from 'src/app/interfaces/user.interface';
 import { Werehouse } from 'src/app/interfaces/werehouse.interface';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { RolService } from 'src/app/services/rol.service';
 import { WerehouseService } from 'src/app/services/werehouse.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
+import { Employee } from 'src/app/interfaces/employee.interface';
 
 @Component({
   selector: 'app-form',
@@ -110,7 +110,7 @@ export class FormComponent implements OnInit {
         infoFormulario.username = infoFormulario.email;
         infoFormulario.employee_id = employeeResponse.id;
         infoFormulario.role_id = this.rolSelected;
-        let userResponse = await this.userService.register(infoFormulario);
+        let userResponse = await this.employeeServices.register(infoFormulario);
         if (userResponse.id) { 
           infoFormulario.user_id = userResponse.id;
           infoFormulario.warehouse_id = this.warehouseSelected;
@@ -143,20 +143,22 @@ export class FormComponent implements OnInit {
     this.getRoles()
     this.getWerehouses()
     this.activateRoute.params.subscribe(async(params:any) => {
-      let id: number = parseInt(params.iduser);
+      console.log(params);  
+      let id: number = parseInt(params.idemployee);
+      console.log(id);
       if (id) {
         this.type = 'Actualizar'
         const response = await this.employeeServices.getById(id)
-        const user: User = response
+        const employee: Employee = response
         this.userForm = new FormGroup({
-          name: new FormControl(user?.name,[]),
-          first_last_name: new FormControl(user?.first_last_name, []),
-          second_last_name: new FormControl(user?.second_last_name, []),
-          email: new FormControl(user?.email, []),
-          dni: new FormControl(user?.dni, []),
-          cell_phone: new FormControl(user?.cell_phone, []),
-          birth_date: new FormControl(user?.birth_date, []),
-          id: new FormControl(user?.id, [])
+          name: new FormControl(employee?.name,[]),
+          first_last_name: new FormControl(employee?.first_last_name, []),
+          second_last_name: new FormControl(employee?.second_last_name, []),
+          email: new FormControl(employee?.email, []),
+          dni: new FormControl(employee?.dni, []),
+          cell_phone: new FormControl(employee?.cell_phone, []),
+          birth_date: new FormControl(employee?.birth_date, []),
+          id: new FormControl(employee?.id, []),
         }, [])
       }
     })

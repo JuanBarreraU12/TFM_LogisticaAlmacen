@@ -1,4 +1,33 @@
 <header>
     <app-header></app-header>
 </header>
+<main>
+   
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">dni</th>
+                <th scope="col">email</th>
+                <th>cell phone</th>
+                <th scope="col">birthday</th>  
+                <th>actions</th>    
+            </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+            <tr *ngFor="let employee of arrEmployee">
+                <th scope="row">😄</th>
+                <td>{{employee.name}} {{employee.first_last_name}}</td>
+                <td>{{employee.dni}}</td>
+                <td>{{employee.email}} </td>
+                <td>{{employee.cell_phone}}</td>
+                <td>{{employee.birth_date}}</td> 
+                <td> <button class="btn btn-danger me-2 btn-sm"><i class="fa-solid fa-trash"></i></button>
+                <button class="btn btn-dark btn-sm" [routerLink]="['/updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button> </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
 
