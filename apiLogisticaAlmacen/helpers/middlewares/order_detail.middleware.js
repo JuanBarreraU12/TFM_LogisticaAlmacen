@@ -5,11 +5,11 @@ const { serverError, notFound } = require("../validators");
 
 const availableLocations = async (req, res, next) => {
     const { orderId } = req.params;
-    const { material_location } = req.body;
+    const { materialLocationId } = req.body;
     try {
         const order = await orderModel.getById(orderId);
         const locations = await getAll(order.originId);
-        const index = locations.findIndex(location => location.id === material_location);
+        const index = locations.findIndex(location => location.id === materialLocationId);
         if (index === -1) return res.status(400).json({error: `El campo material_location no es válido para el almacén ${order.origin}`});
         next();
     } catch (error) {

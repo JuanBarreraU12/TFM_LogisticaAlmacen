@@ -20,6 +20,3 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/orders-details/4/details/5
-
-###
-DELETE http://localhost:3000/api/orders-details/2

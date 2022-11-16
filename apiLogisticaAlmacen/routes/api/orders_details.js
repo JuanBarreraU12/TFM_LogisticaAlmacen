@@ -10,7 +10,6 @@ const {
   deleteById,
   getById,
   update,
-  deleteByOrder,
 } = require("../../models/order_detail.model");
 
 const router = require("express").Router();
@@ -66,15 +65,5 @@ router.delete(
     }
   }
 );
-
-router.delete("/:orderId", existsOrder, async (req, res) => {
-  const { orderId } = req.params;
-  try {
-    const result = await deleteByOrder(orderId);
-    res.json(result);
-  } catch (error) {
-    serverError(res, error.message);
-  }
-});
 
 module.exports = router;

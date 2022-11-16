@@ -1,11 +1,11 @@
 const { executeQuery, executeQueryOne } = require('../helpers/utils');
 
 const getAll = () => {
-    return executeQuery('SELECT o.id, DATE_FORMAT(o.out_date, "%d/%m/%Y") as out_date, o.truck_plate, o.comment, s.id AS stateId, s.name AS state, w.id AS originId ,w.description AS origin, wd.id AS destinyId ,wd.description AS destiny FROM orders o JOIN warehouses w ON o.warehouses_id_origin = w.id JOIN warehouses wd ON o.warehouses_id_destiny = wd.id JOIN order_states s ON o.order_states_id = s.id ORDER BY o.id');
+    return executeQuery('SELECT o.id, o.out_date, o.truck_plate, o.comment, s.id AS stateId, s.name AS state, w.id AS originId ,w.description AS origin, wd.id AS destinyId ,wd.description AS destiny FROM orders o JOIN warehouses w ON o.warehouses_id_origin = w.id JOIN warehouses wd ON o.warehouses_id_destiny = wd.id JOIN order_states s ON o.order_states_id = s.id ORDER BY o.id');
 }
 
 const getById = (orderId) => {
-    return executeQueryOne('SELECT o.id, DATE_FORMAT(o.out_date, "%d/%m/%Y") as out_date, o.truck_plate, o.comment, s.id AS stateId, s.name AS state, w.id AS originId, w.description AS origin, wd.id AS destinyId, wd.description AS destiny FROM orders o JOIN warehouses w ON o.warehouses_id_origin = w.id JOIN warehouses wd ON o.warehouses_id_destiny = wd.id JOIN order_states s ON o.order_states_id = s.id WHERE o.id = ? ORDER BY o.id', [orderId]);
+    return executeQueryOne('SELECT o.id, o.out_date, o.truck_plate, o.comment, s.id AS stateId, s.name AS state, w.id AS originId, w.description AS origin, wd.id AS destinyId, wd.description AS destiny FROM orders o JOIN warehouses w ON o.warehouses_id_origin = w.id JOIN warehouses wd ON o.warehouses_id_destiny = wd.id JOIN order_states s ON o.order_states_id = s.id WHERE o.id = ? ORDER BY o.id', [orderId]);
 }
 
 const create = ({ out_date, truck_plate, comment, stateId, originId, destinyId }) => {
