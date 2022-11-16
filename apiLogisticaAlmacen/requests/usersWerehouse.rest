@@ -1,2 +1,7 @@
 POST http://localhost:3000/api/users-warehouses
-###
+Content-Type: application/json
+
+{
+    "user_id":1,
+    "warehouse_id":3
+}
