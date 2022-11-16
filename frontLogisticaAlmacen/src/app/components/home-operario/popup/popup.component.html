@@ -1,0 +1,35 @@
+<div class="modal fade" [id]="'modal'+ order.originId" tabindex="-1" aria-labelledby="'modal'+ order.originId + 'Label'" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" [id]="'modal'+ order.originId">Materiales</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <article class="col-4" *ngFor="let materialLocation of availableMaterials">
+              <div class="card shadow">
+                <img [src]="materialLocation.image" alt="Imagen del material" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">{{ materialLocation.material }}</h5>
+                  <h6 class="card-subtitle mb-2">{{ materialLocation.location }}</h6>
+                  <p class="card-text m-0">SKU: {{ materialLocation.sku }}</p>
+                  <p class="card-text m-0">Price: {{ materialLocation.price }}</p>
+                  <p class="card-text m-0">Stock:{{ materialLocation.stock }}</p>
+                  
+                  <div class="d-flex justify-content-center mt-3">
+                    <input type="checkbox" class="btn-check" [id]="'btn-check-outlined' + materialLocation.id" [attr.data-material-selected]="materialLocation.id" (change)="materialSelected($event)">
+                    <label class="btn btn-outline-success" [for]="'btn-check-outlined' + materialLocation.id">Seleccionar</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveDetails()">Cargar</button>
+        </div>
+      </div>
+    </div>
+  </div>

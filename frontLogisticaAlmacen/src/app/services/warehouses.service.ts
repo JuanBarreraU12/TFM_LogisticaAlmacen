@@ -11,7 +11,7 @@ export class WarehousesService {
   baseUrl: String = 'http://localhost:3000/api/warehouses/'
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Promise<Warehouse[]>{
-    return lastValueFrom(this.httpClient.get<Warehouse[]>(`${this.baseUrl}`));
+  getAll(): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}`));
   }
 }

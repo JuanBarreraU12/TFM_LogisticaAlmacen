@@ -10,15 +10,15 @@ export class OrdersService {
   baseUrl: String = 'http://localhost:3000/api/orders/';
   constructor(private httpClient: HttpClient) { }
   
-  getAll(): Promise<Order[] | any> {
-    return lastValueFrom(this.httpClient.get<Order[] | any>(`${this.baseUrl}`));
+  getAll(): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}`));
   }
 
-  getById(pId: Number): Promise<Order | any>{
-    return lastValueFrom(this.httpClient.get<Order | any>(`${this.baseUrl}${pId}`));
+  getById(pId: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}${pId}`));
   }
 
-  create(pOrder: Order): Promise<Order | any>{
-    return lastValueFrom(this.httpClient.post<Order | any>(`${this.baseUrl}`, pOrder));
+  create(pOrder: Order): Promise<any>{
+    return lastValueFrom(this.httpClient.post<any>(`${this.baseUrl}`, pOrder));
   }
 }

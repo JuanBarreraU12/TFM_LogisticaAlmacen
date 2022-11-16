@@ -4,6 +4,7 @@ import { HomeEncargadoComponent } from './components/home-encargado/home-encarga
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
+import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
 import { OrdersListComponent } from './components/home-operario/orders-list/orders-list.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -14,9 +15,11 @@ const routes: Routes = [
     path: 'home-operario',
     component: HomeOperarioComponent,
     children: [
+      { path: '', pathMatch: 'full', redirectTo: 'home'},
       { path: 'home', component: OrdersListComponent },
       { path: 'neworder', component: OrderFormComponent },
-      { path: 'updateorder/:orderId', component: OrderFormComponent }
+      { path: 'updateorder/:orderId', component: OrderFormComponent },
+      { path: 'order/:orderId', component: OrderViewComponent }
     ],
   },
   { path: 'home-jefe', component: HomeJefeComponent },

@@ -14,6 +14,7 @@ import { OrderFormComponent } from './components/home-operario/order-form/order-
 import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
 import { HeaderComponent } from './components/home-operario/header/header.component';
 import { OrderCardComponent } from './components/home-operario/order-card/order-card.component';
+import { PopupComponent } from './components/home-operario/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { OrderCardComponent } from './components/home-operario/order-card/order-
     OrderFormComponent,
     OrderViewComponent,
     HeaderComponent,
-    OrderCardComponent
+    OrderCardComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,

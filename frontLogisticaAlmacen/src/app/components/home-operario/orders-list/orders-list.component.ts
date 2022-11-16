@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/interfaces/order.interface';
 import { OrdersService } from 'src/app/services/orders.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders-list',
@@ -13,8 +14,10 @@ export class OrdersListComponent implements OnInit {
   constructor(private ordersService: OrdersService) { }
 
   async ngOnInit(): Promise<void> {
-    this.orders = await this.ordersService.getAll();
-    console.log(this.orders);
+    try {
+      this.orders = await this.ordersService.getAll();
+    } catch (error: any) {
+      Swal.fire(error.message, '', 'error');
+    }
   }
-
 }

@@ -9,7 +9,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 })
 export class OrderCardComponent implements OnInit {
 
-  @Input() myOrder: Order | any;
+  @Input() myOrder!: Order;
   constructor(private ordersService: OrdersService) { }
 
   ngOnInit(): void {

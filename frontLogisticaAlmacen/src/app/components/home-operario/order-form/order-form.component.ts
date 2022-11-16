@@ -42,18 +42,16 @@ export class OrderFormComponent implements OnInit {
       if (id) {
         this.action = 'Actualizar';
         try {
-          const response = await this.ordersService.getById(id);
-          if (!response.error) {
-            console.log(dayjs(response.out_date).format('MM/DD/YYYY'));
+          let response = await this.ordersService.getById(id);
+          if (response.id) {
             this.orderForm = new FormGroup({
-              id: new FormControl(response?.id, []),
-              outDate: new FormControl(response?.out_date, []),
-              truckPlate: new FormControl(response?.truck_plate, []),
-              origin: new FormControl(response?.originId, []),
-              destiny: new FormControl(response?.destinyId, []),
-              comment: new FormControl(response?.comment, []),
+              id: new FormControl(response.id, []),
+              outDate: new FormControl(dayjs(response.out_date).format('YYYY-MM-DD'), []),
+              truckPlate: new FormControl(response.truck_plate, []),
+              origin: new FormControl(response.originId, []),
+              destiny: new FormControl(response.destinyId, []),
+              comment: new FormControl(response.comment, []),
             }, []);
-            console.log(this.orderForm.value);
           }
         } catch (error) {
           Swal.fire(String(error), '', 'error');
@@ -78,11 +76,8 @@ export class OrderFormComponent implements OnInit {
     } else {
       try {
         let response = await this.ordersService.create(order);
-        if (response.id) {
+        if (response.id) 
           this.router.navigate(['/home-operario', 'home']);
-        } else {
-          Swal.fire(response.error, '', 'error');
-        }
       } catch (error) {
         Swal.fire(String(error), '', 'error');
       }
