@@ -1,0 +1,42 @@
+<div class="col-12">
+    <div class="card recent-sales overflow-auto">
+
+
+    
+
+      <div class="card-body">
+        <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+        <table class="table table-borderless datatable">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">out_date</th>
+              <th scope="col"> truck_plate</th>
+              <th scope="col">comment</th>
+              <th scope="col">destiny</th>
+              <th scope="col">origin </th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr *ngFor="let order of orderdata">
+              <td>{{order.id}}</td>
+              <td>{{order.out_date}}</td>
+              <td>{{order.truck_plate}}</td>
+              <td>{{order.comment}}</td>
+              <td>{{order.destiny}}</td>
+              <td>{{order.origin}}</td>
+              <td ngClass=" badge {{order.state}}">{{order.state}}</td>
+             
+              
+            </tr>
+         
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div><!-- End Recent Sales -->

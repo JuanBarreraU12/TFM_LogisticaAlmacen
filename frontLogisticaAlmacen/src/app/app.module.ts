@@ -13,6 +13,7 @@ import { FormComponent } from './components/formEmployee/form.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
+import { ListOrdesComponent } from './components/list-ordes/list-ordes.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ViewEmployeeComponent } from './components/view-employee/view-employee.
     HeaderComponent,
     FormWarehousesComponent,
     ViewEmployeeComponent,
+    ListOrdesComponent,
   ],
   imports: [
     BrowserModule,
