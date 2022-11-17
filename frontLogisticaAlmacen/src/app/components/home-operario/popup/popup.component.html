@@ -14,8 +14,8 @@
                   <h5 class="card-title">{{ materialLocation.material }}</h5>
                   <h6 class="card-subtitle mb-2">{{ materialLocation.location }}</h6>
                   <p class="card-text m-0">SKU: {{ materialLocation.sku }}</p>
-                  <p class="card-text m-0">Price: {{ materialLocation.price }}</p>
-                  <p class="card-text m-0">Stock:{{ materialLocation.stock }}</p>
+                  <p class="card-text m-0">Price: {{ materialLocation.price!.toString() | currency:'USD' }}</p>
+                  <p class="card-text m-0">Stock: {{ materialLocation.stock }}</p>
                   
                   <div class="d-flex justify-content-center mt-3">
                     <input type="checkbox" class="btn-check" [id]="'btn-check-outlined' + materialLocation.id" [attr.data-material-selected]="materialLocation.id" (change)="materialSelected($event)">
@@ -28,7 +28,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveDetails()">Cargar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="loadDetails()">Cargar</button>
         </div>
       </div>
     </div>

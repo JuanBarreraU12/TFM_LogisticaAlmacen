@@ -13,7 +13,8 @@
             </div>
             <div class="col-12 col-lg-8">
                 <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-sm btn-info me-3 text-white" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + order.originId">Nuevo</button>
+                    <button class="btn btn-sm btn-primary me-2" disabled>Guardar</button>
+                    <button class="btn btn-sm btn-secondary me-3" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + order.originId">Nuevo</button>
                 </div>
                 <table class="table table-sm">
                     <thead>
@@ -34,8 +35,7 @@
                                 <input class="form-control form-control-sm" style="width: 6em;" type="number" [value]="detail.quantity">
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-primary me-2">Editar</button>
-                                <button class="btn btn-sm btn-danger" [attr.data-detail-deleted]="detail.id" (click)="deleteDetail($event)">Eliminar</button>
+                                <button class="btn btn-sm btn-secondary" [attr.data-detail-deleted]="detail.id" [attr.data-detail-ml]="detail.materialLocationId" (click)="deleteDetail($event)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -45,4 +45,4 @@
     </div>
 </section>
 <!-- popup -->
-<app-popup [order]="order" [orderDetails]="orderDetails"></app-popup>
+<app-popup [order]="order" [orderDetails]="orderDetails" (newDetails)="addNewDetails($event)"></app-popup>

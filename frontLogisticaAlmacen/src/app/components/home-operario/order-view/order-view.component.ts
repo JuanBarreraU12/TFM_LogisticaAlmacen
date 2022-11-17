@@ -14,6 +14,9 @@ import Swal from 'sweetalert2';
 export class OrderViewComponent implements OnInit {
   order: Order | any;
   orderDetails: OrderDetail[] = [];
+  newOrderDetails: OrderDetail[] = [];
+  orderDetailsDeleted: Number[] = [];
+  orderDetailsUpdated: OrderDetail[] = [];
 
   constructor(
     private ordersService: OrdersService,
@@ -56,15 +59,32 @@ export class OrderViewComponent implements OnInit {
   async deleteDetail(event: any): Promise<void>{
     const control = event.target;
     let id = parseInt(control.dataset.detailDeleted);
-    
-    try {
-      let response = await this.ordersDetailsService.deleteById(this.order.id, id);
-      if (response.affectedRows) {
-        let tempArray = this.orderDetails.filter(od => od.id !== id);
-        this.orderDetails = tempArray;
-      }
-    } catch (error: any) {
-      console.log(error.error);
+    let materialLocationId = parseInt(control.dataset.detailMl);
+
+    if (this.orderDetails.find(od => od.id === id)) {
+      this.orderDetailsDeleted.push(id);
+      let tempArray = this.orderDetails.filter(od => od.id !== id);
+      this.orderDetails = tempArray;
+    } else {
+      let tempArray = this.orderDetails.filter(od => od.materialLocationId !== materialLocationId);
+      this.orderDetails = tempArray;
+      tempArray = this.newOrderDetails.filter(od => od.materialLocationId !== materialLocationId);
+      this.newOrderDetails = tempArray;
     }
+    
+    // try {
+    //   let response = await this.ordersDetailsService.deleteById(this.order.id, id);
+    //   if (response.affectedRows > 0) {
+    //     let tempArray = this.orderDetails.filter(od => od.id !== id);
+    //     this.orderDetails = tempArray;
+    //   }
+    // } catch (error: any) {
+    //   console.log(error.error);
+    // }
+  }
+
+  addNewDetails(event: any): void {
+    this.newOrderDetails.push(...event);
+    // console.log(this.newOrderDetails);
   }
 }

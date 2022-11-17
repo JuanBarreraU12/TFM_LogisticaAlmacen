@@ -20,4 +20,9 @@ export class OrdersListComponent implements OnInit {
       Swal.fire(error.message, '', 'error');
     }
   }
+
+  deleteOrder(event: any): void {
+    let tempArray = this.orders.filter(o => o.id !== event);
+    this.orders = tempArray;
+  }
 }

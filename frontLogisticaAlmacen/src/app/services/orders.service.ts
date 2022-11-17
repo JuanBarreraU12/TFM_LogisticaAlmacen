@@ -21,4 +21,12 @@ export class OrdersService {
   create(pOrder: Order): Promise<any>{
     return lastValueFrom(this.httpClient.post<any>(`${this.baseUrl}`, pOrder));
   }
+
+  update(pId: Number, pOrder: Order): Promise<any>{
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}${pId}`, pOrder));
+  }
+
+  delete(pId: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`));
+  }
 }

@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   async getLogin(pForm: any): Promise<void> {
 
     let response = await this.usersService.login(pForm.value);
-    console.log(response);
     if(response.fatal){
       Swal.fire(response.fatal, '', 'error');
     }

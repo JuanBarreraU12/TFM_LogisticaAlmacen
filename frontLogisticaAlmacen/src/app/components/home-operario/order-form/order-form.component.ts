@@ -44,14 +44,20 @@ export class OrderFormComponent implements OnInit {
         try {
           let response = await this.ordersService.getById(id);
           if (response.id) {
-            this.orderForm = new FormGroup({
-              id: new FormControl(response.id, []),
-              outDate: new FormControl(dayjs(response.out_date).format('YYYY-MM-DD'), []),
-              truckPlate: new FormControl(response.truck_plate, []),
-              origin: new FormControl(response.originId, []),
-              destiny: new FormControl(response.destinyId, []),
-              comment: new FormControl(response.comment, []),
-            }, []);
+            this.orderForm = new FormGroup(
+              {
+                id: new FormControl(response.id, []),
+                outDate: new FormControl(
+                  dayjs(response.out_date).format('YYYY-MM-DD'),
+                  []
+                ),
+                truckPlate: new FormControl(response.truck_plate, []),
+                origin: new FormControl(response.originId, []),
+                destiny: new FormControl(response.destinyId, []),
+                comment: new FormControl(response.comment, []),
+              },
+              []
+            );
           }
         } catch (error) {
           Swal.fire(String(error), '', 'error');
@@ -70,16 +76,25 @@ export class OrderFormComponent implements OnInit {
       stateId: 1,
       comment: this.orderForm.value.comment,
     };
-    console.log(order);
 
     if (order.id) {
+      try {
+        let response = await this.ordersService.update(order.id, order);
+        if (response.affectedRows > 0)
+          this.router.navigate(['/home-operario', 'home']);
+      } catch (error: any) {
+        error.error.forEach((err: any) => {
+          Swal.fire(err.error, '', 'error');
+        });
+      }
     } else {
       try {
         let response = await this.ordersService.create(order);
-        if (response.id) 
-          this.router.navigate(['/home-operario', 'home']);
-      } catch (error) {
-        Swal.fire(String(error), '', 'error');
+        if (response.id) this.router.navigate(['/home-operario', 'home']);
+      } catch (error: any) {
+        error.error.forEach((err: any) => {
+          Swal.fire(err.error, '', 'error');
+        });
       }
     }
   }
@@ -92,6 +107,5 @@ export class OrderFormComponent implements OnInit {
   changeDestiny(event: any): void {
     this.orderForm.value.destiny = event.target.value;
     console.log(this.orderForm.value.destiny);
-
   }
 }
