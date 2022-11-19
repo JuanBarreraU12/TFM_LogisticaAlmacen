@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="col-12 col-lg-8">
-                <div class="d-flex justify-content-end mt-3">
-                    <button class="btn btn-sm btn-primary me-2" disabled>Guardar</button>
+                <div class="d-flex justify-content-end mt-3" *ngIf="order">
+                    <button class="btn btn-sm btn-primary me-2" [disabled]="orderDetailsDeleted.length === 0 && newOrderDetails.length === 0 && !anyUpdate" (click)="saveDetails()">Guardar</button>
                     <button class="btn btn-sm btn-secondary me-3" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + order.originId">Nuevo</button>
                 </div>
                 <table class="table table-sm">
@@ -26,16 +26,16 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let detail of orderDetails">
+                    <tbody id="details">
+                        <tr *ngFor="let detail of orderDetails" [attr.data-detail-id]="detail.id" [attr.data-detail-ml-id]="detail.materialLocationId" [attr.data-detail-updated]="false">
                             <td>{{ detail.material }}</td>
                             <td>{{ detail.location }}</td>
-                            <td>{{ detail.stock }}</td>
+                            <td id="stock">{{ detail.stock }}</td>
                             <td>
-                                <input class="form-control form-control-sm" style="width: 6em;" type="number" [value]="detail.quantity">
+                                <input id="quantity" class="form-control form-control-sm" style="width: 6em;" type="number" min="1" [value]="detail.quantity" (input)="getQuantity($event)">
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-secondary" [attr.data-detail-deleted]="detail.id" [attr.data-detail-ml]="detail.materialLocationId" (click)="deleteDetail($event)">Eliminar</button>
+                                <button class="btn btn-sm btn-secondary" (click)="deleteDetail($event)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -45,4 +45,4 @@
     </div>
 </section>
 <!-- popup -->
-<app-popup [order]="order" [orderDetails]="orderDetails" (newDetails)="addNewDetails($event)"></app-popup>
+<app-popup *ngIf="order" [order]="order" [orderDetails]="orderDetails" (newDetails)="addNewDetails($event)"></app-popup>

@@ -22,4 +22,8 @@ export class OrdersDetailsService {
   deleteById(pOrderId: Number, pOrderDetailId: Number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pOrderId}/details/${pOrderDetailId}`));
   }
+
+  update(pOrderId: Number, pOrderDetailId: Number, pOrder: OrderDetail): Promise<any>{
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}${pOrderId}/details/${pOrderDetailId}`, pOrder));
+  }
 }

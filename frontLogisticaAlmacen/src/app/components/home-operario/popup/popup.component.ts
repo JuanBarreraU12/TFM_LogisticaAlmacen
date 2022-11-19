@@ -3,7 +3,6 @@ import { MaterialLocation } from 'src/app/interfaces/material-location';
 import { OrderDetail } from 'src/app/interfaces/order-detail.interface';
 import { Order } from 'src/app/interfaces/order.interface';
 import { MaterialsLocationsService } from 'src/app/services/materials-locations.service';
-import { OrdersDetailsService } from 'src/app/services/orders-details.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,10 +19,7 @@ export class PopupComponent implements OnInit {
   @Input() orderDetails: OrderDetail[] = [];
   @Output() newDetails: EventEmitter<OrderDetail[]>;
 
-  constructor(
-    private materialsLocationsService: MaterialsLocationsService,
-    private ordersDetailsService: OrdersDetailsService
-  ) {
+  constructor(private materialsLocationsService: MaterialsLocationsService) {
     this.newDetails = new EventEmitter();
   }
 
@@ -49,7 +45,9 @@ export class PopupComponent implements OnInit {
     const control = event.target;
     let id = parseInt(control.dataset.materialSelected);
 
-    const availableMaterial = this.availableMaterials.find(am => am.id === id);
+    const availableMaterial = this.availableMaterials.find(
+      (am) => am.id === id
+    );
 
     if (control.checked) {
       let newOrderDetail: OrderDetail = {
@@ -57,7 +55,7 @@ export class PopupComponent implements OnInit {
         location: availableMaterial?.location,
         stock: availableMaterial?.stock,
         materialLocationId: id,
-        quantity: 0,
+        quantity: 1,
       };
       this.newOrderDetails.push(newOrderDetail);
     } else {
@@ -79,22 +77,6 @@ export class PopupComponent implements OnInit {
       this.newOrderDetails = [];
     });
   }
-
-  // saveDetails(): void {
-  //   this.newOrderDetails.forEach(async (newOrderDetail) => {
-  //     try {
-  //       let orderDetailAdded = await this.ordersDetailsService.create(
-  //         this.order.id,
-  //         newOrderDetail
-  //       );
-  //       if (orderDetailAdded.id) {
-  //       }
-  //     } catch (error: any) {
-  //       // Swal.fire(error.message, '', 'error');
-  //       console.log(error);
-  //     }
-  //   });
-  // }
 
   loadAvailableMaterials(): void {
     this.availableMaterials = [];
