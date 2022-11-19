@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       Swal.fire(response.fatal, '', 'error');
     }
     else{
+      localStorage.setItem('user', JSON.stringify(response));
       switch(response.rol.name)
       {
         case "Operario":
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
           break;
         case "Jefe":
             Swal.fire("Hola Jefe", '', 'success');
-            this.router.navigate(['/home-jefe']);
+            this.router.navigate(['/home']);
             break;
         case "Encargado":
               Swal.fire("Hola Encargado", '', 'success');
@@ -45,8 +46,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/login']);
           break;
       }
-      localStorage.setItem('user', response);
-
     }
   }
 

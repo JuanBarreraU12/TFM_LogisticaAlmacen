@@ -14,6 +14,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { ListOrdesComponent } from './components/list-ordes/list-ordes.component';
+import { HomeComponent } from './components/home/home.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ListOrdesComponent } from './components/list-ordes/list-ordes.component
     FormWarehousesComponent,
     ViewEmployeeComponent,
     ListOrdesComponent,
+    HomeComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

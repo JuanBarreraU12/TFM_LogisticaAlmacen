@@ -8,6 +8,7 @@ import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { LoginComponent } from './components/login/login.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "login" },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "viewEmployee", component: ViewEmployeeComponent },
   { path: "newWerehouse", component: FormWarehousesComponent},
   { path: "home-encargado", component: HomeEncargadoComponent },
+  { path: "home", component: HomeComponent },
   { path: "**", redirectTo: "login" }
 ];
 

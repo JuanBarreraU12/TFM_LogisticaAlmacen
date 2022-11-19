@@ -1,0 +1,57 @@
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <a class="nav-link " href="index.html">
+      <i class="bi bi-grid"></i>
+      <span>Dashboard</span>
+    </a>
+  </li>
+
+  <div *ngIf="jefe">
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/newEmployee']">
+            <i class="bi bi-circle" ></i><span>New Employee</span>
+          </a>
+        </li>
+        <li>
+          <a href="components-accordion.html">
+            <i class="bi bi-circle"></i><span>List Employees</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Warehouses</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/newWerehouse']">
+            <i class="bi bi-circle"></i><span>New Warehouses</span>
+          </a>
+        </li>
+        <li>
+          <a href="forms-layouts.html">
+            <i class="bi bi-circle"></i><span>List Warehouses</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+
+
+  <div *ngIf="operario">
+    <!-- MENÚ OPERARIO -->
+  </div>
+
+
+  <div *ngIf="encargado">
+    <!-- MENÚ ENCARGADO-->
+  </div>
+
+</ul>

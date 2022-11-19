@@ -10,6 +10,7 @@ export class HomeJefeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
