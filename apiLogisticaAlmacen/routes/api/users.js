@@ -22,29 +22,30 @@ router.post('/login', async (req, res) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
-    const { email, password } = req.body;
-    const user = await getByEmail(email);
-    const iguales = bcrypt.compareSync(password, user.password);
-      if (!iguales) {
-        return res.json({ fatal: 'Error en email y/o contraseña2'})
-    }
+  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS"); 
+  
+  const { email, password } = req.body;
+  const user = await getByEmail(email);
+  const iguales = bcrypt.compareSync(password, user.password);
+    if (!iguales) {
+      return res.json({ fatal: 'Error en email y/o contraseña2'})
+  }
 
-    if(user)
-    {
-      const rol= await getRolById(user.roles_id);
-      const employee=await getEmployeeById(user.employees_id);
-      const response={
-        "userName" : user.username,
-        "email": user.email,
-        "rol":rol,
-        "employee":employee
-      }
-      res.json(response);
+  if(user)
+  {
+    const rol = await getRolById(user.roles_id);
+    const employee = await getEmployeeById(user.employees_id);
+    const response = {
+      "userName" : user.username,
+      "email": user.email,
+      "rol":rol,
+      "employee":employee
     }
-    else {
-        return res.json({ fatal: 'Error en email y/o contraseña'})
-    }
+    res.json(response);
+  }
+  else {
+      return res.json({ fatal: 'Error en email y/o contraseña'})
+  }
 })
 
 

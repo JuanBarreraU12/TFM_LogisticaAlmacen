@@ -8,7 +8,17 @@ const getByIdUwarehouse = (uWerehouseId) => {
   return executeQueryOne('SELECT * FROM users_warehouses WHERE id = ?', [uWerehouseId]);
 }
 
+const getwerehouseByIdUser = (userId) => {
+  return executeQueryOne('select * from users_warehouses where users_id = ?', [userId]);
+}
+
+const getAll = () => {
+  return executeQuery('select * from gestion_almacen.users_warehouses');
+}
+
 module.exports = {
   register,
-  getByIdUwarehouse
+  getByIdUwarehouse,
+  getwerehouseByIdUser,
+  getAll
 }

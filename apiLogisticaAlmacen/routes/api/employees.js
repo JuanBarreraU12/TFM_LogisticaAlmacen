@@ -3,6 +3,9 @@ const { checkSchema } = require('express-validator');
 const { newEmployee } = require('../../helpers/schemas/employee.schema');
 const { badRequest } = require('../../helpers/validators');
 const { getAll, getById, create, update, deleteById } = require('../../models/employee.model');
+const { getRolById } = require('../../models/role.model');
+const { getuserByIdEmployee } = require('../../models/user.model');
+const { getwerehouseByIdUser } = require('../../models/users_warehouses.model')
 
 
 
@@ -20,10 +23,18 @@ router.get('/:employeeId', async (req, res) => {
     const { employeeId } = req.params;
     const employee = await getById(employeeId);
     if (employee) {
+        const user = await getuserByIdEmployee(employeeId)
+        if (user) {    
+            const userwerehause = await getwerehouseByIdUser(user.id)
+        
+        }
+
         res.json(employee)
     } else {
         res.json({ error: 'No existe un empleado con ese ID' })
     }
+
+   
 });
 
 router.post('/',
