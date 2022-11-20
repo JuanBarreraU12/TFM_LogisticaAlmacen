@@ -10,8 +10,10 @@
                 <th scope="col">Full Name</th>
                 <th scope="col">dni</th>
                 <th scope="col">email</th>
-                <th>cell phone</th>
+                <th scope="col">cell phone</th>
                 <th scope="col">birthday</th>  
+                <th scope="col">rol </th>
+                <th scope="col">warehouse </th>
                 <th>actions</th>    
             </tr>
         </thead>
@@ -24,6 +26,8 @@
                 <td>{{employee.email}} </td>
                 <td>{{employee.cell_phone}}</td>
                 <td>{{employee.birth_date}}</td> 
+                <td></td>
+                <td></td>
                 <td> <button class="btn btn-danger me-2 btn-sm"><i class="fa-solid fa-trash"></i></button>
                 <button class="btn btn-dark btn-sm" [routerLink]="['/updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button> </td>
             </tr>

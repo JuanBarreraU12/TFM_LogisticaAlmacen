@@ -56,13 +56,14 @@
             <div class="input-group mb-3">
                 <select class="form-select" aria-label="Default select example" (change)="seleccionarRol($event)">
                     <option selected>---</option>
-                    <option [value]="rol.id" *ngFor="let rol of arrRol">{{rol.name}}</option>
+                    <option [value]="rol.id" *ngFor="let rol of arrRol" [selected]="rolSelected" >{{rol.name}}</option>
                 </select>
+                
                 <span>👨‍💻</span>
-
+                
                 <select class="form-select" aria-label="Default select example" (change)="seleccionarAlmacen($event)">
                     <option selected>---</option>
-                    <option [value]="werehouse.id" *ngFor="let werehouse of arrWerehouse">{{werehouse.description}}</option>
+                    <option [value]="warehouse.id" *ngFor="let warehouse of arrWarehouse" [selected]="warehouseSelected" >{{warehouse.description}}</option>
                 </select>
             </div>
         </div>

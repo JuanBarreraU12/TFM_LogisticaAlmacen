@@ -9,7 +9,7 @@ import { User } from '../interfaces/user.interface';
 export class UsersService {
 
   baseUrl: string = "http://localhost:3000/api/users/login"
-  userswerehouseUrl: string = "http://localhost:3000/api/users-warehouses/"
+  userswarehouseUrl: string = "http://localhost:3000/api/users-warehouses/"
   constructor(private httpClient: HttpClient ) { }
 
 
@@ -28,8 +28,8 @@ export class UsersService {
 
   
 
-  userswerehouse(pUser: User): Promise<User> {
-    return lastValueFrom(this.httpClient.post<User>(this.userswerehouseUrl, pUser))
+  userswarehouse(pUser: User): Promise<User> {
+    return lastValueFrom(this.httpClient.post<User>(this.userswarehouseUrl, pUser))
   }
 
 }

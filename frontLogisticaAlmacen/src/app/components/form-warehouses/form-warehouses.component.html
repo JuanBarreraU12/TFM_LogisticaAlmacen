@@ -1,3 +1,27 @@
 <header>
     <app-header></app-header>
 </header>
+
+<section class="container mt-3">
+
+    <h1>{{type}} warehouse</h1>
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+
+        <div>
+            <label class="form-label" for="description">Descripcion</label>
+            <input class="form-control" type="text" id="description" formControlName="description">
+            <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3
+                caracteres</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="address">Direccion</label>
+            <input class="form-control" type="text" id="address" formControlName="address">
+            <p class="error" *ngIf="checkControl('first_last_name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">La longitud del camo tiene que ser al
+                menos de 5 caracteres</p>
+        </div>
+        <input type="submit" [value]="type" class="btn btn-outline-dark mt-3" [disabled]="!userForm.valid">
+    </form>   
+</section>
