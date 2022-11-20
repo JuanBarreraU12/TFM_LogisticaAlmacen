@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     }
     else{
       localStorage.setItem('user', JSON.stringify(response));
-      
       this.router.navigate(['/home']);
       Swal.fire("Hola "+response.rol.name, '', 'success');
     }
