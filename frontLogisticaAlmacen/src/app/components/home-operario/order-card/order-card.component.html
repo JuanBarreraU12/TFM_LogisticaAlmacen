@@ -7,8 +7,8 @@
         <p class="card-text m-0">Almacén de Destino: {{ myOrder.destiny }}</p>
     </div>
     <div class="card-footer">
-        <button class="btn btn-secondary me-2" [routerLink]="['/home-operario', 'updateorder', myOrder.id]">Editar</button>
+        <button class="btn btn-secondary me-2" [routerLink]="['/home', 'updateorder', myOrder.id]">Editar</button>
         <button class="btn btn-secondary me-2" (click)="deleteOrder()">Eliminar</button>
-        <button class="btn btn-secondary" [routerLink]="['/home-operario', 'order', myOrder.id]">Ver detalle</button>
+        <button class="btn btn-secondary" [routerLink]="['/home', 'order', myOrder.id]">Ver detalle</button>
     </div>
 </div>

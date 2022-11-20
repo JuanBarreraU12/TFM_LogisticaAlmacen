@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { FormComponent } from './components/formEmployee/form.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
@@ -27,7 +26,6 @@ import { PopupComponent } from './components/home-operario/popup/popup.component
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeOperarioComponent,
     HomeEncargadoComponent,
     FormComponent,
     FormWarehousesComponent,

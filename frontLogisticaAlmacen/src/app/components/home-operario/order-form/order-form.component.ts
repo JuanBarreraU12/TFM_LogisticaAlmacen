@@ -98,7 +98,7 @@ export class OrderFormComponent implements OnInit {
       try {
         let response = await this.ordersService.update(order.id, order);
         if (response.affectedRows > 0)
-          this.router.navigate(['/home-operario', 'home']);
+          this.router.navigate(['/home', 'home']);
       } catch (error: any) {
         error.error.forEach((err: any) => {
           Swal.fire(err.error, '', 'error');
@@ -107,7 +107,7 @@ export class OrderFormComponent implements OnInit {
     } else {
       try {
         let response = await this.ordersService.create(order);
-        if (response.id) this.router.navigate(['/home-operario', 'home']);
+        if (response.id) this.router.navigate(['/home', 'home']);
       } catch (error: any) {
         error.error.forEach((err: any) => {
           Swal.fire(err.error, '', 'error');
