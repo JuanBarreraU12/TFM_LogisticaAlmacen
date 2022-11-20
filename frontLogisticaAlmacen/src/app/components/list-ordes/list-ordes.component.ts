@@ -9,9 +9,8 @@ import { OrdersService } from '../../services/orders.service';
 export class ListOrdesComponent implements OnInit {
 
   orderdata: any = [];
-  constructor( private OrdersService: OrdersService) { 
-    this.OrdersService.getOrders().subscribe(orders => {
-      console.log(orders);
+  constructor( private OrdersService: OrdersService) {
+    this.OrdersService.getAll().then(orders => {
       this.orderdata = orders;
     })
   }

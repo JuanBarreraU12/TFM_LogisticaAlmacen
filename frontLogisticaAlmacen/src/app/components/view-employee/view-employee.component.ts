@@ -21,7 +21,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.getEmployee()
   }
 
- async getEmployee(): Promise<void> {
+async getEmployee(): Promise<void> {
     try {
       let response = await this.employeService.getAll()
       this.arrEmployee = response

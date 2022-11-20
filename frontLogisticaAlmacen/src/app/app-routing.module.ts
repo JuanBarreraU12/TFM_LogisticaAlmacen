@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 import { FormComponent } from './components/formEmployee/form.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
-import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
 import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
 import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';

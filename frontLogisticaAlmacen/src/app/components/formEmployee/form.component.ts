@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
   type: string = 'Registrar';
   rolSelected: number = 0;
   warehouseSelected: number = 0;
-    
+
 
   constructor(
     private employeeServices: EmployeeService,
@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private userService: UsersService
-  ) { 
+  ) {
     this.userForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
     })
 
   }
-  
+
 
   async getDataForm(): Promise<void>{
     if (this.userForm.valid) { }
@@ -102,7 +102,7 @@ export class FormComponent implements OnInit {
             this.router.navigate(['/home-jefe']);
           });
       }
-    }  
+    }
     else {
       let employeeResponse = await this.employeeServices.create(infoFormulario)
       if (employeeResponse.id) {
@@ -111,11 +111,11 @@ export class FormComponent implements OnInit {
         infoFormulario.employee_id = employeeResponse.id;
         infoFormulario.role_id = this.rolSelected;
         let userResponse = await this.employeeServices.register(infoFormulario);
-        if (userResponse.id) { 
+        if (userResponse.id) {
           infoFormulario.user_id = userResponse.id;
           infoFormulario.warehouse_id = this.warehouseSelected;
           let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
-          if (userWarehouseResponse.id) { 
+          if (userWarehouseResponse.id) {
             Swal.fire(
               'OK!',
               'Usuario creado',
@@ -123,10 +123,10 @@ export class FormComponent implements OnInit {
               .then((result) => {
                 this.router.navigate(['/home-jefe']);
             });
-          }  
+          }
         }
       }
-    
+
       else {
         Swal.fire(
           'Error!',
@@ -136,22 +136,22 @@ export class FormComponent implements OnInit {
             this.router.navigate(['/home-jefe']);
         });
       }
-    } 
+    }
   }
 
   ngOnInit(): void {
     this.getRoles()
     this.getWarehouses()
     this.activateRoute.params.subscribe(async(params:any) => {
-      console.log(params);  
+      console.log(params);
       let id: number = parseInt(params.idemployee);
       console.log(id);
       if (id) {
         this.type = 'Actualizar'
         const response = await this.employeeServices.getById(id)
         const employee: Employee = response
-        this.rolSelected = employee?.rol.id || 0
-        this.warehouseSelected = employee?.warehouse.id || 0
+        this.rolSelected = employee?.rol.id || 0;
+        this.warehouseSelected = employee?.warehouse.id || 0;
         this.userForm = new FormGroup({
           name: new FormControl(employee?.name,[]),
           first_last_name: new FormControl(employee?.first_last_name, []),
@@ -169,7 +169,7 @@ export class FormComponent implements OnInit {
   checkControl(pControlName: string, pError: string): boolean{
     if(this.userForm.get(pControlName)?.hasError(pError) && this.userForm.get(pControlName)?.touched){
       return true;
-    } 
+    }
     else {
       return false;
     }
