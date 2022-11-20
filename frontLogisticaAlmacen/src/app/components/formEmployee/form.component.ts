@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
-import { Werehouse } from 'src/app/interfaces/werehouse.interface';
+import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { RolService } from 'src/app/services/rol.service';
-import { WerehouseService } from 'src/app/services/werehouse.service';
+import { WarehouseService } from 'src/app/services/warehouse.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { Employee } from 'src/app/interfaces/employee.interface';
@@ -18,17 +18,17 @@ import { Employee } from 'src/app/interfaces/employee.interface';
 export class FormComponent implements OnInit {
 
   arrRol: Rol[] = [];
-  arrWerehouse: Werehouse[] = [];
+  arrWarehouse: Warehouse[] = [];
   userForm: FormGroup
   type: string = 'Registrar';
   rolSelected: number = 0;
   warehouseSelected: number = 0;
- 
+    
 
   constructor(
     private employeeServices: EmployeeService,
     private rolServices: RolService,
-    private werehouseService: WerehouseService,
+    private warehouseService: WarehouseService,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private userService: UsersService
@@ -114,7 +114,7 @@ export class FormComponent implements OnInit {
         if (userResponse.id) { 
           infoFormulario.user_id = userResponse.id;
           infoFormulario.warehouse_id = this.warehouseSelected;
-          let userWarehouseResponse = await this.userService.userswerehouse(infoFormulario);
+          let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
           if (userWarehouseResponse.id) { 
             Swal.fire(
               'OK!',
@@ -141,7 +141,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles()
-    this.getWerehouses()
+    this.getWarehouses()
     this.activateRoute.params.subscribe(async(params:any) => {
       console.log(params);  
       let id: number = parseInt(params.idemployee);
@@ -150,6 +150,8 @@ export class FormComponent implements OnInit {
         this.type = 'Actualizar'
         const response = await this.employeeServices.getById(id)
         const employee: Employee = response
+        this.rolSelected = employee?.rol.id || 0
+        this.warehouseSelected = employee?.warehouse.id || 0
         this.userForm = new FormGroup({
           name: new FormControl(employee?.name,[]),
           first_last_name: new FormControl(employee?.first_last_name, []),
@@ -182,10 +184,10 @@ export class FormComponent implements OnInit {
     }
   }
 
-  async getWerehouses(): Promise<void> {
+  async getWarehouses(): Promise<void> {
     try {
-      let response = await this.werehouseService.getAllWerehouse()
-      this.arrWerehouse = response;
+      let response = await this.warehouseService.getAllWarehouse()
+      this.arrWarehouse = response;
     } catch (err) {
       console.log(err)
     }

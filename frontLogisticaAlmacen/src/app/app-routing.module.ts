@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: "home-jefe", component: HomeJefeComponent },
   { path: "updateEmployee/:idemployee", component: FormComponent },
   { path: "viewEmployee", component: ViewEmployeeComponent },
+  { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
   { path: "home-encargado", component: HomeEncargadoComponent },
   { path: "home", component: HomeComponent, children:[
     { path: "newEmployee", component: FormComponent },

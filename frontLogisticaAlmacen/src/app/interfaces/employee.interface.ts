@@ -1,3 +1,6 @@
+import { Rol } from "./rol.interface";
+import { Warehouse } from "./warehouse.interface";
+
 export interface Employee {
     id?: number;
     name: string;   
@@ -7,4 +10,6 @@ export interface Employee {
     dni: string;
     cell_phone: number;
     birth_date: string;
+    rol: Rol;
+    warehouse: Warehouse;
 }

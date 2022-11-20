@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <app-head></app-head>
-<body>
-  <app-header></app-header>
-  <aside id="sidebar" class="sidebar">
-    <!-- MENÚ -->
-    <app-menu></app-menu>
-  </aside>
-  <main id="main" class="main">
-    <section class="section dashboard">
-      <div class="row">
-        <!-- ======= AQUI SE DEBE INCLUIR EL CODIGO DE PARA SU COMPONENTE ======= -->
-          <h1 style="justify-items: center;">AQUI VA FORMULARIO</h1>
-      </div>
-    </section>
-  </main>
-  <app-footer></app-footer>
-</body>
-</html>
+<section class="container mt-3">
+
+    <h1>{{type}} warehouse</h1>
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+
+        <div>
+            <label class="form-label" for="description">Descripcion</label>
+            <input class="form-control" type="text" id="description" formControlName="description">
+            <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3
+                caracteres</p>
+        </div>
+
+        <div>
+            <label class="form-label" for="address">Direccion</label>
+            <input class="form-control" type="text" id="address" formControlName="address">
+            <p class="error" *ngIf="checkControl('first_last_name', 'required')">Campo requerido</p>
+            <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">La longitud del camo tiene que ser al
+                menos de 5 caracteres</p>
+        </div>
+        <input type="submit" [value]="type" class="btn btn-outline-dark mt-3" [disabled]="!userForm.valid">
+    </form>
+</section>

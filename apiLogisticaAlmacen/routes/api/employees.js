@@ -5,19 +5,61 @@ const { badRequest } = require('../../helpers/validators');
 const { getAll, getById, create, update, deleteById } = require('../../models/employee.model');
 const { getRolById } = require('../../models/role.model');
 const { getuserByIdEmployee } = require('../../models/user.model');
-const { getwerehouseByIdUser } = require('../../models/users_warehouses.model')
+const { getwarehouseByIdUser } = require('../../models/users_warehouses.model')
 
 
-
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
     getAll()
-        .then(employee => {
+        .then (employee => {
+            
+
             res.json(employee);
         })
         .catch((error) => {
             res.json({ fatal: error.message });
         });
+ }); */
+
+router.get('/', (req, res) => {
+    getAll()
+        .then(async (employee) => {
+            let respuesta = [];
+            for (let item of employee) {
+                const user = await getuserByIdEmployee(item.id);
+                if (user) {
+                    const id = user.id;
+                    console.log(id);
+                    const userwarehause = await getwarehouseByIdUser(user.id);
+                    
+                    const info = {
+                        "id": item.id,
+                        "name": item.name,
+                        "first_last_name": item.first_last_name,
+                        "second_last_name": item.first_last_name, 
+                        "email": item.email, 
+                        "dni": item.dni, 
+                        "cell_phone": item.cell_phone,
+                        "birth_date": item.birth_date,
+                        "rol": {
+                            "id": user.roles_id
+                        },
+                        "warehouse": {
+                            "id": userwarehause.id
+                        }
+                    }
+                    respuesta.push(info);
+                }   
+            };
+            res.json(respuesta);
+            
+        })
+        .catch((error) => {
+            res.json({ fatal: error.message });
+        });
 });
+
+
+
 
 router.get('/:employeeId', async (req, res) => {
     const { employeeId } = req.params;
@@ -25,11 +67,27 @@ router.get('/:employeeId', async (req, res) => {
     if (employee) {
         const user = await getuserByIdEmployee(employeeId)
         if (user) {    
-            const userwerehause = await getwerehouseByIdUser(user.id)
-        
+            const userwarehause = await getwarehouseByIdUser(user.id)
+            const response = {
+                "name": employee.name,
+                "first_last_name": employee.first_last_name,
+                "second_last_name": employee.first_last_name, 
+                "email": employee.email, 
+                "dni": employee.dni, 
+                "cell_phone": employee.cell_phone,
+                "birth_date": employee.birth_date,
+                "rol": {
+                    "id": user.roles_id
+                },
+                "warehouse": {
+                     "id": userwarehause.id
+                }
+            }
+            res.json(response)
+            
         }
 
-        res.json(employee)
+        
     } else {
         res.json({ error: 'No existe un empleado con ese ID' })
     }
