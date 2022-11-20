@@ -6,6 +6,9 @@ import { FormComponent } from './components/formEmployee/form.component';
 import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { HomeJefeComponent } from './components/home-jefe/home-jefe.component';
 import { HomeOperarioComponent } from './components/home-operario/home-operario.component';
+import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
+import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
+import { OrdersListComponent } from './components/home-operario/orders-list/orders-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { HomeComponent } from './components/home/home.component';
@@ -13,15 +16,21 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", component: LoginComponent },
-  { path: "home-operario", component: HomeOperarioComponent },
-  { path: "home-jefe", component: HomeJefeComponent },
-  { path: "updateEmployee/:idemployee", component: FormComponent },
-  { path: "viewEmployee", component: ViewEmployeeComponent },
-  { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
+  { path: 'home-operario', component: HomeOperarioComponent,  children: [
+      { path: '', pathMatch: 'full', redirectTo: 'home'},
+      { path: 'home', component: OrdersListComponent },
+      { path: 'neworder', component: OrderFormComponent },
+      { path: 'updateorder/:orderId', component: OrderFormComponent },
+      { path: 'order/:orderId', component: OrderViewComponent }
+    ],
+  },
   { path: "home-encargado", component: HomeEncargadoComponent },
   { path: "home", component: HomeComponent, children:[
     { path: "newEmployee", component: FormComponent },
     { path: "newWerehouse", component: FormWarehousesComponent},
+    { path: "viewEmployee", component: ViewEmployeeComponent },
+    { path: "updateEmployee/:idemployee", component: FormComponent },
+    { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
     ]
   },
   { path: "**", redirectTo: "login" }
@@ -29,6 +38,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

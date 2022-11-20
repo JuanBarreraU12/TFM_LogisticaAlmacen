@@ -1,18 +1,18 @@
 GET http://localhost:3000/api/orders
 
 ###
-GET http://localhost:3000/api/orders/1
+GET http://localhost:3000/api/orders/5
 
 ###
 POST http://localhost:3000/api/orders
 Content-Type: application/json
 
 {
-    "out_date": "2022-03-05", 
-    "truck_plate": "BLG-412", 
-    "state": 1, 
-    "origin": 1, 
-    "destiny": 2
+    "out_date": "2022-09-20", 
+    "truck_plate": "ABG-780", 
+    "stateId": 1, 
+    "originId": 2, 
+    "destinyId": 3
 }
 
 ###
@@ -20,12 +20,12 @@ PUT http://localhost:3000/api/orders/5
 Content-Type: application/json
 
 {
-    "out_date": "2022-06-15", 
-    "truck_plate": "BLG-415", 
-    "state": 2, 
-    "origin": 2, 
-    "destiny": 3
+    "out_date": "2022-09-26", 
+    "truck_plate": "ABG-980", 
+    "stateId": 2, 
+    "originId": 2, 
+    "destinyId": 3
 }
 
 ###
-DELETE http://localhost:3000/api/orders/1
+DELETE http://localhost:3000/api/orders/6

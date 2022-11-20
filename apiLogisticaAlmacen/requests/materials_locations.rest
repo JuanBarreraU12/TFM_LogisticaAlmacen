@@ -8,7 +8,7 @@ POST http://localhost:3000/api/materials-locations
 Content-Type: application/json
 
 {
-    "material_id": 11,
-    "location_id": 1,
+    "materialId": 11,
+    "locationId": 1,
     "stock": 325
 }
