@@ -16,6 +16,8 @@ import { ViewEmployeeComponent } from './components/view-employee/view-employee.
 import { ListOrdesComponent } from './components/list-ordes/list-ordes.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { HeadComponent } from './components/head/head.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MenuComponent } from './components/menu/menu.component';
     ListOrdesComponent,
     HomeComponent,
     MenuComponent,
+    HeadComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
