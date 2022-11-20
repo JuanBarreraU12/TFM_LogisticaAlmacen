@@ -15,12 +15,14 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "home-operario", component: HomeOperarioComponent },
   { path: "home-jefe", component: HomeJefeComponent },
-  { path: "newEmployee", component: FormComponent },
   { path: "updateEmployee/:idemployee", component: FormComponent },
   { path: "viewEmployee", component: ViewEmployeeComponent },
-  { path: "newWerehouse", component: FormWarehousesComponent},
   { path: "home-encargado", component: HomeEncargadoComponent },
-  { path: "home", component: HomeComponent },
+  { path: "home", component: HomeComponent, children:[
+    { path: "newEmployee", component: FormComponent },
+    { path: "newWerehouse", component: FormWarehousesComponent},
+    ]
+  },
   { path: "**", redirectTo: "login" }
 ];
 

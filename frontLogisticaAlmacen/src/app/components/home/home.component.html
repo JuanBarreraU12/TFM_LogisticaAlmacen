@@ -1,1 +1,22 @@
-<p>HOla</p>
+<!DOCTYPE html>
+<html lang="en">
+  <app-head></app-head>
+<body>
+  <app-header></app-header>
+  <aside id="sidebar" class="sidebar">
+    <!-- MENÚ -->
+    <app-menu></app-menu>
+  </aside>
+  <main id="main" class="main">
+    <section class="section dashboard">
+      <div class="row">
+        <main>
+          <router-outlet>
+          </router-outlet>
+        </main>
+      </div>
+    </section>
+  </main>
+  <app-footer></app-footer>
+</body>
+</html>

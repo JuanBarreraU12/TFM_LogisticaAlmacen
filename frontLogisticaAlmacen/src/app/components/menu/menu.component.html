@@ -1,6 +1,6 @@
 <ul class="sidebar-nav" id="sidebar-nav">
   <li class="nav-item">
-    <a class="nav-link " href="index.html">
+    <a class="nav-link " [routerLink]="['/home']">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
@@ -13,7 +13,7 @@
       </a>
       <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a routerLinkActive="active" [routerLink]="['/newEmployee']">
+          <a routerLinkActive="active" [routerLink]="['/home','newEmployee']">
             <i class="bi bi-circle" ></i><span>New Employee</span>
           </a>
         </li>
@@ -31,7 +31,7 @@
       </a>
       <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a routerLinkActive="active" [routerLink]="['/newWerehouse']">
+          <a routerLinkActive="active" [routerLink]="['/home','newWerehouse']">
             <i class="bi bi-circle"></i><span>New Warehouses</span>
           </a>
         </li>
