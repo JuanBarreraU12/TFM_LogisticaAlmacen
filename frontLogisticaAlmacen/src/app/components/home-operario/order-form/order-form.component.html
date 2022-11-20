@@ -5,10 +5,14 @@
             <div class="col-12 col-md-6">
                 <label class="form-label" for="outDate">Fecha de Salida</label>
                 <input class="form-control" type="date" formControlName="outDate" id="outDate">
+                <p class="error" *ngIf="checkControl('outDate', 'required')">Campo requerido</p>
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label" for="truckPlate">Matrícula del Camión</label>
                 <input class="form-control" type="text" formControlName="truckPlate" id="truckPlate">
+                <p class="error" *ngIf="checkControl('truckPlate', 'required')">Campo requerido</p>
+                <p class="error" *ngIf="checkControl('truckPlate', 'minlength')">La longitud del campo debe ser al menos 5 caracteres</p>
+                <p class="error" *ngIf="checkControl('truckPlate', 'maxlength')">La longitud del campo debe ser menor a 10 caracteres</p>
             </div>
         </div>
         <div class="row mb-3">
@@ -20,6 +24,8 @@
                         {{ warehouse.description }}
                     </option>
                 </select>
+                <p class="error" *ngIf="checkControl('origin', 'warehouseValidator')">{{ orderForm.get('origin')?.errors?.['warehouseValidator']}}</p>
+                <p class="error" *ngIf="orderForm.hasError('checkwarehouses')">El almacén de origen no debe ser igual al almacén de destino</p>
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label" for="destiny">Destino</label>
@@ -29,6 +35,7 @@
                         {{ warehouse.description }}
                     </option>
                 </select>
+                <p class="error" *ngIf="checkControl('destiny', 'warehouseValidator')">{{ orderForm.get('origin')?.errors?.['warehouseValidator']}}</p>
             </div>
         </div>
         <div class="row mb-3">
@@ -37,6 +44,6 @@
                 <textarea class="form-control" formControlName="comment" id="comment" rows="3"></textarea>
             </div>
         </div>
-        <input class="btn btn-primary me-2" type="submit" [value]="this.action">
+        <input class="btn btn-primary me-2" type="submit" [disabled]="!orderForm.valid" [value]="this.action">
     </form>
 </div>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/interfaces/order.interface';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
@@ -25,13 +30,17 @@ export class OrderFormComponent implements OnInit {
   ) {
     this.orderForm = new FormGroup(
       {
-        outDate: new FormControl('', []),
-        truckPlate: new FormControl('', []),
-        origin: new FormControl('', []),
-        destiny: new FormControl('', []),
+        outDate: new FormControl('', [Validators.required]),
+        truckPlate: new FormControl('', [
+          Validators.required,
+          Validators.minLength(7),
+          Validators.maxLength(10),
+        ]),
+        origin: new FormControl('', [this.warehouseValidator]),
+        destiny: new FormControl('', [this.warehouseValidator]),
         comment: new FormControl('', []),
       },
-      []
+      [this.checkWarehouses]
     );
   }
 
@@ -49,14 +58,22 @@ export class OrderFormComponent implements OnInit {
                 id: new FormControl(response.id, []),
                 outDate: new FormControl(
                   dayjs(response.out_date).format('YYYY-MM-DD'),
-                  []
+                  [Validators.required]
                 ),
-                truckPlate: new FormControl(response.truck_plate, []),
-                origin: new FormControl(response.originId, []),
-                destiny: new FormControl(response.destinyId, []),
+                truckPlate: new FormControl(response.truck_plate, [
+                  Validators.required,
+                  Validators.minLength(7),
+                  Validators.maxLength(10),
+                ]),
+                origin: new FormControl(response.originId, [
+                  this.warehouseValidator,
+                ]),
+                destiny: new FormControl(response.destinyId, [
+                  this.warehouseValidator,
+                ]),
                 comment: new FormControl(response.comment, []),
               },
-              []
+              [this.checkWarehouses]
             );
           }
         } catch (error) {
@@ -99,6 +116,22 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
+  warehouseValidator(pControlName: AbstractControl): any {
+    const warehouse: number = parseInt(pControlName.value);
+    if (isNaN(warehouse)) {
+      return { warehouseValidator: 'Debe seleccionar un almacén' };
+    }
+  }
+
+  checkWarehouses(pFormValue: AbstractControl): any {
+    const origin: number = parseInt(pFormValue.get('origin')?.value);
+    const destiny: number = parseInt(pFormValue.get('destiny')?.value);
+
+    if (!isNaN(origin) && origin === destiny) {
+      return { checkwarehouses: true };
+    } else return null;
+  }
+
   changeOrigin(event: any): void {
     this.orderForm.value.origin = event.target.value;
     console.log(this.orderForm.value.origin);
@@ -107,5 +140,16 @@ export class OrderFormComponent implements OnInit {
   changeDestiny(event: any): void {
     this.orderForm.value.destiny = event.target.value;
     console.log(this.orderForm.value.destiny);
+  }
+
+  checkControl(pControlName: string, pError: string): boolean {
+    if (
+      this.orderForm.get(pControlName)?.hasError(pError) &&
+      this.orderForm.get(pControlName)?.touched
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
