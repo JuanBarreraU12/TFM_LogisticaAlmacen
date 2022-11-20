@@ -18,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { HeadComponent } from './components/head/head.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MenuComponent,
     HeadComponent,
     FooterComponent,
+    ViewWarehouseComponent,
   ],
   imports: [
     BrowserModule,

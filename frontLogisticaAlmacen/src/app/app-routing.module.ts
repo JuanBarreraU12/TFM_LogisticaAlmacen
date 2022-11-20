@@ -9,19 +9,22 @@ import { HomeOperarioComponent } from './components/home-operario/home-operario.
 import { LoginComponent } from './components/login/login.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { HomeComponent } from './components/home/home.component';
+import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", component: LoginComponent },
   { path: "home-operario", component: HomeOperarioComponent },
   { path: "home-jefe", component: HomeJefeComponent },
-  { path: "updateEmployee/:idemployee", component: FormComponent },
-  { path: "viewEmployee", component: ViewEmployeeComponent },
-  { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
   { path: "home-encargado", component: HomeEncargadoComponent },
+  
   { path: "home", component: HomeComponent, children:[
     { path: "newEmployee", component: FormComponent },
-    { path: "newWerehouse", component: FormWarehousesComponent},
+    { path: "newWerehouse", component: FormWarehousesComponent },
+    { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
+    { path: "viewWarehouse", component: ViewWarehouseComponent },
+    { path: "updateEmployee/:idemployee", component: FormComponent },
+    { path: "viewEmployee", component: ViewEmployeeComponent },
     ]
   },
   { path: "**", redirectTo: "login" }

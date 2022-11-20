@@ -11,14 +11,16 @@
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-menu-button-wide"></i><span>Employees</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
+
       <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
           <a routerLinkActive="active" [routerLink]="['/home','newEmployee']">
             <i class="bi bi-circle" ></i><span>New Employee</span>
           </a>
         </li>
+
         <li>
-          <a href="components-accordion.html">
+          <a routerLinkActive="active" [routerLink]="['/home','viewEmployee']">
             <i class="bi bi-circle"></i><span>List Employees</span>
           </a>
         </li>
@@ -29,14 +31,16 @@
       <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journal-text"></i><span>Warehouses</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
+
       <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
           <a routerLinkActive="active" [routerLink]="['/home','newWerehouse']">
             <i class="bi bi-circle"></i><span>New Warehouses</span>
           </a>
         </li>
+
         <li>
-          <a href="forms-layouts.html">
+          <a routerLinkActive="active" [routerLink]="['/home','viewWarehouse']">
             <i class="bi bi-circle"></i><span>List Warehouses</span>
           </a>
         </li>

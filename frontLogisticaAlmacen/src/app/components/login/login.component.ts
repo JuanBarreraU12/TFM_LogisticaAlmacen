@@ -27,25 +27,9 @@ export class LoginComponent implements OnInit {
     }
     else{
       localStorage.setItem('user', JSON.stringify(response));
-      switch(response.rol.name)
-      {
-        case "Operario":
-          Swal.fire("Hola Operador", '', 'success');
-          this.router.navigate(['/home-operario']);
-          break;
-        case "Jefe":
-            Swal.fire("Hola Jefe", '', 'success');
-            this.router.navigate(['/home']);
-            break;
-        case "Encargado":
-              Swal.fire("Hola Encargado", '', 'success');
-              this.router.navigate(['/home-encargado']);
-              break;
-        default:
-          Swal.fire("Rol no encontrado", '', 'error');
-          this.router.navigate(['/login']);
-          break;
-      }
+      
+      this.router.navigate(['/home']);
+      Swal.fire("Hola "+response.rol.name, '', 'success');
     }
   }
 
