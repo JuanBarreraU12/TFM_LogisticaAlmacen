@@ -20,14 +20,14 @@ export class MenuComponent implements OnInit {
   }
 
   setRol(){
-    if(this.user.rol.name="Jefe")
+    this.jefe=false;
+    this.operario=false;
+    this.encargado=false;
+    if(this.user.rol.name==="Jefe")
       this.jefe=true;
-    else if (this.user.rol.name="Operario")
+    else if (this.user.rol.name==="Operario")
       this.operario=true;
-    else if (this.user.rol.name="Encargado")
+    else if (this.user.rol.name==="Encargado")
       this.encargado=true;
   }
-
-
-
 }
