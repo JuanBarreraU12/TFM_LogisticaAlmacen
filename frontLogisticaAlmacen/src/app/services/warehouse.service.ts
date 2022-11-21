@@ -22,4 +22,8 @@ export class WarehouseService {
   getById(pId: number): Promise<any> {
     return lastValueFrom(this.httClient.get<Warehouse | any> (`${this.urlWarehouse}${pId}`))
   }
+
+  create(pWarehouse: Warehouse): Promise<Warehouse> {
+    return lastValueFrom(this.httClient.post<Warehouse>(this.urlWarehouse, pWarehouse))
+  }
 }

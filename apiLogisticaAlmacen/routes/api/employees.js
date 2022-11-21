@@ -5,7 +5,8 @@ const { badRequest } = require('../../helpers/validators');
 const { getAll, getById, create, update, deleteById } = require('../../models/employee.model');
 const { getRolById } = require('../../models/role.model');
 const { getuserByIdEmployee } = require('../../models/user.model');
-const { getwarehouseByIdUser } = require('../../models/users_warehouses.model')
+const { getwarehouseByIdUser } = require('../../models/users_warehouses.model');
+const { getWareHouseById } = require('../../models/warehouse.model');
 
 
 /* router.get('/', (req, res) => {
@@ -27,9 +28,11 @@ router.get('/', (req, res) => {
             for (let item of employee) {
                 const user = await getuserByIdEmployee(item.id);
                 if (user) {
-                    const id = user.id;
-                    console.log(id);
+                    
                     const userwarehause = await getwarehouseByIdUser(user.id);
+                    
+                    const rol = await getRolById(user.roles_id)
+                    const warehouse = await getWareHouseById(userwarehause.warehouses_id)
                     
                     const info = {
                         "id": item.id,
@@ -40,12 +43,8 @@ router.get('/', (req, res) => {
                         "dni": item.dni, 
                         "cell_phone": item.cell_phone,
                         "birth_date": item.birth_date,
-                        "rol": {
-                            "id": user.roles_id
-                        },
-                        "warehouse": {
-                            "id": userwarehause.id
-                        }
+                        "rol": rol,
+                        warehouse
                     }
                     respuesta.push(info);
                 }   
@@ -66,7 +65,8 @@ router.get('/:employeeId', async (req, res) => {
     const employee = await getById(employeeId);
     if (employee) {
         const user = await getuserByIdEmployee(employeeId)
-        if (user) {    
+        if (user) {   
+
             const userwarehause = await getwarehouseByIdUser(user.id)
             const response = {
                 "name": employee.name,
@@ -80,8 +80,9 @@ router.get('/:employeeId', async (req, res) => {
                     "id": user.roles_id
                 },
                 "warehouse": {
-                     "id": userwarehause.id
+                    "id": userwarehause.id
                 }
+                
             }
             res.json(response)
             

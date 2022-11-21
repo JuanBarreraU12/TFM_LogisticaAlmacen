@@ -21,6 +21,7 @@ import { OrderViewComponent } from './components/home-operario/order-view/order-
 import { HeaderComponent } from './components/header/header.component';
 import { OrderCardComponent } from './components/home-operario/order-card/order-card.component';
 import { PopupComponent } from './components/home-operario/popup/popup.component';
+import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PopupComponent } from './components/home-operario/popup/popup.component
     OrderViewComponent,
     OrderCardComponent,
     PopupComponent,
-    HeaderComponent
+    HeaderComponent,
+    ViewWarehouseComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@ export class FormWarehousesComponent implements OnInit {
     private activateRoute: ActivatedRoute
   ) { 
     this.userForm = new FormGroup({
+
       description: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -33,35 +34,73 @@ export class FormWarehousesComponent implements OnInit {
         Validators.maxLength(60)
       ]),
 
-    })
+    }, [])
   }
+
   async getDataForm(): Promise<void>{
     if (this.userForm.valid) {}
     else {
       Swal.fire(
-        'Informacion!',
-        'El formulario no esta bien relleno',
-        'info'
-      )
+      'Informacion!',
+      'El formulario no esta bien relleno',
+      'info');
     }
-    let infoFormulario = this.userForm.value;
-    if (infoFormulario.id) {
-      let response = await this.warehouseService.update(infoFormulario);
+
+    let newWarehouse = this.userForm.value;
+    console.log(newWarehouse);
+    if (newWarehouse.id) {
+      console.log('entro upd')
+      let response = await this.warehouseService.update(newWarehouse);
       if (response.id) {
         Swal.fire(
           'OK!',
-          'Warehouse actualizado',
+          'Almacen actualizado',
           'success')
           .then((result) => {
-          this.router.navigate(['/home-jefe'])
+            this.router.navigate(['/home', 'viewWarehouse'])
+        });
+      }
+      else {
+        Swal.fire(
+          'Error!',
+          response.error,
+          'error')
+          .then((result) => {
+            this.router.navigate(['/home','viewWarehouse']);
+        });
+
+      }
+    }
+    else {
+      console.log('entro crea')
+      let warehouseResponse = await this.warehouseService.create(newWarehouse)
+      if (warehouseResponse.id) {
+        Swal.fire(
+          'OK!',
+          'Almacen creado',
+          'success')
+          .then((result) => {
+          this.router.navigate(['/home','viewWarehouse'])
         })
       }
+      else {
+        Swal.fire(
+          'Error!',
+          'Hubo un error',
+          'error')
+          .then((result) => {
+            this.router.navigate(['/home','viewWarehouse']);
+        });
+
+      }
+
     }
     
   }
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(async (params: any) => {
+      console.log(params)
       let id: number = parseInt(params.idwarehouse);
       if (id) {
         this.type = 'Actualizar'
@@ -70,7 +109,7 @@ export class FormWarehousesComponent implements OnInit {
         this.userForm = new FormGroup({
           description: new FormControl(warehouse?.description, []),
           address: new FormControl(warehouse?.address, []),
-          id: new FormControl(warehouse?.id, []),
+          id: new FormControl(id, []),
         }, [])
       }
     })

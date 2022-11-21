@@ -10,11 +10,13 @@ import { OrdersListComponent } from './components/home-operario/orders-list/orde
 import { LoginComponent } from './components/login/login.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { HomeComponent } from './components/home/home.component';
+import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", component: LoginComponent },
   { path: "home-encargado", component: HomeEncargadoComponent },
+
   { path: "home", component: HomeComponent, children:[
     { path: '', pathMatch: 'full', redirectTo: 'home'},
     { path: "newEmployee", component: FormComponent },
@@ -22,11 +24,11 @@ const routes: Routes = [
     { path: "viewEmployee", component: ViewEmployeeComponent },
     { path: "updateEmployee/:idemployee", component: FormComponent },
     { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
-
     { path: 'neworder', component: OrderFormComponent },
     { path: 'updateorder/:orderId', component: OrderFormComponent },
     { path: 'order/:orderId', component: OrderViewComponent },
     { path: 'orderlist', component: OrdersListComponent },
+    { path: "viewWarehouse", component: ViewWarehouseComponent },
     ]
   },
   { path: "**", redirectTo: "login" }
