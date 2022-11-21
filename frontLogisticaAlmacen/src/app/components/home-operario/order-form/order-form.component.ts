@@ -9,9 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/interfaces/order.interface';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { OrdersService } from 'src/app/services/orders.service';
-import { WarehousesService } from 'src/app/services/warehouses.service';
 import * as dayjs from 'dayjs';
 import Swal from 'sweetalert2';
+import { WarehouseService } from 'src/app/services/warehouse.service';
 
 @Component({
   selector: 'app-order-form',
@@ -23,7 +23,7 @@ export class OrderFormComponent implements OnInit {
   warehouses: Warehouse[] = [];
   orderForm: FormGroup;
   constructor(
-    private warehousesServices: WarehousesService,
+    private warehousesServices: WarehouseService,
     private ordersService: OrdersService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -45,7 +45,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.warehouses = await this.warehousesServices.getAll();
+    this.warehouses = await this.warehousesServices.getAllWarehouse();
     this.activatedRoute.params.subscribe(async (params: any) => {
       let id = parseInt(params.orderId);
       if (id) {
