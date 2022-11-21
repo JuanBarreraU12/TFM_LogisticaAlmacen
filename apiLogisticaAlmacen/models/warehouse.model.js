@@ -13,10 +13,9 @@ const create = ({ description, address }) => {
   return executeQuery('INSERT INTO warehouses(description, address) values(?, ?)', [description, address]);
 }
 
-const update = (warehouseId, { description, address }) => {
-  return executeQuery('UPDATE warehouse SET description = ?, address = ?'[description, address, warehouseId]);
+const update = ({description, address,id }) => {
+  return executeQuery('UPDATE gestion_almacen.warehouses SET description = ?, address =? where id =?',[description, address, id]);
 }
-
 module.exports = {
   getAll,
   getWareHouseById,
