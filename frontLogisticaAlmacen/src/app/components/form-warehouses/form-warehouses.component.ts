@@ -14,12 +14,12 @@ export class FormWarehousesComponent implements OnInit {
 
   userForm: FormGroup
   type: string = 'Nuevo';
-
+  idWarehouse: number=0;
   constructor(
     private warehouseService: WarehouseService,
     private router: Router,
     private activateRoute: ActivatedRoute
-  ) { 
+  ) {
     this.userForm = new FormGroup({
 
       description: new FormControl('', [
@@ -45,13 +45,11 @@ export class FormWarehousesComponent implements OnInit {
       'El formulario no esta bien relleno',
       'info');
     }
-
     let newWarehouse = this.userForm.value;
-    console.log(newWarehouse);
-    if (newWarehouse.id) {
+    if (newWarehouse) {
       console.log('entro upd')
       let response = await this.warehouseService.update(newWarehouse);
-      if (response.id) {
+      if (response.affectedRows>0) {
         Swal.fire(
           'OK!',
           'Almacen actualizado',
@@ -95,12 +93,12 @@ export class FormWarehousesComponent implements OnInit {
       }
 
     }
-    
+
   }
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(async (params: any) => {
-      console.log(params)
+      this.idWarehouse=params.idwarehouse;
       let id: number = parseInt(params.idwarehouse);
       if (id) {
         this.type = 'Actualizar'
@@ -122,6 +120,6 @@ export class FormWarehousesComponent implements OnInit {
     else {
       return false;
     }
-  } 
+  }
 
 }

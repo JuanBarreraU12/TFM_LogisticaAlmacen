@@ -53,14 +53,16 @@ router.post('/',
     }
 });
 
-router.put('/:warehouseId', async (req, res) => {
+router.put('/', async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
-  const { warehouseId } = req.params;
-  const result = await update(warehouseId, req.body);
+  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS"); 
+  
+  const warehouse = req.body;
+  console.log(warehouse)
+  const result = await update(warehouse);
   res.json(result);
 });
 

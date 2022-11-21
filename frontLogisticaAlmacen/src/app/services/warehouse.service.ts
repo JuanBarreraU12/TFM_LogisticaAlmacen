@@ -16,7 +16,8 @@ export class WarehouseService {
   }
 
   update(pwarehouse: Warehouse): Promise<any> {
-    return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}${pwarehouse.id}`, pwarehouse))
+    console.log(pwarehouse)
+    return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}`, pwarehouse))
   }
 
   getById(pId: number): Promise<any> {
