@@ -58,8 +58,6 @@ router.get('/', (req, res) => {
 });
 
 
-
-
 router.get('/:employeeId', async (req, res) => {
     const { employeeId } = req.params;
     const employee = await getById(employeeId);

@@ -14,12 +14,17 @@ const create = ({ description, address }) => {
 }
 
 const update = (warehouseId, { description, address }) => {
-  return executeQuery('UPDATE warehouse SET description = ?, address = ?'[description, address, warehouseId]);
+  return executeQuery('UPDATE warehouses SET description = ?, address = ?'[description, address, warehouseId]);
+}
+
+const deleteById = (warehouseId) => {
+  return executeQuery('DELETE FROM warehouses WHERE id = ?', [warehouseId]);
 }
 
 module.exports = {
   getAll,
   getWareHouseById,
   create,
-  update
+  update,  
+  deleteById
 }
