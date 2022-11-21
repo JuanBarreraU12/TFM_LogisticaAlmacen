@@ -9,7 +9,17 @@ const getWareHouseById = (warehouseId) => {
   return executeQueryOne('select * from gestion_almacen.warehouses where id= ?', [warehouseId]);
 }
 
+const create = ({ description, address }) => {
+  return executeQuery('INSERT INTO warehouses(description, address) values(?, ?)', [description, address]);
+}
+
+const update = (warehouseId, { description, address }) => {
+  return executeQuery('UPDATE warehouse SET description = ?, address = ?'[description, address, warehouseId]);
+}
+
 module.exports = {
   getAll,
-  getWareHouseById
+  getWareHouseById,
+  create,
+  update
 }
