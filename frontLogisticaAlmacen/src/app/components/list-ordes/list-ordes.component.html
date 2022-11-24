@@ -1,42 +1,152 @@
 <div class="col-12">
-    <div class="card recent-sales overflow-auto">
+  <div class="card recent-sales overflow-auto">
+
+    <div class="card-body">
+      <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+      <input type="text" class="form-control" name ="filterOrder" placeholder="Search" [(ngModel)]="filterOrder" >
+      <hr>
+      <table class="table table-borderless datatable">
+
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">out_date</th>
+            <th scope="col"> truck_plate</th>
+            <th scope="col">comment</th>
+            <th scope="col">destiny</th>
+            <th scope="col">origin </th>
+            <th scope="col">Status</th>
+            <th scope="col" *ngIf=" salida == 'pararevision'|| entrada == 'enviado' ">show</th>
+            <th scope="col" *ngIf=" salida == 'pararevision'|| entrada == 'enviado' ">edit
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!--<tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder | paginate: { itemsPerPage: 10, currentPage: p}">-->
+            <tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder ">
+            <td>{{order?.id}}</td>
+            <td>{{order?.out_date}}</td>
+            <td>{{order?.truck_plate}}</td>
+            <td>{{order?.comment}}</td>
+            <td>{{order?.destiny}}</td>
+            <td>{{order?.origin}}</td>
+
+            <td ngClass=" badge {{order.state}}">{{order.state}}</td>
+            <td *ngIf="  entrada == 'enviado' "><button type="button"   class="btn btn-info btn-sm"  data-bs-toggle="modal"       [routerLink]="['/in-orders', order?.id]"    data-bs-target="#exampleModal">show</button></td>
+            <td *ngIf="  salida == 'pararevision' " ><button type="button"   class="btn btn-info btn-sm"  data-bs-toggle="modal" [routerLink]="['/out-orders', order?.id]"    data-bs-target="#exampleModal">show</button></td>
+            <td *ngIf="  entrada == 'enviado' "  ><button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal"     [routerLink]="['/in-orders', order?.id]"   data-bs-target="#editModal" >edit</button></td>
+            <td *ngIf="  salida == 'pararevision' " ><button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" [routerLink]="['/out-orders', order?.id]"   data-bs-target="#editModal" >edit</button></td>
 
 
-    
+          </tr>
 
-      <div class="card-body">
-        <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+        </tbody>
 
-        <table class="table table-borderless datatable">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">out_date</th>
-              <th scope="col"> truck_plate</th>
-              <th scope="col">comment</th>
-              <th scope="col">destiny</th>
-              <th scope="col">origin </th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-        
-            <tr *ngFor="let order of orderdata">
-              <td>{{order.id}}</td>
-              <td>{{order.out_date}}</td>
-              <td>{{order.truck_plate}}</td>
-              <td>{{order.comment}}</td>
-              <td>{{order.destiny}}</td>
-              <td>{{order.origin}}</td>
-              <td ngClass=" badge {{order.state}}">{{order.state}}</td>
-             
-              
-            </tr>
-         
-          </tbody>
-        </table>
+      </table>
+      <!--<pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+
+     <table class="table table-borderless datatable">
+
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Material locations</th>
+            <th scope="col"> location</th>
+            <th scope="col">quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let orders of orderdetails ">
+            <td>{{orders?.id}}</td>
+            <td>{{orders?.material}}</td>
+            <td>{{orders?.location}}</td>
+            <td>{{orders?.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- Modal para editar  -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!--modal para enviados-->
+      <div class="modal-body" *ngIf="  entrada == 'enviado'">
+
+        <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+          <option value="0">Seleccione una opción</option>
+          <option *ngFor="let dato of optionsin">
+
+            {{dato}}
+
+          </option>
+      </select>
+      <!-- Prueba para ver la opción seleccionado -->
+      <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)" [disabled]=" ids==0 || ids ==null  || ids ==undefined  ">Save changes</button>
+      </div>
+
+
 
       </div>
 
+
+      <!--modal para revision-->
+      <div class="modal-body" *ngIf="  salida == 'pararevision' ">
+
+        <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+          <option value="0">*Selecciona una opción</option>
+          <option *ngFor="let data of optionsout">
+
+            {{data}}
+
+          </option>
+      </select>
+      <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"   [disabled]=" ids==0 || ids ==null  || ids ==undefined  " >Save changes</button>
+
+
+      </div>
     </div>
-  </div><!-- End Recent Sales -->
+
+
+
+  </div>
+</div>
+</div>

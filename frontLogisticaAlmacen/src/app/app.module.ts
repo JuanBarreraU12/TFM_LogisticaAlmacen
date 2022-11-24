@@ -22,6 +22,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { OrderCardComponent } from './components/home-operario/order-card/order-card.component';
 import { PopupComponent } from './components/home-operario/popup/popup.component';
 import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
+import { InOrdersComponent } from './components/in-orders/in-orders.component';
+import { OutOrdersComponent } from './components/out-orders/out-orders.component';
+import { FiltroPipe } from './pipes/filtro.pipe';
+import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +48,10 @@ import { ViewWarehouseComponent } from './components/view-warehouse/view-warehou
     PopupComponent,
     HeaderComponent,
     ViewWarehouseComponent,
+    InOrdersComponent,
+    OutOrdersComponent,
+    FiltroPipe,
+    WarehousesUsersPipe
   ],
   imports: [
     BrowserModule,

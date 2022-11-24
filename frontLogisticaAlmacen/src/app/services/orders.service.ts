@@ -7,15 +7,24 @@ import { Order } from '../interfaces/order.interface';
   providedIn: 'root',
 })
 export class OrdersService {
-  baseUrl: String = 'http://localhost:3000/api/orders/';
-  constructor(private httpClient: HttpClient) { }
+  baseUrl: string = "http://localhost:3000/api/orders/"
+  URL2 = 'http://localhost:3000/api/orders/';
 
+constructor(private httpClient: HttpClient) { }
+
+  getOrders(){
+    return this.httpClient.get(this.baseUrl);
+  }
   getAll(): Promise<any> {
     return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}`));
   }
 
   getById(pId: Number): Promise<any>{
     return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}${pId}`));
+  }
+
+  updateState(pId: Number, pState: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.put<any>(`${this.URL2 }${pId}/s`, {state: pState}));
   }
 
   create(pOrder: Order): Promise<any>{

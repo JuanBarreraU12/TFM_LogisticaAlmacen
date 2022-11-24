@@ -24,32 +24,27 @@ router.get("/:orderId", async (req, res) => {
   }
 });
 
-router.post("/:orderId", existsOrder, availableLocations, async (req, res) => {
-  const { orderId } = req.params;
-  try {
-    const result = await create(orderId, req.body);
-    const detail = await getById(orderId, result.insertId);
-    res.json(detail);
-  } catch (error) {
-    serverError(res, error.message);
-  }
+router.get('/', async (req, res) => {
+    try {
+        const details = await getany();
+        res.json(details);
+    } catch (error) {
+        serverError(res, error.message);
+    }
 });
 
-router.put(
-  "/:orderId/details/:orderDetailId",
-  existsOrder,
-  existsOrderDetail,
-  availableLocations,
-  async (req, res) => {
-    const { orderId, orderDetailId } = req.params;
+router.post('/:orderId',
+    existsOrder,
+    availableLocations,
+    async (req, res) => {
+    const { orderId } = req.params;
     try {
-      const result = await update(orderId, orderDetailId, req.body);
-      res.json(result);
+        const result = await create(orderId, req.body);
+        res.json(result);
     } catch (error) {
-      serverError(res, error.message);
+        serverError(res, error.message);
     }
-  }
-);
+});
 
 router.delete(
   "/:orderId/details/:orderDetailId",

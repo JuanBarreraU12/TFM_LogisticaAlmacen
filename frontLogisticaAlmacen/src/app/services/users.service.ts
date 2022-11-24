@@ -9,6 +9,7 @@ import { User } from '../interfaces/user.interface';
 export class UsersService {
 
   baseUrl: string = "http://localhost:3000/api/users/login"
+  /*registerUrl: string = "http://localhost:3000/api/users/register/"*/
   userswarehouseUrl: string = "http://localhost:3000/api/users-warehouses/"
   constructor(private httpClient: HttpClient ) { }
 
@@ -26,10 +27,14 @@ export class UsersService {
     return lastValueFrom(this.httpClient.post<any>(this.baseUrl, pFormValue,httpOptions));
   }
 
-  
+ /*register(pUser: User): Promise<User> {
+    return lastValueFrom(this.httpClient.post<User>(this.registerUrl, pUser))
+  }*/
 
   userswarehouse(pUser: User): Promise<User> {
     return lastValueFrom(this.httpClient.post<User>(this.userswarehouseUrl, pUser))
   }
-
+  getEmployee(id: string): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`http://localhost:3000/api/employees/${id}`))
+  }
 }

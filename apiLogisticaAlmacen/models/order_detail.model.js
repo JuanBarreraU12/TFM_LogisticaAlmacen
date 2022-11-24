@@ -20,10 +20,21 @@ const deleteById = (orderId, orderDetailId) => {
     return executeQuery('DELETE FROM orders_details WHERE orders_id = ? AND id = ?', [orderId, orderDetailId]);
 }
 
+const deleteByOrder = (orderId) => {
+    return executeQuery('DELETE FROM orders_details WHERE orders_id = ?', [orderId]);
+}
+
+const getany =() => {
+    return executeQuery('SELECT od.id, m.name AS material, l.description AS location, ml.stock, od.quantity, (m.price * od.quantity) AS total FROM orders_details od JOIN materials_locations ml ON od.materials_locations_id = ml.id JOIN materials m ON ml.materials_id = m.id JOIN locations l ON ml.locations_id = l.id');  
+
+}
+
 module.exports = {
     getAll,
     getById,
     create,
     update,
-    deleteById
+    deleteById,
+    deleteByOrder,
+    getany
 }
