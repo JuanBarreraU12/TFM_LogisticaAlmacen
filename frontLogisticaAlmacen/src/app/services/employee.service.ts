@@ -30,5 +30,9 @@ export class EmployeeService {
   update(pEmployee: Employee): Promise<any> {
     return lastValueFrom(this.httpClient.put<any>(`${this.urlEmployee}${pEmployee.id}`, pEmployee))
   }
+
+  delete(pEmployee: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.delete<any>(`${this.urlEmployee}${pEmployee}`));
+  }
   
 }

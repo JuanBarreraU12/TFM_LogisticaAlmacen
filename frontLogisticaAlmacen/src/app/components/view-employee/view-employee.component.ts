@@ -31,4 +31,28 @@ async getEmployee(): Promise<void> {
     }
   }
 
+  deleteEmployee(pEmployee: number | undefined): void {
+    Swal.fire({
+      title: "Deseas borrar al Employee",
+      showDenyButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (pEmployee !== undefined) {
+          this.employeService.delete(pEmployee).then(response => {
+            if (response != null) {
+              Swal.fire(
+              'OK!',
+              'Usuario borrado',
+              'success')
+              this.getEmployee()
+            }
+          })
+          .catch(err=>(err))
+        }
+      }
+    })
+  }
+
 }

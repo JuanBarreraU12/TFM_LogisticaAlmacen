@@ -27,4 +27,8 @@ export class WarehouseService {
   create(pWarehouse: Warehouse): Promise<Warehouse> {
     return lastValueFrom(this.httClient.post<Warehouse>(this.urlWarehouse, pWarehouse))
   }
+
+  delete(pWarehouse: Number): Promise<any> {
+    return lastValueFrom(this.httClient.delete<any>(`${this.urlWarehouse}${pWarehouse}`));
+  }
 }

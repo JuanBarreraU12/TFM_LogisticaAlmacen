@@ -14,7 +14,8 @@ export class FormWarehousesComponent implements OnInit {
 
   userForm: FormGroup
   type: string = 'Nuevo';
-  idWarehouse: number=0;
+  idWarehouse: number = 0;
+  
   constructor(
     private warehouseService: WarehouseService,
     private router: Router,
@@ -47,7 +48,6 @@ export class FormWarehousesComponent implements OnInit {
     }
     let newWarehouse = this.userForm.value;
     if (newWarehouse) {
-      console.log('entro upd')
       let response = await this.warehouseService.update(newWarehouse);
       if (response.affectedRows>0) {
         Swal.fire(
@@ -66,11 +66,9 @@ export class FormWarehousesComponent implements OnInit {
           .then((result) => {
             this.router.navigate(['/home','viewWarehouse']);
         });
-
       }
     }
     else {
-      console.log('entro crea')
       let warehouseResponse = await this.warehouseService.create(newWarehouse)
       if (warehouseResponse.id) {
         Swal.fire(
@@ -89,11 +87,8 @@ export class FormWarehousesComponent implements OnInit {
           .then((result) => {
             this.router.navigate(['/home','viewWarehouse']);
         });
-
       }
-
     }
-
   }
 
   ngOnInit(): void {
