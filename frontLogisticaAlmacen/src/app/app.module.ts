@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { FormComponent } from './components/formEmployee/form.component';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
@@ -26,13 +25,12 @@ import { InOrdersComponent } from './components/in-orders/in-orders.component';
 import { OutOrdersComponent } from './components/out-orders/out-orders.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
-
+import { EncargadoComponent } from './components/encargado/encargado.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeEncargadoComponent,
     FormComponent,
     FormWarehousesComponent,
     ViewEmployeeComponent,
@@ -51,7 +49,8 @@ import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
     InOrdersComponent,
     OutOrdersComponent,
     FiltroPipe,
-    WarehousesUsersPipe
+    WarehousesUsersPipe,
+    EncargadoComponent
   ],
   imports: [
     BrowserModule,

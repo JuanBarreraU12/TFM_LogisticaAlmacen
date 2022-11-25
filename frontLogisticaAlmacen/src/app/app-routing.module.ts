@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
 import { FormComponent } from './components/formEmployee/form.component';
-import { HomeEncargadoComponent } from './components/home-encargado/home-encargado.component';
 import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
 import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
 import { OrdersListComponent } from './components/home-operario/orders-list/orders-list.component';
@@ -13,9 +12,10 @@ import { ViewWarehouseComponent } from './components/view-warehouse/view-warehou
 import { OutOrdersComponent } from './components/out-orders/out-orders.component';
 import { PopupComponent} from './components/home-operario/popup/popup.component';
 import { InOrdersComponent } from './components/in-orders/in-orders.component';
+import { EncargadoComponent } from './components/encargado/encargado.component';
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "login" },
+  { path: "", pathMatch: "full", redirectTo: "home" },
   { path: "login", component: LoginComponent },
   { path: "home", component: HomeComponent, children:[
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -24,20 +24,21 @@ const routes: Routes = [
     { path: "viewEmployee", component: ViewEmployeeComponent },
     { path: "updateEmployee/:idemployee", component: FormComponent },
     { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
+    //OPERARIO
     { path: 'neworder', component: OrderFormComponent },
     { path: 'updateorder/:orderId', component: OrderFormComponent },
     { path: 'order/:orderId', component: OrderViewComponent },
     { path: 'orderlist', component: OrdersListComponent },
     { path: "viewWarehouse", component: ViewWarehouseComponent },
-
-    { path: "home-encargado", component: HomeEncargadoComponent },
-    { path: 'home-encargado/:id', component: HomeEncargadoComponent},
+    //ENCARGADO
     { path: 'out-orders', component: OutOrdersComponent},
-    { path:'out-orders/:id', component: OutOrdersComponent},
+    { path: 'out-orders/:id', component: OutOrdersComponent},
     { path: 'in-orders', component: InOrdersComponent },
     { path: 'in-orders/:id', component: InOrdersComponent},
     { path: 'pop-up', component: PopupComponent},
-    ]
+    { path: 'encargado', component: EncargadoComponent},
+    { path: 'encargado/:id', component: EncargadoComponent}
+  ]
   },
   { path: "**", redirectTo: "login" }
 ];

@@ -71,7 +71,23 @@
 
 
   <div *ngIf="encargado">
-    <!-- MENÚ ENCARGADO-->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>orders</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a [routerLink]="['/home','in-orders',0]" routerLinkActive="active">
+            <i class="bi bi-circle"></i><span>entrada</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/home','out-orders',0]" routerLinkActive="active">
+            <i class="bi bi-circle"></i><span>salida</span>
+          </a>
+        </li>
+      </ul>
+    </li>
   </div>
 
 </ul>
