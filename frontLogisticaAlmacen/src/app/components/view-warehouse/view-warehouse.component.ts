@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { WarehouseService } from 'src/app/services/warehouse.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-warehouse',
@@ -23,9 +24,30 @@ export class ViewWarehouseComponent implements OnInit {
     try {
       let response = await this.werehouseServices.getAllWarehouse()
       this.arrWarehouse = response
-    } catch (err) {
+    } catch (err) { }
+  }
 
-    }
+  deleteWarehouse(pWarehouse: number | undefined): void {
+    Swal.fire({
+      title: "Deseas borrar al Warehouse",
+      showDenyButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (pWarehouse !== undefined) {
+          this.werehouseServices.delete(pWarehouse).then(response => {
+            if (response != null) {
+              Swal.fire(
+              'OK!',
+              'Usuario borrado',
+              'success')
+              this.getWarehouse()
+            }
+          })
+        }
+      }
+    })
   }
 
 }

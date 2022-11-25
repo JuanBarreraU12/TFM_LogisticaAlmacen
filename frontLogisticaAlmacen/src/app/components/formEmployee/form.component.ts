@@ -34,6 +34,7 @@ export class FormComponent implements OnInit {
     private userService: UsersService
   ) {
     this.userForm = new FormGroup({
+
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -51,36 +52,32 @@ export class FormComponent implements OnInit {
       ]),
 
       email: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
+        Validators.required,
+        Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
       ]),
 
       dni: new FormControl('', [
-      Validators.required,
+        Validators.required,
       ]),
 
       cell_phone: new FormControl('', [
-      Validators.required,
+        Validators.required,
       ]),
 
       birth_date: new FormControl('', [
-      Validators.required,
-      ])
-    })
-
+        Validators.required,
+      ]),
+    }, [])
   }
-
 
   async getDataForm(): Promise<void>{
     if (this.userForm.valid) { }
     else {
       Swal.fire(
-        'Informacion!',
-        'El formulario no esta bien relleno',
-        'info'
-      );
+      'Informacion!',
+      'El formulario no esta bien relleno',
+      'info');
     }
-
     let infoFormulario = this.userForm.value;
     if (infoFormulario.id) {
       let response = await this.employeeServices.update(infoFormulario);
@@ -90,8 +87,8 @@ export class FormComponent implements OnInit {
           'Employee actualizado',
           'success')
           .then((result) => {
-            this.router.navigate(['/home-jefe']);
-          });
+            this.router.navigate(['/home', 'viewEmployee']);
+        });
       }
       else {
         Swal.fire(
@@ -99,8 +96,8 @@ export class FormComponent implements OnInit {
           response.error,
           'error')
           .then((result) => {
-            this.router.navigate(['/home-jefe']);
-          });
+            this.router.navigate(['/home', 'viewEmployee']);
+        });
       }
     }
     else {
@@ -121,7 +118,7 @@ export class FormComponent implements OnInit {
               'Usuario creado',
               'success')
               .then((result) => {
-                this.router.navigate(['/home-jefe']);
+                this.router.navigate(['/home', 'viewEmployee']);
             });
           }
         }
@@ -133,7 +130,7 @@ export class FormComponent implements OnInit {
           'Hubo un error',
           'error')
           .then((result) => {
-            this.router.navigate(['/home-jefe']);
+            this.router.navigate(['/home', 'viewEmployee']);
         });
       }
     }
@@ -143,9 +140,7 @@ export class FormComponent implements OnInit {
     this.getRoles()
     this.getWarehouses()
     this.activateRoute.params.subscribe(async(params:any) => {
-      console.log(params);
       let id: number = parseInt(params.idemployee);
-      console.log(id);
       if (id) {
         this.type = 'Actualizar'
         const response = await this.employeeServices.getById(id)
@@ -188,10 +183,7 @@ export class FormComponent implements OnInit {
     try {
       let response = await this.warehouseService.getAllWarehouse()
       this.arrWarehouse = response;
-    } catch (err) {
-      console.log(err)
-    }
-
+    } catch (err) { }
   }
 
   seleccionarRol($event: any) {

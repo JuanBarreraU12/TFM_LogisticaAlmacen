@@ -13,13 +13,14 @@ const create = ({ description, address }) => {
   return executeQuery('INSERT INTO warehouses(description, address) values(?, ?)', [description, address]);
 }
 
-
 const deleteById = (warehouseId) => {
   return executeQuery('DELETE FROM warehouses WHERE id = ?', [warehouseId]);
 }
+
 const update = ({description, address,id }) => {
   return executeQuery('UPDATE gestion_almacen.warehouses SET description = ?, address =? where id =?',[description, address, id]);
 }
+
 module.exports = {
   getAll,
   getWareHouseById,
