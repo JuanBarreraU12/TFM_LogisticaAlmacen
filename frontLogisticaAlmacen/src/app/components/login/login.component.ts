@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('user');
   }
 
   async getLogin(pForm: any): Promise<void> {
