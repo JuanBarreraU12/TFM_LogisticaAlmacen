@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { serverError, notFound } = require('../../helpers/validators');
-const { create, getById, getAll, update, deleteById } = require('../../models/order.model');
+const { create, getById, getAll, update, deleteById, updateState } = require('../../models/order.model');
 const { existsOrder } = require('../../helpers/middlewares/order.middleware');
+const { body } = require('express-validator');
 
 router.get('/', async (req, res) => {
     try {
@@ -42,6 +43,16 @@ router.put('/:orderId', existsOrder, async (req, res) => {
         serverError(res, error.message);
     }
 });
+
+router.patch('/:orderId', existsOrder, async (req, res) => {
+    const { orderId } = req.params;
+    try {
+        const result = await updateState(orderId, req.body);
+        res.json(result);
+    } catch (error) {
+        serverError(res, error.message);
+    }
+})
 
 router.delete('/:orderId',
     existsOrder,
