@@ -26,6 +26,10 @@ export class OrdersService {
     return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}${pId}`, pOrder));
   }
 
+  updateState(pId: Number, pOrder: any): Promise<any>{
+    return lastValueFrom(this.httpClient.patch<any>(`${this.baseUrl}${pId}`, pOrder));
+  }
+
   delete(pId: Number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`));
   }

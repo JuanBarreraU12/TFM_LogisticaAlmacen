@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { identity } from 'rxjs';
 import { OrderDetail } from 'src/app/interfaces/order-detail.interface';
@@ -6,18 +6,21 @@ import { Order } from 'src/app/interfaces/order.interface';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
   selector: 'app-order-view',
   templateUrl: './order-view.component.html',
   styleUrls: ['./order-view.component.css'],
 })
-export class OrderViewComponent implements OnInit {
+export class OrderViewComponent implements OnInit, AfterViewChecked {
   order: Order | any;
   orderDetails: OrderDetail[] = [];
   newOrderDetails: OrderDetail[] = [];
   orderDetailsDeleted: Number[] = [];
   anyUpdate: Boolean = false;
+  isValid: Boolean = true;
+  controlDisable: boolean = false;
 
   constructor(
     private ordersService: OrdersService,
@@ -55,6 +58,12 @@ export class OrderViewComponent implements OnInit {
         if (ok) this.orderDetails = response;
       }
     });
+
+
+  }
+
+  ngAfterViewChecked(): void {
+    $('[data-toggle="tooltip"]').tooltip()
   }
 
   async deleteDetail(event: any): Promise<void> {
@@ -87,6 +96,35 @@ export class OrderViewComponent implements OnInit {
     let quantity = parseInt(control.value);
     row.setAttribute('data-detail-updated', true);
     this.anyUpdate = true;
+    const input = row.querySelector("td input[type='number']");
+
+    if (isNaN(quantity)) {
+      input.classList.add('error');
+      input.setAttribute('data-toggle', 'tooltip');
+      input.setAttribute('data-placement', 'rigth');
+      input.setAttribute('data-bs-original-title', 'El campo es requerido');
+      this.isValid = false;
+    }
+    else if (quantity <= 0) {
+      input.classList.add('error');
+      input.setAttribute('data-toggle', 'tooltip');
+      input.setAttribute('data-placement', 'rigth');
+      input.setAttribute('data-bs-original-title', 'La cantidad debe ser mayor a 0');
+      this.isValid = false;
+    }
+    else if (quantity > stock) {
+      input.classList.add('error');
+      input.setAttribute('data-toggle', 'tooltip');
+      input.setAttribute('data-placement', 'rigth');
+      input.setAttribute('data-bs-original-title', 'La cantidad no puede ser mayor al stock');
+    }
+    else { 
+      input.classList.remove('error');
+      input.removeAttribute('data-toggle');
+      input.removeAttribute('data-placement');
+      input.removeAttribute('data-bs-original-title');
+      this.isValid = true;
+    }
   }
 
   async saveDetails(): Promise<void> {

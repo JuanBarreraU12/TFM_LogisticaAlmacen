@@ -44,6 +44,6 @@
                 <textarea class="form-control" formControlName="comment" id="comment" rows="3"></textarea>
             </div>
         </div>
-        <input class="btn btn-primary me-2" type="submit" [disabled]="!orderForm.valid" [value]="this.action">
+        <input class="btn btn-primary me-2" type="submit" [disabled]="!orderForm.valid || controlDisable" [value]="this.action">
     </form>
 </div>

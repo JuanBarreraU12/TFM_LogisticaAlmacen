@@ -12,11 +12,34 @@ export class OrderCardComponent implements OnInit {
 
   @Input() myOrder!: Order;
   @Output() orderIdDeleted: EventEmitter<Number>;
+  @Output() orderUpdated: EventEmitter<Order[]>;
+  actionState: string = '';
+  newState: number = -1;
+  display: boolean = true;
   constructor(private ordersService: OrdersService) { 
     this.orderIdDeleted = new EventEmitter();
+    this.orderUpdated = new EventEmitter();
   }
 
   ngOnInit(): void {
+    switch (this.myOrder.stateId) {
+      case 1:
+        this.actionState = 'Revisar';
+        this.newState = 2;
+        break;
+      case 3:
+        this.actionState = 'Revisar';
+        this.newState = 2;
+        break;
+      case 4:
+        this.actionState = 'Enviar';
+        this.newState = 5;
+        break;
+      default:
+        this.actionState = '';
+        this.display = false;
+        break;
+    }
   }
 
   deleteOrder(): void {
@@ -25,8 +48,8 @@ export class OrderCardComponent implements OnInit {
       text: "¡Esta acción es irreversible!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#0d6efd',
+      cancelButtonColor: '#6c757d',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Eliminar',
       heightAuto: false
@@ -40,7 +63,7 @@ export class OrderCardComponent implements OnInit {
               text: `El pedido #${this.myOrder.id} fue eliminado`,
               icon: 'success',
               confirmButtonText: 'Ok',
-              confirmButtonColor: '#3085d6', 
+              confirmButtonColor: '#6c757d', 
               heightAuto: false
             });
             this.orderIdDeleted.emit(this.myOrder.id);
@@ -52,4 +75,24 @@ export class OrderCardComponent implements OnInit {
     });
   }
 
+  async changeState(): Promise<void> {
+    let order: any = {
+      stateId: this.newState
+    }
+
+    try {
+      let response = await this.ordersService.updateState(this.myOrder.id!, order);
+      if (response.affectedRows) { 
+        order.orderId = this.myOrder.id;
+        try {
+          response = await this.ordersService.getAll();
+          this.orderUpdated.emit(response);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

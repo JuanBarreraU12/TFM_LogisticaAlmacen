@@ -22,6 +22,7 @@ export class OrderFormComponent implements OnInit {
   action: String = 'Ingresar';
   warehouses: Warehouse[] = [];
   orderForm: FormGroup;
+  controlDisable: boolean = false;
   constructor(
     private warehousesServices: WarehousesService,
     private ordersService: OrdersService,
@@ -53,25 +54,47 @@ export class OrderFormComponent implements OnInit {
         try {
           let response = await this.ordersService.getById(id);
           if (response.id) {
+            if (
+              response.stateId === 2 ||
+              response.stateId === 4 ||
+              response.stateId === 5 ||
+              response.stateId === 6
+            )
+              this.controlDisable = true;
+
             this.orderForm = new FormGroup(
               {
                 id: new FormControl(response.id, []),
                 outDate: new FormControl(
-                  dayjs(response.out_date).format('YYYY-MM-DD'),
+                  {
+                    value: dayjs(response.out_date).format('YYYY-MM-DD'),
+                    disabled: this.controlDisable,
+                  },
                   [Validators.required]
                 ),
-                truckPlate: new FormControl(response.truck_plate, [
-                  Validators.required,
-                  Validators.minLength(7),
-                  Validators.maxLength(10),
-                ]),
-                origin: new FormControl(response.originId, [
-                  this.warehouseValidator,
-                ]),
-                destiny: new FormControl(response.destinyId, [
-                  this.warehouseValidator,
-                ]),
-                comment: new FormControl(response.comment, []),
+                truckPlate: new FormControl(
+                  {
+                    value: response.truck_plate,
+                    disabled: this.controlDisable,
+                  },
+                  [
+                    Validators.required,
+                    Validators.minLength(7),
+                    Validators.maxLength(10),
+                  ]
+                ),
+                origin: new FormControl(
+                  { value: response.originId, disabled: this.controlDisable },
+                  [this.warehouseValidator]
+                ),
+                destiny: new FormControl(
+                  { value: response.destinyId, disabled: this.controlDisable },
+                  [this.warehouseValidator]
+                ),
+                comment: new FormControl(
+                  { value: response.comment, disabled: this.controlDisable },
+                  []
+                ),
               },
               [this.checkWarehouses]
             );
