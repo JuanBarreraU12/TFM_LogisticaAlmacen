@@ -59,12 +59,7 @@ export class ListOrdesComponent implements OnInit {
         this.ruta = response?.id;
         console.log(this.ruta);
       }
-
-
     })
-
-
-
   }
 //ordenes con el mismo id retorna el mismo detalle
 updateState(pId: Number, pState: Number){

@@ -6,16 +6,8 @@ import { LoginComponent } from '../login/login.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css',
-  "../../../assets/vendor/bootstrap/css/bootstrap.min.css",
-  "../../../assets/vendor/bootstrap-icons/bootstrap-icons.css",
-  "../../../assets/vendor/boxicons/css/boxicons.min.css",
-  "../../../assets/vendor/quill/quill.snow.css",
-  "../../../assets/vendor/quill/quill.bubble.css",
-  "../../../assets/vendor/remixicon/remixicon.css",
-  "../../../assets/vendor/simple-datatables/style.css",
-  "../../../assets/css/style.css"
-]})
+  styleUrls: ['./home.component.css']
+})
 
 export class HomeComponent implements OnInit {
 
