@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   jefe : boolean = false;
   operario : boolean = false;
   encargado : boolean = false;
+  collapse : boolean = true;
   constructor() { }
 
   ngOnInit(): void {
@@ -29,5 +30,11 @@ export class MenuComponent implements OnInit {
       this.operario=true;
     else if (this.user.rol.name==="Encargado")
       this.encargado=true;
+  }
+  cambio(){
+    if(this.collapse)
+      this.collapse=false
+    else
+      this.collapse=true
   }
 }
