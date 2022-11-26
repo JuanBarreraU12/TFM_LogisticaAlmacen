@@ -14,5 +14,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.user = Utils.getSession();
   }
-
+  open(){
+    const box =  document.body.classList.contains('toggle-sidebar');
+    if (!box) {
+      document.body.classList.add('toggle-sidebar');
+    }
+    else  {
+      document.body.classList.remove('toggle-sidebar');
+    }
+  }
 }
