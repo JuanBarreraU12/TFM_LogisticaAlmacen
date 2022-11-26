@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Utils } from 'src/app/helpers/utils';
 import { Login } from 'src/app/interfaces/login.interface';
 
@@ -9,7 +10,8 @@ import { Login } from 'src/app/interfaces/login.interface';
 })
 export class HeaderComponent implements OnInit {
   user = {} as Login;
-  constructor() { }
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.user = Utils.getSession();
@@ -23,4 +25,9 @@ export class HeaderComponent implements OnInit {
       document.body.classList.remove('toggle-sidebar');
     }
   }
+  exit(){
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+
 }
