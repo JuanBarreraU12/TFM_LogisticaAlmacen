@@ -78,20 +78,16 @@ router.get('/:employeeId', async (req, res) => {
                     "id": user.roles_id
                 },
                 "warehouse": {
-                    "id": userwarehause.id
+                    "id": userwarehause.warehouses_id
                 }
                 
             }
             res.json(response)
             
-        }
-
-        
+        } 
     } else {
         res.json({ error: 'No existe un empleado con ese ID' })
     }
-
-   
 });
 
 router.post('/',
