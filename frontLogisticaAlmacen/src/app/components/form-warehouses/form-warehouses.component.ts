@@ -15,7 +15,7 @@ export class FormWarehousesComponent implements OnInit {
   userForm: FormGroup
   type: string = 'Nuevo';
   idWarehouse: number = 0;
-  
+
   constructor(
     private warehouseService: WarehouseService,
     private router: Router,
@@ -47,7 +47,7 @@ export class FormWarehousesComponent implements OnInit {
       'info');
     }
     let newWarehouse = this.userForm.value;
-    if (newWarehouse) {
+    if (this.idWarehouse>0) {
       let response = await this.warehouseService.update(newWarehouse);
       if (response.affectedRows>0) {
         Swal.fire(
@@ -69,7 +69,7 @@ export class FormWarehousesComponent implements OnInit {
       }
     }
     else {
-      let warehouseResponse = await this.warehouseService.create(newWarehouse)
+      let warehouseResponse = await this.warehouseService.create(newWarehouse);
       if (warehouseResponse.id) {
         Swal.fire(
           'OK!',
