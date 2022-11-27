@@ -5,7 +5,7 @@
       <span>Dashboard</span>
     </a>
   </li>
-
+  <!-- ROL JEFE -->
   <div *ngIf="jefe">
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
@@ -38,7 +38,11 @@
             <i class="bi bi-circle"></i><span>New Warehouses</span>
           </a>
         </li>
-
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home','newWerehouse']">
+            <i class="bi bi-circle"></i><span>User warehouses</span>
+          </a>
+        </li>
         <li>
           <a routerLinkActive="active" [routerLink]="['/home','viewWarehouse']">
             <i class="bi bi-circle"></i><span>List Warehouses</span>
@@ -48,7 +52,7 @@
     </li>
   </div>
 
-
+<!-- ROL OPERARIO -->
   <div *ngIf="operario">
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" (click)="cambio()">
@@ -69,7 +73,7 @@
     </li>
   </div>
 
-
+<!-- ROL ENCARGADO -->
   <div *ngIf="encargado">
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" >

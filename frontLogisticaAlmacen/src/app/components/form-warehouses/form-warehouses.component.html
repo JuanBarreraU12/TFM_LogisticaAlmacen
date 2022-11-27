@@ -6,18 +6,18 @@
 
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="description">Description</label>
-                <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
-                <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3 caracteres</p>
                 <div class="col-sm-10">
+                    <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
+                    <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3 caracteres</p>
                     <input class="form-control" type="text" id="description" formControlName="description">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="address">Address</label>
-                <p class="error" *ngIf="checkControl('first_last_name', 'required')">Campo requerido</p>
-                <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">La longitud del camo tiene que ser al menos de 5 caracteres</p>
                 <div class="col-sm-10">
+                    <p class="error" *ngIf="checkControl('first_last_name', 'required')">Campo requerido</p>
+                    <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">La longitud del camo tiene que ser al menos de 5 caracteres</p>
                     <input class="form-control" type="text" id="address" formControlName="address">
                 </div>
             </div>
@@ -30,6 +30,6 @@
             </div>
 
         </form>
-    
+
     </div>
 </div>
