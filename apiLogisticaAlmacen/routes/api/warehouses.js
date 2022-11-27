@@ -41,9 +41,7 @@ router.get('/:warehouseId', async (req, res) => {
 });
 
 router.post('/',
-  checkSchema(newWarehouse),
-  badRequest
-  , async (req, res) => {
+  checkSchema(newWarehouse), badRequest , async (req, res) => {
     try {
       const result = await create(req.body);
       const warehouse = await getWareHouseById(result.insertId);

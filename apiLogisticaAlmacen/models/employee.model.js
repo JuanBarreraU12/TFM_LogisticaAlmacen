@@ -1,15 +1,15 @@
 const { executeQuery, executeQueryOne } = require('../helpers/utils');
 
 const getEmployeeById = (employeeId) => {
-    return executeQueryOne('SELECT * FROM employees WHERE id = ?', [employeeId]);
+    return executeQueryOne('select id, name,first_last_name, second_last_name,email, dni,cell_phone, DATE_FORMAT(birth_date, "%d/%m/%Y") as birth_date from gestion_almacen.employees WHERE id = ?', [employeeId]);
 }
 
 const getAll = () => {
-    return executeQuery('SELECT * FROM employees');
+    return executeQuery('select id, name,first_last_name, second_last_name,email, dni,cell_phone, DATE_FORMAT(birth_date, "%d/%m/%Y") as birth_date from gestion_almacen.employees');
 }
 
 const getById = (employeeId) => {
-    return executeQueryOne('SELECT * FROM employees WHERE id = ?', [employeeId]);
+    return executeQueryOne('select id, name,first_last_name, second_last_name,email, dni,cell_phone, DATE_FORMAT(birth_date, "%d/%m/%Y") as birth_date from gestion_almacen.employees WHERE id = ?', [employeeId]);
 }
 
 const create = ({ name, first_last_name, second_last_name, email, dni, cell_phone, birth_date }) => {

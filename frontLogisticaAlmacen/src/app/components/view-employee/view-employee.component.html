@@ -28,17 +28,13 @@
                     <td>{{employee.birth_date}}</td>
                     <td>{{employee.rol.name}}</td>
                     <td>{{employee.warehouse.description}}</td>
-                    <td> 
+                    <td>
                         <button class="btn btn-danger me-2 btn-sm" (click)="deleteEmployee(employee.id)"><i class="fa-solid fa-trash"></i></button>
 
                         <button class="btn btn-dark btn-sm" [routerLink]="['/home','updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button>
                     </td>
                 </tr>
-
-                
             </tbody>
         </table>
-        <!-- End Bordered Table -->
-
     </div>
 </div>
