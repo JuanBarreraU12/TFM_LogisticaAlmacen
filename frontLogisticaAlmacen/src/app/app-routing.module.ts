@@ -15,7 +15,7 @@ import { InOrdersComponent } from './components/in-orders/in-orders.component';
 import { EncargadoComponent } from './components/encargado/encargado.component';
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "home" },
+  { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", component: LoginComponent },
   { path: "home", component: HomeComponent, children:[
     { path: '', pathMatch: 'full', redirectTo: 'home'},

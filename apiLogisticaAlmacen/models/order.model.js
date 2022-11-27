@@ -16,8 +16,8 @@ const update = (orderId, { out_date, truck_plate, comment, stateId, originId, de
     return executeQuery('UPDATE orders SET out_date = ?, truck_plate = ?, comment = ?, order_states_id = ?, warehouses_id_origin = ?, warehouses_id_destiny = ? WHERE id = ?', [out_date, truck_plate, comment, stateId, originId, destinyId, orderId]);
 }
 
-const updateState = (orderId, { state})=> {
-  return executeQuery('UPDATE orders SET order_states_id = ? WHERE id = ?', [state, orderId]);
+const updateState = (orderId, { stateId }) => {
+    return executeQuery('UPDATE orders SET order_states_id = ? WHERE id = ?', [stateId, orderId]);
 }
 
 const deleteById = (orderId) => {
@@ -38,6 +38,6 @@ module.exports = {
     getById,
     create,
     update,
-    deleteById,
-    updateState
+    updateState,
+    deleteById
 }
