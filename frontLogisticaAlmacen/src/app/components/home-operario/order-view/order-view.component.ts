@@ -36,6 +36,13 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
         let response;
         try {
           response = await this.ordersService.getById(id);
+          if (
+            response.stateId === 2 ||
+            response.stateId === 4 ||
+            response.stateId === 5 ||
+            response.stateId === 6
+          )
+            this.controlDisable = true;
         } catch (error: any) {
           error.error.forEach((err: any) => {
             Swal.fire(err.error, '', 'error');
@@ -58,12 +65,10 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
         if (ok) this.orderDetails = response;
       }
     });
-
-
   }
 
   ngAfterViewChecked(): void {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
   }
 
   async deleteDetail(event: any): Promise<void> {
@@ -99,31 +104,13 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
     const input = row.querySelector("td input[type='number']");
 
     if (isNaN(quantity)) {
-      input.classList.add('error');
-      input.setAttribute('data-toggle', 'tooltip');
-      input.setAttribute('data-placement', 'rigth');
-      input.setAttribute('data-bs-original-title', 'El campo es requerido');
-      this.isValid = false;
-    }
-    else if (quantity <= 0) {
-      input.classList.add('error');
-      input.setAttribute('data-toggle', 'tooltip');
-      input.setAttribute('data-placement', 'rigth');
-      input.setAttribute('data-bs-original-title', 'La cantidad debe ser mayor a 0');
-      this.isValid = false;
-    }
-    else if (quantity > stock) {
-      input.classList.add('error');
-      input.setAttribute('data-toggle', 'tooltip');
-      input.setAttribute('data-placement', 'rigth');
-      input.setAttribute('data-bs-original-title', 'La cantidad no puede ser mayor al stock');
-    }
-    else { 
-      input.classList.remove('error');
-      input.removeAttribute('data-toggle');
-      input.removeAttribute('data-placement');
-      input.removeAttribute('data-bs-original-title');
-      this.isValid = true;
+      this.addTooltip(input, 'El campo es requerido');
+    } else if (quantity <= 0) {
+      this.addTooltip(input, 'La cantidad debe ser mayor que 0');
+    } else if (quantity > stock) {
+      this.addTooltip(input, 'La cantidad no puede ser mayor al stock');
+    } else {
+      this.removeTootip(input);
     }
   }
 
@@ -259,5 +246,21 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
 
   addNewDetails(event: any): void {
     this.newOrderDetails.push(...event);
+  }
+
+  addTooltip(control: any, message: string): void {
+    control.classList.add('error');
+    control.setAttribute('data-toggle', 'tooltip');
+    control.setAttribute('data-placement', 'rigth');
+    control.setAttribute('data-bs-original-title', message);
+    this.isValid = false;
+  }
+
+  removeTootip(control: any) {
+    control.classList.remove('error');
+    control.removeAttribute('data-toggle');
+    control.removeAttribute('data-placement');
+    control.removeAttribute('data-bs-original-title');
+    this.isValid = true;
   }
 }

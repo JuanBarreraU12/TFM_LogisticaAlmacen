@@ -157,12 +157,10 @@ export class OrderFormComponent implements OnInit {
 
   changeOrigin(event: any): void {
     this.orderForm.value.origin = event.target.value;
-    console.log(this.orderForm.value.origin);
   }
 
   changeDestiny(event: any): void {
     this.orderForm.value.destiny = event.target.value;
-    console.log(this.orderForm.value.destiny);
   }
 
   checkControl(pControlName: string, pError: string): boolean {
