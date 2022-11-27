@@ -40,7 +40,7 @@ export class ViewWarehouseComponent implements OnInit {
             if (response != null) {
               Swal.fire(
               'OK!',
-              'Usuario borrado',
+              'Warehouse borrado',
               'success')
               this.getWarehouse()
             }

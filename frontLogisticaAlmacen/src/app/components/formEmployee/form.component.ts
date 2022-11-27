@@ -9,6 +9,7 @@ import { WarehouseService } from 'src/app/services/warehouse.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { Employee } from 'src/app/interfaces/employee.interface';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-form',
@@ -67,6 +68,7 @@ export class FormComponent implements OnInit {
       birth_date: new FormControl('', [
         Validators.required,
       ]),
+
     }, [])
   }
 
@@ -101,36 +103,58 @@ export class FormComponent implements OnInit {
       }
     }
     else {
-      let employeeResponse = await this.employeeServices.create(infoFormulario)
-      if (employeeResponse.id) {
-        infoFormulario.password = infoFormulario.dni;
-        infoFormulario.username = infoFormulario.email;
-        infoFormulario.employee_id = employeeResponse.id;
-        infoFormulario.role_id = this.rolSelected;
-        let userResponse = await this.employeeServices.register(infoFormulario);
-        if (userResponse.id) {
-          infoFormulario.user_id = userResponse.id;
-          infoFormulario.warehouse_id = this.warehouseSelected;
-          let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
-          if (userWarehouseResponse.id) {
+      if (this.rolSelected>0)
+      {
+        if (this.warehouseSelected>0)
+        {
+          let employeeResponse = await this.employeeServices.create(infoFormulario)
+          console.log(employeeResponse)
+          if (employeeResponse.id) {
+          infoFormulario.password = infoFormulario.dni;
+          infoFormulario.username = infoFormulario.email;
+          infoFormulario.employee_id = employeeResponse.id;
+          infoFormulario.role_id = this.rolSelected;
+
+          let userResponse = await this.employeeServices.register(infoFormulario);
+            if (userResponse.id) {
+              infoFormulario.user_id = userResponse.id;
+              infoFormulario.warehouse_id = this.warehouseSelected;
+              let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
+              if (userWarehouseResponse.id) {
+                  Swal.fire(
+                    'OK!',
+                    'Usuario creado',
+                    'success')
+                    .then((result) => {
+                      this.router.navigate(['/home', 'viewEmployee']);
+                  });
+              }
+            }
+          }
+          else {
             Swal.fire(
-              'OK!',
-              'Usuario creado',
-              'success')
+              'Error!',
+              'Hubo un error',
+              'error')
               .then((result) => {
-                this.router.navigate(['/home', 'viewEmployee']);
             });
           }
         }
+        else{
+          Swal.fire(
+            'Error!',
+            'Debe seleccionar un almacen',
+            'error')
+            .then((result) => {
+            });
+        }
       }
-
-      else {
+      else{
         Swal.fire(
           'Error!',
-          'Hubo un error',
+          'Debe seleccionar un rol',
           'error')
           .then((result) => {
-            this.router.navigate(['/home', 'viewEmployee']);
         });
       }
     }
@@ -154,7 +178,10 @@ export class FormComponent implements OnInit {
           email: new FormControl(employee?.email, []),
           dni: new FormControl(employee?.dni, []),
           cell_phone: new FormControl(employee?.cell_phone, []),
-          birth_date: new FormControl(employee?.birth_date, []),
+          birth_date: new FormControl(
+            dayjs(employee?.birth_date, []).format('YYYY-MM-DD'),
+            [Validators.required]
+          ),
           id: new FormControl(employee?.id, []),
         }, [])
       }
