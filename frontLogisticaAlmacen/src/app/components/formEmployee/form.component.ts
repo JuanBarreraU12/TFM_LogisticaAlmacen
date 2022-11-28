@@ -83,29 +83,64 @@ export class FormComponent implements OnInit {
       'El formulario no esta bien relleno',
       'info');
     }
+    //ACTUALIZAR
     let infoFormulario = this.userForm.value;
     if (infoFormulario.id) {
-      let response = await this.employeeServices.update(infoFormulario);
-      if (response.id) {
-        Swal.fire(
-          'OK!',
-          'Employee actualizado',
-          'success')
-          .then((result) => {
-            this.router.navigate(['/home', 'viewEmployee']);
-        });
+      let  validar: boolean=false;
+      for (let item of this.arrWarehouse)
+      {
+        if(item.isSelected)
+        {validar=true;}
       }
-      else {
+
+      if(validar)
+      {
+        if (this.rolSelected>0)
+        {
+          let response = await this.employeeServices.update(infoFormulario);
+          console.log(response);
+          if (response.affectedRows) {
+            Swal.fire(
+              'OK!',
+              'Employee actualizado',
+              'success')
+              .then((result) => {
+                this.router.navigate(['/home', 'viewEmployee']);
+            });
+          }
+          else {
+            Swal.fire(
+              'Error!',
+              response.error,
+              'error')
+              .then((result) => {
+            });
+          }
+        }
+        else{
+          Swal.fire(
+            'Error!',
+            'Debe seleccionar un rol',
+            'error')
+            .then((result) => {
+          });
+        }
+
+
+
+
+      }
+      else{
         Swal.fire(
           'Error!',
-          response.error,
+          'Debe seleccionar almenos un almacen',
           'error')
           .then((result) => {
-            this.router.navigate(['/home', 'viewEmployee']);
         });
       }
     }
     else {
+      //CREACION
       let  validar: boolean=false;
       for (let item of this.arrWarehouse)
       {
@@ -204,7 +239,7 @@ export class FormComponent implements OnInit {
             dayjs(employee?.birth_date, []).format('YYYY-MM-DD'),
             [Validators.required]
           ),
-          id: new FormControl(employee?.id, []),
+          id: new FormControl(id, []),
         }, [])
       }
     })
@@ -263,5 +298,15 @@ export class FormComponent implements OnInit {
       this.arrWarehouse[index] = newElement;
     }
     return warehouse;
+  }
+
+  Actualizar()
+  {
+
+  }
+
+  Crear()
+  {
+
   }
 }
