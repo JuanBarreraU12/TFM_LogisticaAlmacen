@@ -13,6 +13,7 @@ import { OutOrdersComponent } from './components/out-orders/out-orders.component
 import { PopupComponent} from './components/home-operario/popup/popup.component';
 import { InOrdersComponent } from './components/in-orders/in-orders.component';
 import { EncargadoComponent } from './components/encargado/encargado.component';
+import { ListEmployeeWarehouseComponent } from './components/list-employee-warehouse/list-employee-warehouse.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "home" },
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: "viewEmployee", component: ViewEmployeeComponent },
     { path: "updateEmployee/:idemployee", component: FormComponent },
     { path: "updateWarehouse/:idwarehouse", component: FormWarehousesComponent },
+    { path: "listEmployeeWarehouse/:idemployee", component: ListEmployeeWarehouseComponent },
     //OPERARIO
     { path: 'neworder', component: OrderFormComponent },
     { path: 'updateorder/:orderId', component: OrderFormComponent },
