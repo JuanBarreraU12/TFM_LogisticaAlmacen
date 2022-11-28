@@ -26,6 +26,7 @@ import { OutOrdersComponent } from './components/out-orders/out-orders.component
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
 import { EncargadoComponent } from './components/encargado/encargado.component';
+import { ListEmployeeWarehouseComponent } from './components/list-employee-warehouse/list-employee-warehouse.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
     OutOrdersComponent,
     FiltroPipe,
     WarehousesUsersPipe,
-    EncargadoComponent
+    EncargadoComponent,
+    ListEmployeeWarehouseComponent
   ],
   imports: [
     BrowserModule,
