@@ -22,6 +22,7 @@ export class OrderFormComponent implements OnInit {
   action: String = 'Ingresar';
   warehouses: Warehouse[] = [];
   orderForm: FormGroup;
+  controlDisable: boolean = false;
   constructor(
     private warehousesServices: WarehouseService,
     private ordersService: OrdersService,
@@ -53,25 +54,47 @@ export class OrderFormComponent implements OnInit {
         try {
           let response = await this.ordersService.getById(id);
           if (response.id) {
+            if (
+              response.stateId === 2 ||
+              response.stateId === 4 ||
+              response.stateId === 5 ||
+              response.stateId === 6
+            )
+              this.controlDisable = true;
+
             this.orderForm = new FormGroup(
               {
                 id: new FormControl(response.id, []),
                 outDate: new FormControl(
-                  dayjs(response.out_date).format('YYYY-MM-DD'),
+                  {
+                    value: dayjs(response.out_date).format('YYYY-MM-DD'),
+                    disabled: this.controlDisable,
+                  },
                   [Validators.required]
                 ),
-                truckPlate: new FormControl(response.truck_plate, [
-                  Validators.required,
-                  Validators.minLength(7),
-                  Validators.maxLength(10),
-                ]),
-                origin: new FormControl(response.originId, [
-                  this.warehouseValidator,
-                ]),
-                destiny: new FormControl(response.destinyId, [
-                  this.warehouseValidator,
-                ]),
-                comment: new FormControl(response.comment, []),
+                truckPlate: new FormControl(
+                  {
+                    value: response.truck_plate,
+                    disabled: this.controlDisable,
+                  },
+                  [
+                    Validators.required,
+                    Validators.minLength(7),
+                    Validators.maxLength(10),
+                  ]
+                ),
+                origin: new FormControl(
+                  { value: response.originId, disabled: this.controlDisable },
+                  [this.warehouseValidator]
+                ),
+                destiny: new FormControl(
+                  { value: response.destinyId, disabled: this.controlDisable },
+                  [this.warehouseValidator]
+                ),
+                comment: new FormControl(
+                  { value: response.comment, disabled: this.controlDisable },
+                  []
+                ),
               },
               [this.checkWarehouses]
             );
@@ -98,7 +121,7 @@ export class OrderFormComponent implements OnInit {
       try {
         let response = await this.ordersService.update(order.id, order);
         if (response.affectedRows > 0)
-          this.router.navigate(['/home', 'home']);
+          this.router.navigate(['/home', 'orderlist']);
       } catch (error: any) {
         error.error.forEach((err: any) => {
           Swal.fire(err.error, '', 'error');
@@ -107,7 +130,7 @@ export class OrderFormComponent implements OnInit {
     } else {
       try {
         let response = await this.ordersService.create(order);
-        if (response.id) this.router.navigate(['/home', 'home']);
+        if (response.id) this.router.navigate(['/home', 'orderlist']);
       } catch (error: any) {
         error.error.forEach((err: any) => {
           Swal.fire(err.error, '', 'error');
@@ -134,12 +157,10 @@ export class OrderFormComponent implements OnInit {
 
   changeOrigin(event: any): void {
     this.orderForm.value.origin = event.target.value;
-    console.log(this.orderForm.value.origin);
   }
 
   changeDestiny(event: any): void {
     this.orderForm.value.destiny = event.target.value;
-    console.log(this.orderForm.value.destiny);
   }
 
   checkControl(pControlName: string, pError: string): boolean {

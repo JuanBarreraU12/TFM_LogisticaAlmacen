@@ -25,4 +25,9 @@ export class OrdersListComponent implements OnInit {
     let tempArray = this.orders.filter(o => o.id !== event);
     this.orders = tempArray;
   }
+
+  getOrderUpdated(event: any): void {
+    this.orders = [];
+    this.orders = event;
+  }
 }
