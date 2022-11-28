@@ -16,7 +16,7 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 import { ListEmployeeWarehouseComponent } from './components/list-employee-warehouse/list-employee-warehouse.component';
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "home" },
+  { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", component: LoginComponent },
   { path: "home", component: HomeComponent, children:[
     { path: '', pathMatch: 'full', redirectTo: 'home'},
