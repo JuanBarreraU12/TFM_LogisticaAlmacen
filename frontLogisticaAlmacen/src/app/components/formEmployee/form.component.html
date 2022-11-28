@@ -74,18 +74,18 @@
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Warehouse</label>
-                <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" (change)="seleccionarAlmacen($event)" [value]="warehouseSelected">
-                    <option selected>---</option>
-                    <option [value]="warehouse.id" *ngFor="let warehouse of arrWarehouse"
-                    [selected]="warehouse.id === warehouseSelected" >{{warehouse.description}}</option>
-                    </select>
+              <legend class="col-form-label col-sm-2 pt-0">Almacenes</legend>
+              <div class="col-sm-10">
+                <div class="form-check" *ngFor="let warehouse of arrWarehouse">
+                  <input class="form-check-input" type="checkbox" id={{warehouse.id}} (change)="isAllSelected(warehouse)" >
+                  <label class="form-check-label" for={{warehouse.id}}>
+                    {{warehouse.description}}
+                  </label>
                 </div>
+              </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Submit</label>
                 <div class="col-sm-10">
                     <input type="submit" [value]="type" class="btn btn-primary" [disabled]="!userForm.valid">
                 </div>

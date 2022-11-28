@@ -1,5 +1,6 @@
 export interface Warehouse {
     id?: number,
     description: string,
-    address: string
+    address: string,
+    isSelected: boolean
 }

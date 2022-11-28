@@ -15,9 +15,14 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const result = await register(req.body);
-    const uwarehouse = await getByIdUwarehouse(result.insertId)
-      res.json(uwarehouse);
+    const arrWarehouses=[];
+    for (let item of req.body.users_warehouses) {
+      console.log(item);
+      const result = await register(item);
+      const uwarehouse = await getByIdUwarehouse(result.insertId)
+      arrWarehouses.push(uwarehouse);
+    }
+    res.json(arrWarehouses);
   } catch (error) {
       res.json({ fatal: error.message });
   }

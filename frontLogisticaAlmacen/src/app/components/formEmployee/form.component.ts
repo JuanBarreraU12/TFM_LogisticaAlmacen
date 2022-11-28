@@ -10,6 +10,7 @@ import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { Employee } from 'src/app/interfaces/employee.interface';
 import * as dayjs from 'dayjs';
+import { User_warehouse } from 'src/app/interfaces/user_warehouses.interface';
 
 @Component({
   selector: 'app-form',
@@ -24,6 +25,8 @@ export class FormComponent implements OnInit {
   type: string = 'Registrar';
   rolSelected: number = 0;
   warehouseSelected: number = 0;
+  arrawarehouseSelected: User_warehouse[] =[];
+  masterSelected:boolean=false;
 
 
   constructor(
@@ -103,56 +106,75 @@ export class FormComponent implements OnInit {
       }
     }
     else {
-      if (this.rolSelected>0)
+      let  validar: boolean=false;
+      for (let item of this.arrWarehouse)
       {
-        if (this.warehouseSelected>0)
+        if(item.isSelected)
+        {validar=true;}
+      }
+      if(validar)
+      {
+        if (this.rolSelected>0)
         {
-          let employeeResponse = await this.employeeServices.create(infoFormulario)
-          console.log(employeeResponse)
-          if (employeeResponse.id) {
-          infoFormulario.password = infoFormulario.dni;
-          infoFormulario.username = infoFormulario.email;
-          infoFormulario.employee_id = employeeResponse.id;
-          infoFormulario.role_id = this.rolSelected;
+            let employeeResponse = await this.employeeServices.create(infoFormulario)
+            if (employeeResponse.id) {
+            infoFormulario.password = infoFormulario.dni;
+            infoFormulario.username = infoFormulario.email;
+            infoFormulario.employee_id = employeeResponse.id;
+            infoFormulario.role_id = this.rolSelected;
 
-          let userResponse = await this.employeeServices.register(infoFormulario);
-            if (userResponse.id) {
-              infoFormulario.user_id = userResponse.id;
-              infoFormulario.warehouse_id = this.warehouseSelected;
-              let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
-              if (userWarehouseResponse.id) {
-                  Swal.fire(
-                    'OK!',
-                    'Usuario creado',
-                    'success')
-                    .then((result) => {
-                      this.router.navigate(['/home', 'viewEmployee']);
-                  });
+            let userResponse = await this.employeeServices.register(infoFormulario);
+              if (userResponse.id) {
+
+                infoFormulario.user_id = userResponse.id;
+                infoFormulario.warehouse_id = this.warehouseSelected;
+                for (let item of this.arrWarehouse)
+                {
+                  if(item.isSelected)
+                  {
+                    const warehouseSelected={
+                      user_id: userResponse.id,
+                      warehouse_id: item.id
+                    }
+                    this.arrawarehouseSelected.push(warehouseSelected);
+                  }
+                }
+                infoFormulario.users_warehouses=this.arrawarehouseSelected;
+                let userWarehouseResponse = await this.userService.userswarehouse(infoFormulario);
+                if (userWarehouseResponse!=null) {
+                    Swal.fire(
+                      'OK!',
+                      'Usuario creado',
+                      'success')
+                      .then((result) => {
+                        this.router.navigate(['/home', 'viewEmployee']);
+                    });
+                }
               }
             }
-          }
-          else {
-            Swal.fire(
-              'Error!',
-              'Hubo un error',
-              'error')
-              .then((result) => {
-            });
-          }
+            else {
+              Swal.fire(
+                'Error!',
+                'Hubo un error',
+                'error')
+                .then((result) => {
+              });
+            }
+
         }
         else{
           Swal.fire(
             'Error!',
-            'Debe seleccionar un almacen',
+            'Debe seleccionar un rol',
             'error')
             .then((result) => {
-            });
+          });
         }
       }
       else{
         Swal.fire(
           'Error!',
-          'Debe seleccionar un rol',
+          'Debe seleccionar almenos un almacen',
           'error')
           .then((result) => {
         });
@@ -208,8 +230,17 @@ export class FormComponent implements OnInit {
 
   async getWarehouses(): Promise<void> {
     try {
-      let response = await this.warehouseService.getAllWarehouse()
-      this.arrWarehouse = response;
+      let response = await this.warehouseService.getAllWarehouse();
+      for(let item of response)
+      {
+          const warehouse={
+            id : item.id,
+            description : item.description,
+            address : item.address,
+            isSelected : false
+          };
+          this.arrWarehouse.push(warehouse);
+      }
     } catch (err) { }
   }
 
@@ -220,4 +251,17 @@ export class FormComponent implements OnInit {
     this.warehouseSelected = parseInt($event.target.value);
   }
 
+  // Check All Checkbox Checked
+  isAllSelected(warehouse : Warehouse) {
+    const index: number = this.arrWarehouse.indexOf(warehouse);
+    if (index !== -1) {
+      const newElement=warehouse;
+      if (newElement.isSelected)
+        newElement.isSelected=false;
+      else
+        newElement.isSelected=true;
+      this.arrWarehouse[index] = newElement;
+    }
+    return warehouse;
+  }
 }
