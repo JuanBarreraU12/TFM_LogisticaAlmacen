@@ -1,6 +1,5 @@
 <div class="card shadow">
-    <div class="card-body position-relative">
-        <button *ngIf="display" class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-1" (click)="changeState()">{{ actionState }}</button>
+    <div class="card-body">
         <h5 class="card-title">Pedido # {{ myOrder.id }}</h5>
         <h6 class="card-subtitle mb-2">{{ myOrder.state }}</h6>
         <p class="card-text m-0">Fecha de salida: {{ myOrder.out_date | date: 'MM/dd/yyyy' }}</p>

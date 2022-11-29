@@ -9,5 +9,4 @@ select.ng-invalid.ng-touched{
 .error {
     color: tomato;
     font-size: 12px;
-    margin: 0;
 }
