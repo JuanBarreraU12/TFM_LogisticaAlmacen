@@ -3,7 +3,7 @@ const { checkSchema } = require('express-validator');
 const { badRequest } = require('../../helpers/validators');
 const {newWarehouse} = require ('../../helpers/schemas/warehouse.schema')
 const { getLocationByWarehouseId } = require('../../models/location.model');
-const { getAll,getWareHouseById, create, update, deleteById, getWarehousebyIdEmployee } = require('../../models/warehouse.model');
+const { getAll,getWareHouseById, create, update, deleteById } = require('../../models/warehouse.model');
 
 router.get('/', (req, res) =>  {
   getAll()
@@ -39,27 +39,6 @@ router.get('/:warehouseId', async (req, res) => {
     res.json({ error: 'No existe un almacen con ese ID'})
   }
 });
-
-
-router.get('/employee/:employeeId', async (req, res) => {
-  const { employeeId } = req.params;
-  const warehouse = await getWarehousebyIdEmployee(employeeId);
-  console.log(warehouse)
-  let respuesta = [];
-  for (let item of warehouse) {
-    console.log(item)
-   
-
-    const response = {
-      "id": item.id,
-      "description": item.description,
-      "address": item.address
-    }
-    respuesta.push(response)     
-  }
-  res.json(respuesta)
-  
-})
 
 router.post('/',
   checkSchema(newWarehouse), badRequest , async (req, res) => {

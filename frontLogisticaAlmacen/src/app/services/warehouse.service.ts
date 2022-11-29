@@ -9,7 +9,6 @@ import { Warehouse } from '../interfaces/warehouse.interface';
 export class WarehouseService {
 
   urlWarehouse: string = "http://localhost:3000/api/warehouses/"
-  urlWarehouseEmployee: string = "http://localhost:3000/api/warehouses/employee/"
   constructor(private httClient: HttpClient) { }
 
   getAllWarehouse(): Promise<any> {
@@ -31,9 +30,5 @@ export class WarehouseService {
 
   delete(pWarehouse: Number): Promise<any> {
     return lastValueFrom(this.httClient.delete<any>(`${this.urlWarehouse}${pWarehouse}`));
-  }
-
-  getWarehousebyIdEmployee(employeeId: Number): Promise<any> {
-    return lastValueFrom(this.httClient.get<any>(`${this.urlWarehouseEmployee}${employeeId}`))
   }
 }
