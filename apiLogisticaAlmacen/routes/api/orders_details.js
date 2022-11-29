@@ -46,6 +46,19 @@ router.post('/:orderId',
     }
 });
 
+router.put('/:orderId/details/:orderDetailId',
+  existsOrder,
+  existsOrderDetail,
+  async (req, res) => {
+    const { orderId, orderDetailId } = req.params;
+    try {
+      const result = await update(orderId, orderDetailId, req.body);
+      res.json(result);
+    } catch (error) {
+      serverError(res, error.message);
+    }
+})
+
 router.delete(
   "/:orderId/details/:orderDetailId",
   existsOrder,
