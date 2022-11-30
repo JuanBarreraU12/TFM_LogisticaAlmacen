@@ -1,0 +1,136 @@
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/home']">
+      <i class="bi bi-grid"></i>
+      <span>Home</span>
+    </a>
+  </li>
+  <!-- ROL JEFE -->
+  <div *ngIf="jefe">
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-target="#components-nav"
+        data-bs-toggle="collapse"
+      >
+        <i class="bi bi-menu-button-wide"></i><span>Employees</span
+        ><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+
+      <ul
+        id="components-nav"
+        class="nav-content collapse"
+        data-bs-parent="#sidebar-nav"
+      >
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home', 'newEmployee']">
+            <i class="bi bi-circle"></i><span>New Employee</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home', 'viewEmployee']">
+            <i class="bi bi-circle"></i><span>Employees List</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-target="#forms-nav"
+        data-bs-toggle="collapse"
+      >
+        <i class="bi bi-journal-text"></i><span>Warehouses</span
+        ><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+
+      <ul
+        id="forms-nav"
+        class="nav-content collapse"
+        data-bs-parent="#sidebar-nav"
+      >
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home', 'newWerehouse']">
+            <i class="bi bi-circle"></i><span>New Warehouse</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="active"
+            [routerLink]="['/home', 'viewWarehouse']"
+          >
+            <i class="bi bi-circle"></i><span>Warehouses List</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+
+  <!-- ROL OPERARIO -->
+  <div *ngIf="operario">
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-target="#components-nav"
+        data-bs-toggle="collapse"
+        (click)="cambio()"
+      >
+        <i class="bi bi-menu-button-wide"></i><span>Orders</span
+        ><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul
+        id="components-nav"
+        [ngClass]="
+          collapse ? 'nav-content collapse' : 'nav-content collapse show'
+        "
+        data-bs-parent="#sidebar-nav"
+      >
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home', 'neworder']">
+            <i class="bi bi-circle"></i><span>New Order</span>
+          </a>
+        </li>
+        <li>
+          <a routerLinkActive="active" [routerLink]="['/home', 'orderlist']">
+            <i class="bi bi-circle"></i><span>Orders List</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+
+  <!-- ROL ENCARGADO -->
+  <div *ngIf="encargado">
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        data-bs-target="#tables-nav"
+        data-bs-toggle="collapse"
+      >
+        <i class="bi bi-layout-text-window-reverse"></i><span>Orders</span
+        ><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul
+        id="tables-nav"
+        class="nav-content collapse"
+        data-bs-parent="#sidebar-nav"
+      >
+        <li>
+          <a [routerLink]="['/home', 'in-orders', 0]" routerLinkActive="active">
+            <i class="bi bi-circle"></i><span>In</span>
+          </a>
+        </li>
+        <li>
+          <a
+            [routerLink]="['/home', 'out-orders', 0]"
+            routerLinkActive="active"
+          >
+            <i class="bi bi-circle"></i><span>Out</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </div>
+</ul>

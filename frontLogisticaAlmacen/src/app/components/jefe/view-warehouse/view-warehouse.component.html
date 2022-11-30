@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Warehouse list</h1>
+        <p></p>
+        <!-- Bordered Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+                <tr *ngFor="let warehouse of arrWarehouse">
+                    <th scope="row"></th>
+                    <td>{{warehouse.description}} </td>
+                    <td>{{warehouse.address}}</td>
+                    <td> 
+                        <button class="btn btn-danger me-2 btn-sm" (click)="deleteWarehouse(warehouse.id)"><i class="fa-solid fa-trash"></i></button>
+
+                        <button class="btn btn-dark btn-sm" [routerLink]="['/home','updateWarehouse', warehouse.id]"><i class="fa-solid fa-rotate-right"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- End Bordered Table -->
+
+    </div>
+</div>

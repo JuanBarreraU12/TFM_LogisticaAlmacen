@@ -1,0 +1,22 @@
+<header>
+  <app-header
+    id="header"
+    class="header fixed-top d-flex align-items-center"
+  ></app-header>
+</header>
+<aside id="sidebar" class="sidebar">
+  <!-- MENÚ -->
+  <app-menu></app-menu>
+</aside>
+<div class="h-100 d-flex flex-column">
+  <main id="main" class="main mb-auto">
+    <section class="section dashboard">
+      <div class="row">
+        <router-outlet> </router-outlet>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <app-footer id="footer" class="footer mt-auto"></app-footer>
+  </footer>
+</div>

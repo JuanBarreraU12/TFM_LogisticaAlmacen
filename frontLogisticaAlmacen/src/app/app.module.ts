@@ -3,42 +3,39 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/common/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormComponent } from './components/formEmployee/form.component';
-import { FormWarehousesComponent } from './components/form-warehouses/form-warehouses.component';
-import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
-import { ListOrdesComponent } from './components/list-ordes/list-ordes.component';
-import { HomeComponent } from './components/home/home.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { HeadComponent } from './components/head/head.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { OrdersListComponent } from './components/home-operario/orders-list/orders-list.component';
-import { OrderFormComponent } from './components/home-operario/order-form/order-form.component';
-import { OrderViewComponent } from './components/home-operario/order-view/order-view.component';
-import { HeaderComponent } from './components/header/header.component';
-import { OrderCardComponent } from './components/home-operario/order-card/order-card.component';
-import { PopupComponent } from './components/home-operario/popup/popup.component';
-import { ViewWarehouseComponent } from './components/view-warehouse/view-warehouse.component';
-import { InOrdersComponent } from './components/in-orders/in-orders.component';
-import { OutOrdersComponent } from './components/out-orders/out-orders.component';
+import { FormEmployeeComponent } from './components/jefe/form-employee/form-employee.component';
+import { FormWarehousesComponent } from './components/jefe/form-warehouses/form-warehouses.component';
+import { ViewEmployeeComponent } from './components/jefe/view-employee/view-employee.component';
+import { ListOrdersComponent } from './components/encargado/list-orders/list-orders.component';
+import { HomeComponent } from './components/common/home/home.component';
+import { MenuComponent } from './components/common/menu/menu.component';
+import { FooterComponent } from './components/common/footer/footer.component';
+import { OrdersListComponent } from './components/operario/orders-list/orders-list.component';
+import { OrderFormComponent } from './components/operario/order-form/order-form.component';
+import { OrderViewComponent } from './components/operario/order-view/order-view.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { OrderCardComponent } from './components/operario/order-card/order-card.component';
+import { PopupComponent } from './components/operario/popup/popup.component';
+import { ViewWarehouseComponent } from './components/jefe/view-warehouse/view-warehouse.component';
+import { InOrdersComponent } from './components/encargado/in-orders/in-orders.component';
+import { OutOrdersComponent } from './components/encargado/out-orders/out-orders.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
-import { EncargadoComponent } from './components/encargado/encargado.component';
-import { ListEmployeeWarehouseComponent } from './components/list-employee-warehouse/list-employee-warehouse.component';
+import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    FormComponent,
+    FormEmployeeComponent,
     FormWarehousesComponent,
     ViewEmployeeComponent,
-    ListOrdesComponent,
+    ListOrdersComponent,
     HomeComponent,
     MenuComponent,
-    HeadComponent,
     FooterComponent,
     OrdersListComponent,
     OrderFormComponent,
@@ -51,7 +48,6 @@ import { ListEmployeeWarehouseComponent } from './components/list-employee-wareh
     OutOrdersComponent,
     FiltroPipe,
     WarehousesUsersPipe,
-    EncargadoComponent,
     ListEmployeeWarehouseComponent
   ],
   imports: [
