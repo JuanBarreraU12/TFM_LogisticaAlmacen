@@ -26,6 +26,7 @@ export class FormComponent implements OnInit {
   warehouseSelected: number = 0;
   arrawarehouseSelected: User_warehouse[] = [];
   masterSelected: boolean = false;
+  arrWarehouseSelected: Warehouse[] = [];
 
   constructor(
     private employeeServices: EmployeeService,
@@ -84,7 +85,13 @@ export class FormComponent implements OnInit {
       if (validar) {
         if (this.rolSelected > 0) {
           let response = await this.employeeServices.update(infoFormulario);
-          console.log(response);
+
+
+
+
+
+
+
           if (response.affectedRows) {
             Swal.fire('OK!', 'Employee actualizado', 'success').then(
               (result) => {
@@ -178,7 +185,23 @@ export class FormComponent implements OnInit {
         const response = await this.employeeServices.getById(id);
         const employee: Employee = response;
         this.rolSelected = employee?.rol.id || 0;
-        this.warehouseSelected = employee?.warehouse.id || 0;
+        const warehouseSelected = await this.warehouseService.getWarehousebyIdEmployee(id);
+        for(let item of warehouseSelected)
+        {
+          item.isSelected=true;
+          this.arrWarehouseSelected.push(item);
+        }
+
+        for(let item of this.arrWarehouse)
+        {
+          for(let item2 of this.arrWarehouseSelected)
+          {
+            if(item.id===item2.id)
+            {
+              item.isSelected=true;
+            }
+          }
+        }
         this.userForm = new FormGroup(
           {
             name: new FormControl(employee?.name, []),

@@ -77,7 +77,7 @@
               <legend class="col-form-label col-sm-2 pt-0">Almacenes</legend>
               <div class="col-sm-10">
                 <div class="form-check" *ngFor="let warehouse of arrWarehouse">
-                  <input class="form-check-input" type="checkbox" id={{warehouse.id}} (change)="isAllSelected(warehouse)" >
+                  <input class="form-check-input" type="checkbox" id={{warehouse.id}} (change)="isAllSelected(warehouse)" [checked]="warehouse.isSelected">
                   <label class="form-check-label" for={{warehouse.id}}>
                     {{warehouse.description}}
                   </label>

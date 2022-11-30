@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
                         "id": item.id,
                         "name": item.name,
                         "first_last_name": item.first_last_name,
-                        "second_last_name": item.first_last_name, 
+                        "second_last_name": item.second_last_name, 
                         "email": item.email, 
                         "dni": item.dni, 
                         "cell_phone": item.cell_phone,
@@ -69,7 +69,7 @@ router.get('/:employeeId', async (req, res) => {
             const response = {
                 "name": employee.name,
                 "first_last_name": employee.first_last_name,
-                "second_last_name": employee.first_last_name, 
+                "second_last_name": employee.second_last_name, 
                 "email": employee.email, 
                 "dni": employee.dni, 
                 "cell_phone": employee.cell_phone,
