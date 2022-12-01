@@ -9,50 +9,40 @@ const { getwarehouseByIdUser } = require('../../models/users_warehouses.model');
 const { getWareHouseById } = require('../../models/warehouse.model');
 
 
-/* router.get('/', (req, res) => {
+router.get('/', (req, res) => {
     getAll()
-        .then (employee => {
+        .then(async (employee) => {
+            let respuesta = [];
+            for (let item of employee) {
+                const user = await getuserByIdEmployee(item.id);
+                if (user) {
+                    
+                    const userwarehause = await getwarehouseByIdUser(user.id);
+                    
+                    const rol = await getRolById(user.roles_id)
+                    const warehouse = await getWareHouseById(userwarehause.warehouses_id)
+                    
+                    const info = {
+                        "id": item.id,
+                        "name": item.name,
+                        "first_last_name": item.first_last_name,
+                        "second_last_name": item.second_last_name, 
+                        "email": item.email, 
+                        "dni": item.dni, 
+                        "cell_phone": item.cell_phone,
+                        "birth_date": item.birth_date,
+                        "rol": rol,
+                        warehouse
+                    }
+                    respuesta.push(info);
+                }   
+            };
+            res.json(respuesta);
             
-
-            res.json(employee);
         })
         .catch((error) => {
             res.json({ fatal: error.message });
         });
- }); */
-
-router.get('/', (req, res) => {
-    getAll()
-    .then(async (employee) => {
-    let respuesta = [];
-    for (let item of employee) {
-        const user = await getuserByIdEmployee(item.id);
-        if (user) {            
-            const userwarehause = await getwarehouseByIdUser(user.id);
-            
-            const rol = await getRolById(user.roles_id)
-            const warehouse = await getWareHouseById(userwarehause.warehouses_id)
-            
-                const info = {
-                    "id": item.id,
-                    "name": item.name,
-                    "first_last_name": item.first_last_name,
-                    "second_last_name": item.first_last_name, 
-                    "email": item.email, 
-                    "dni": item.dni, 
-                    "cell_phone": item.cell_phone,
-                    "birth_date": item.birth_date,
-                    "rol": rol,
-                    warehouse
-                }
-                respuesta.push(info);
-            }   
-        };
-        res.json(respuesta);  
-    })
-    .catch((error) => {
-        res.json({ fatal: error.message });
-    });
 });
 
 
@@ -62,11 +52,12 @@ router.get('/:employeeId', async (req, res) => {
     if (employee) {
         const user = await getuserByIdEmployee(employeeId)
         if (user) {   
+
             const userwarehause = await getwarehouseByIdUser(user.id)
             const response = {
                 "name": employee.name,
                 "first_last_name": employee.first_last_name,
-                "second_last_name": employee.first_last_name, 
+                "second_last_name": employee.second_last_name, 
                 "email": employee.email, 
                 "dni": employee.dni, 
                 "cell_phone": employee.cell_phone,
@@ -76,9 +67,11 @@ router.get('/:employeeId', async (req, res) => {
                 },
                 "warehouse": {
                     "id": userwarehause.warehouses_id
-                }        
+                }
+                
             }
             res.json(response)
+            
         } 
     } else {
         res.json({ error: 'No existe un empleado con ese ID' })
