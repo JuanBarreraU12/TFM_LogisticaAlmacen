@@ -20,6 +20,8 @@ const update = (employeeId, { name, first_last_name, second_last_name, email, dn
     return executeQuery('UPDATE employees SET name = ?, first_last_name = ?, second_last_name = ?, email = ?, dni = ?, cell_phone = ?, birth_date = ? WHERE id = ?', [name, first_last_name, second_last_name, email, dni, cell_phone, birth_date, employeeId]);
 }
 
+
+
 const deleteById = (employeeId) => {
     return executeQuery('DELETE FROM employees WHERE id = ?', [employeeId]);
 }

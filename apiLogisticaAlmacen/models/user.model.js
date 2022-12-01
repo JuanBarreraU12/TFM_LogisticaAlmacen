@@ -16,10 +16,15 @@ const getByUserId = (userId) => {
 const getuserByIdEmployee = (employeeId) => {
     return executeQueryOne('select * from users where employees_id = ?', [employeeId]);
 }
+
+const updateRol = (rolId, employeeId) => {
+  return executeQuery('UPDATE gestion_almacen.users SET roles_id = ? WHERE employees_id = ?', [rolId, employeeId]);
+}
  
 module.exports = {
     register,
     getByEmail,
     getByUserId, 
-    getuserByIdEmployee
+    getuserByIdEmployee,
+    updateRol
 }

@@ -80,7 +80,6 @@ router.put('/', async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS"); 
   
   const warehouse = req.body;
-  console.log(warehouse)
   const result = await update(warehouse);
   res.json(result);
 });
