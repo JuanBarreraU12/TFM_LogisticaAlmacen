@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { checkSchema } = require('express-validator');
 const { newEmployee } = require('../../helpers/schemas/employee.schema');
 const { badRequest } = require('../../helpers/validators');
-const { getAll, getById, create, update, deleteById } = require('../../models/employee.model');
+const { getAll, getEmployeeById, create, update, deleteById } = require('../../models/employee.model');
 const { getRolById } = require('../../models/role.model');
 const { getuserByIdEmployee } = require('../../models/user.model');
 const { getwarehouseByIdUser } = require('../../models/users_warehouses.model');
@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 
 router.get('/:employeeId', async (req, res) => {
     const { employeeId } = req.params;
-    const employee = await getById(employeeId);
+    const employee = await getEmployeeById(employeeId);
     if (employee) {
         const user = await getuserByIdEmployee(employeeId)
         if (user) {   
@@ -84,7 +84,7 @@ router.post('/',
     , async (req, res) => {
         try {
             const result = await create(req.body);
-            const employee = await getById(result.insertId);
+            const employee = await getEmployeeById(result.insertId);
             res.json(employee);
         } catch (error) {
             res.json({ fatal: error.message });

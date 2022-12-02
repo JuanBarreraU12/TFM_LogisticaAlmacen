@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const { register, getByEmail, getByUserId, updateRol } = require('../../models/user.model');
 const { getRolById } = require('../../models/role.model');
-const { getEmployeeById, getById } = require('../../models/employee.model');
+const { getEmployeeById } = require('../../models/employee.model');
 
 router.post('/register', async (req, res) => {
   try {

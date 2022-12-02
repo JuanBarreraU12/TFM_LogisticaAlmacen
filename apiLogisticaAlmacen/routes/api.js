@@ -9,5 +9,6 @@ router.use('/orders-details', require('./api/orders_details'));
 router.use('/warehouses', require('./api/warehouses'));
 router.use('/roles', require('./api/roles'));
 router.use('/users-warehouses', require('./api/users_warehouses'));
+router.use('/locations', require('./api/locations'));
 
 module.exports = router;
