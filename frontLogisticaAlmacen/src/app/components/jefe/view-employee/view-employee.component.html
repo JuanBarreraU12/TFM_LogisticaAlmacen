@@ -19,8 +19,8 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let employee of arrEmployee">
-                    <th scope="row"></th>
+                <tr *ngFor="let employee of arrEmployee;let indice=index">
+                    <th scope="row">{{indice+1}}</th>
                     <td>{{employee.name}} {{employee.first_last_name}}</td>
                     <td>{{employee.dni}}</td>
                     <td>{{employee.email}} </td>
@@ -31,7 +31,7 @@
                     <td>
                         <button class="btn btn-danger me-2 btn-sm" (click)="deleteEmployee(employee.id)"><i class="fa-solid fa-trash"></i></button>
 
-                        <button class="btn btn-dark btn-sm" [routerLink]="['/home','updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button class="btn btn-primary btn-sm" [routerLink]="['/home','updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button>
                     </td>
                 </tr>
             </tbody>

@@ -2,23 +2,23 @@
     <div class="card-body">
         <h1 class="card-title">Employee</h1>
         <button class="btn btn-dark me-2 btn-sm" [routerLink]="['/home', 'viewEmployee']"> <i class="fa-solid fa-hand-point-left"></i> <br>
-             Back</button>
+            Back</button>
         <p></p>
         <!-- Bordered Table -->
         <table class="table table-bordered">
             <thead>
-                <tr>      
+                <tr>
                     <th scope="col">Descripcion</th>
-                    <th scope="col">Direccion</th>                  
+                    <th scope="col">Direccion</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
                 <tr *ngFor="let warehouse of arrWarehouse">
                     <td>{{warehouse.description}} </td>
-                    <td>{{warehouse.address}}</td>                    
+                    <td>{{warehouse.address}}</td>
                 </tr>
             </tbody>
         </table>
-        
+
     </div>
 </div>

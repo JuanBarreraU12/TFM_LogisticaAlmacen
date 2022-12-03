@@ -28,6 +28,8 @@ import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-
 import { FormLocationComponent } from './components/jefe/form-location/form-location.component';
 import { ViewLocationComponent } from './components/jefe/view-location/view-location.component';
 
+import { ModalViewLocationsComponent } from './components/jefe/modal-view-locations/modal-view-locations.component';
+import { ModalAddLocationsComponent } from './components/jefe/modal-add-locations/modal-add-locations.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { ViewLocationComponent } from './components/jefe/view-location/view-loca
     WarehousesUsersPipe,
     ListEmployeeWarehouseComponent,
     FormLocationComponent,
-    ViewLocationComponent
+    ViewLocationComponent,
+    ModalViewLocationsComponent,
+    ModalAddLocationsComponent
   ],
   imports: [
     BrowserModule,
