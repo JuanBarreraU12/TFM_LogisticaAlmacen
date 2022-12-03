@@ -3,6 +3,7 @@ const { checkSchema } = require('express-validator');
 const {newLocation} = require('../../helpers/schemas/location.schema')
 const { badRequest } = require('../../helpers/validators');
 const { createLocations, getByIdLocation, updateLocations, deleteLocations } = require('../../models/location.model');
+const { getLocationByWarehouseId } = require('../../models/location.model');
 
 
 router.get('/:locationId', async (req, res) => {
@@ -18,15 +19,23 @@ router.get('/:locationId', async (req, res) => {
     }
 });
 
+router.get('/warehouse/:warehouseId', async (req, res) => {
+  try {
+    const { warehouseId } = req.params;
+    const location = await getLocationByWarehouseId(warehouseId);  
+    res.json(location);
+  } catch (error) {
+    serverError(res, error.message);
+  }
+});
+
 router.post('/',
     checkSchema(newLocation),
     badRequest
     , async (req, res) => {
         try {
             const result = await createLocations(req.body);
-            console.log(result)
             const location = await getByIdLocation(result.insertId);
-            console.log(location);
             res.json(location);
         } catch (error) {
             res.json({ fatal: error.message });

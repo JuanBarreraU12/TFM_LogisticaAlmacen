@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { WarehouseService } from 'src/app/services/warehouse.service';
 import Swal from 'sweetalert2';
+import { LocationsService } from 'src/app/services/locations.service';
+import { Location } from 'src/app/interfaces/location.interface';
 
 @Component({
   selector: 'app-view-warehouse',
@@ -11,9 +13,12 @@ import Swal from 'sweetalert2';
 export class ViewWarehouseComponent implements OnInit {
 
   arrWarehouse: Warehouse[] = []
+  warehouseId : number = 0;
+  arrLocations: Location[] = [];
 
   constructor(
-    private werehouseServices: WarehouseService
+    private werehouseServices: WarehouseService,
+    private locationService: LocationsService
   ) { }
 
   ngOnInit(): void {
@@ -50,4 +55,17 @@ export class ViewWarehouseComponent implements OnInit {
     })
   }
 
+  async viewWarehouse(warehouseId : number| undefined)
+  {
+    try {
+      if (warehouseId !== undefined)
+      {
+        this.warehouseId=warehouseId;
+        let response = await this.locationService.getLocationByWarehouseId(this.warehouseId);
+        this.arrLocations = response;
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }

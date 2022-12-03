@@ -26,7 +26,7 @@
 
                     <td class="text-center">
                         <button class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
-                        [attr.data-bs-target]="'#modalViewLocations'"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        [attr.data-bs-target]="'#modalViewLocations'" (click)="viewWarehouse(warehouse.id)"><i class="fa-solid fa-magnifying-glass"></i></button>
 
                         <button class="btn btn-success btn-sm" data-bs-toggle="modal"
                         [attr.data-bs-target]="'#modalAddLocations'"><i class="fa-solid fa-plus"></i></button>
@@ -39,5 +39,8 @@
 
     </div>
 </div>
-<app-modal-view-locations></app-modal-view-locations>
+<app-modal-view-locations
+  [arrLocations]="arrLocations"
+></app-modal-view-locations>
+
 <app-modal-add-locations></app-modal-add-locations>
