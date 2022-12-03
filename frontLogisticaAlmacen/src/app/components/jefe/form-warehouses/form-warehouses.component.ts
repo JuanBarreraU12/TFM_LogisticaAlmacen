@@ -68,6 +68,8 @@ export class FormWarehousesComponent implements OnInit {
         });
       }
     }
+
+    
     else {
       let warehouseResponse = await this.warehouseService.create(newWarehouse);
       if (warehouseResponse.id) {

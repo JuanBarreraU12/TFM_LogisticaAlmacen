@@ -13,6 +13,8 @@ import { OutOrdersComponent } from './components/encargado/out-orders/out-orders
 import { PopupComponent } from './components/operario/popup/popup.component';
 import { InOrdersComponent } from './components/encargado/in-orders/in-orders.component';
 import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
+import { ViewLocationComponent } from './components/jefe/view-location/view-location.component';
+import { FormLocationComponent } from './components/jefe/form-location/form-location.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -25,15 +27,11 @@ const routes: Routes = [
       { path: 'newEmployee', component: FormEmployeeComponent },
       { path: 'newWerehouse', component: FormWarehousesComponent },
       { path: 'viewEmployee', component: ViewEmployeeComponent },
+      { path: 'viewLocation', component: ViewLocationComponent },
+      { path: 'newLocation', component: FormLocationComponent },
       { path: 'updateEmployee/:idemployee', component: FormEmployeeComponent },
-      {
-        path: 'updateWarehouse/:idwarehouse',
-        component: FormWarehousesComponent,
-      },
-      {
-        path: 'listEmployeeWarehouse/:idemployee',
-        component: ListEmployeeWarehouseComponent,
-      },
+      { path: 'updateWarehouse/:idwarehouse', component: FormWarehousesComponent },
+      { path: 'listEmployeeWarehouse/:idemployee', component: ListEmployeeWarehouseComponent },
       //OPERARIO
       { path: 'neworder', component: OrderFormComponent },
       { path: 'updateorder/:orderId', component: OrderFormComponent },
