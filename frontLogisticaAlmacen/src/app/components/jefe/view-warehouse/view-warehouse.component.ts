@@ -68,4 +68,17 @@ export class ViewWarehouseComponent implements OnInit {
       console.log(err)
     }
   }
+
+  async addWarehouse(warehouseId : number| undefined)
+  {
+    try {
+      if (warehouseId !== undefined)
+      {
+        this.warehouseId=warehouseId;
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 }

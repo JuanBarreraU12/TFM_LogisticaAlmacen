@@ -2,17 +2,33 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" [id]="'modal'">Locations</h1>
+        <h1 class="modal-title fs-5" [id]="'modal'">Add Locations</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row">
 
+                <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="description">Description</label>
+                        <div class="col-sm-10">
+                            <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
+                            <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3 caracteres</p>
+                            <input class="form-control" type="text" id="description" formControlName="description">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-11 col-form-label"></label>
+                        <div class="col-sm-1">
+                            <input type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
+                        </div>
+                    </div>
+                </form>
+
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-
       </div>
     </div>
   </div>

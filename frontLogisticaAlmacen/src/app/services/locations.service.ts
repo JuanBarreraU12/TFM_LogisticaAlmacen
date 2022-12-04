@@ -8,7 +8,7 @@ import { Location } from '../interfaces/location.interface';
 })
 export class LocationsService {
 
-  urlLocation: string = "http://localhost:3000/api/locations"
+  urlLocation: string = "http://localhost:3000/api/locations/"
   urlLocationWarehouse: string = "http://localhost:3000/api/locations/warehouse/"
 
   constructor(private httpClient: HttpClient) { }

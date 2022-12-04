@@ -1,5 +1,5 @@
 export interface Location {
-    id?: Number;
-    description: String;
-    warehouses_id?: Number;
+    id?: number;
+    description: string;
+    warehouses_id?: number;
 }
