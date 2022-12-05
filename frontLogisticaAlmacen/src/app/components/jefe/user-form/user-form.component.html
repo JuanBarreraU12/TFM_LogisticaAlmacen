@@ -1,0 +1,147 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">{{ type }} User</h1>
+
+    <!-- General Form Elements -->
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+      <div class="row mb-3">
+        <div class="col-12 col-lg-4">
+          <label class="form-label" for="name">Name</label>
+          <input
+            class="form-control"
+            type="text"
+            id="name"
+            formControlName="name"
+          />
+          <p class="error" *ngIf="checkControl('name', 'required')">
+            This field is required
+          </p>
+          <p class="error" *ngIf="checkControl('name', 'minlength')">
+            The length of the field must be at least 3 characters
+          </p>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <label class="form-label" for="first_last_name"
+            >First Last Name</label
+          >
+          <input
+            class="form-control"
+            type="text"
+            id="first_last_name"
+            formControlName="first_last_name"
+          />
+          <p class="error" *ngIf="checkControl('first_last_name', 'required')">
+            This field is required
+          </p>
+          <p class="error" *ngIf="checkControl('first_last_name', 'minlength')">
+            The length of the field must be at least 5 characters
+          </p>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <label class="form-label" for="second_last_name"
+            >Second Last Name</label
+          >
+          <input
+            class="form-control"
+            type="text"
+            id="second_last_name"
+            formControlName="second_last_name"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12 col-lg-4">
+          <label for="dni" class="form-label">DNI</label>
+          <input
+            class="form-control"
+            type="text"
+            id="dni"
+            formControlName="dni"
+          />
+          <p class="error" *ngIf="checkControl('dni', 'required')">
+            This field is required
+          </p>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <label for="phone" class="form-label">Phone</label>
+          <input
+            class="form-control"
+            type="text"
+            id="phone"
+            formControlName="phone"
+          />
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <label for="birth_date" class="form-label">Birth Date</label>
+          <input
+            input
+            class="form-control"
+            type="date"
+            id="birth_date"
+            formControlName="birth_date"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12 col-lg-8">
+          <label for="email" class="form-label">Email</label>
+          <input
+            class="form-control"
+            type="text"
+            id="email"
+            formControlName="email"
+          />
+          <p class="error" *ngIf="checkControl('email', 'required')">
+            This field is required
+          </p>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <label class="form-label">Role</label>
+          <select
+            class="form-select"
+            formControlName="role"
+            (change)="seleccionarRol($event)"
+          >
+            <option selected value="">---</option>
+            <option
+              [value]="role.id"
+              *ngFor="let role of roles"
+            >
+              {{ role.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12" id="checkGroup">
+          <div class="form-check" *ngFor="let warehouse of warehouses">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [id]="warehouse.id"
+              [value]="warehouse.id"
+            />
+            <label class="form-check-label" for="{{ warehouse.id }}">
+              {{ warehouse.description }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <input
+        type="submit"
+        [value]="type"
+        class="btn btn-primary"
+        [disabled]="!userForm.valid"
+      />
+    </form>
+  </div>
+</div>

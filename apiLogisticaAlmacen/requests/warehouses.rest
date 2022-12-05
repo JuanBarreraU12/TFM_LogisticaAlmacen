@@ -1,1 +1,16 @@
 GET http://localhost:3000/api/warehouses
+
+###
+GET http://localhost:3000/api/warehouses/4
+
+###
+GET http://localhost:3000/api/warehouses/users/18
+
+###
+POST http://localhost:3000/api/warehouses
+Content-Type: application/json
+
+{
+    "description": "",
+    "address": ""
+}

@@ -35,8 +35,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "src/assets/vendor/apexcharts/apexcharts.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "src/assets/vendor/chart.js/chart.min.js",
               "src/assets/vendor/echarts/echarts.min.js",
               "src/assets/vendor/quill/quill.min.js",

@@ -1,15 +1,17 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const { getAll } = require('../../models/role.model');
+const { checkRole } = require("../../helpers/middlewares/user.middleware");
+const { serverError } = require("../../helpers/validators");
+const { getAll } = require("../../models/role.model");
 
-router.get('/', (req, res) => {
+router.get("/", checkRole(["Jefe"]), (req, res) => {
   getAll()
-      .then(rol => {
-          res.json(rol);
-      })
-      .catch((error) => {
-          res.json({ fatal: error.message });
-      });
+    .then((rol) => {
+      res.json(rol);
+    })
+    .catch((error) => {
+      serverError(res, error.message);
+    });
 });
 
 module.exports = router;

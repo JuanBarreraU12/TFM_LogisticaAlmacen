@@ -1,10 +1,13 @@
 const newWarehouse = {
-    description: {
-        exists: true,
-        errorMessage: 'El campo name es obligatorio'
-    },
-    
-}
+  description: {
+    exists: true,
+    errorMessage: "Warehouse's description is required",
+  },
+  address: {
+    exists: true,
+    errorMessage: "Warehouse's address is required",
+  },
+};
 module.exports = {
-        newWarehouse
-    }
+  newWarehouse,
+};

@@ -44,14 +44,14 @@ export class OrderCardComponent implements OnInit {
 
   deleteOrder(): void {
     Swal.fire({
-      title: `¿Desea eliminar el Pedido #${this.myOrder.id}?`,
-      text: "¡Esta acción es irreversible!",
+      title: `Do you want to delete the order #${this.myOrder.id}?`,
+      text: "This action is irreversible!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#0d6efd',
       cancelButtonColor: '#6c757d',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Delete',
       heightAuto: false
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -59,8 +59,8 @@ export class OrderCardComponent implements OnInit {
           let response = await this.ordersService.delete(this.myOrder.id!);
           if (response.affectedRows > 0) {
             Swal.fire({
-              title: 'Eliminado!',
-              text: `El pedido #${this.myOrder.id} fue eliminado`,
+              title: 'Deleted!',
+              text: `The order #${this.myOrder.id} was deleted`,
               icon: 'success',
               confirmButtonText: 'Ok',
               confirmButtonColor: '#6c757d', 

@@ -2,7 +2,7 @@
 <div class="d-flex align-items-center justify-content-between">
   <a [routerLink]="['/home']" class="logo d-flex align-items-center">
     <img src="../../../assets/img/logo.png" alt="" />
-    <span class="d-none d-lg-block">{{ user.rol.name }}</span>
+    <span class="d-none d-lg-block">{{ user?.role }}</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn" (click)="open()"></i>
 </div>
@@ -24,14 +24,14 @@
           class="rounded-circle"
         />
         <span class="d-none d-md-block dropdown-toggle ps-2"
-          >{{ user.employee.first_last_name }} {{ user.employee.name }}</span
+          >{{ user?.first_last_name }} {{ user?.name }}</span
         >
       </a>
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>{{ user.employee.first_last_name }} {{ user.employee.name }}</h6>
-          <span>{{ user.rol.name }}</span>
+          <h6>{{ user?.first_last_name }} {{ user?.name }}</h6>
+          <span>{{ user?.role }}</span>
         </li>
         <li>
           <hr class="dropdown-divider" />

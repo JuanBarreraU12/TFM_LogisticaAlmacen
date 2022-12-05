@@ -1,14 +1,13 @@
-import { User_warehouse } from "./user_warehouses.interface";
-
 export interface User {
     id?: number;
-    username: string;
+    name: string;
+    first_last_name: string,
+    second_last_name?: string,
+    dni: string,
+    phone?: string,
+    birth_date?: Date,
+    email: string,
     password: string;
-
-    rol_id: number;
-    employee_id: number;
-    warehouse_id: number;
-    users_id: number;
-    warehouses_id: number;
-    users_warehouses: User_warehouse[];
+    roleId: number;
+    role?: string;
 }

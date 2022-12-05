@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/common/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormEmployeeComponent } from './components/jefe/form-employee/form-employee.component';
+import { UserFormComponent } from './components/jefe/user-form/user-form.component';
 import { FormWarehousesComponent } from './components/jefe/form-warehouses/form-warehouses.component';
 import { ViewEmployeeComponent } from './components/jefe/view-employee/view-employee.component';
 import { ListOrdersComponent } from './components/encargado/list-orders/list-orders.component';
@@ -30,7 +30,7 @@ import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-
   declarations: [
     AppComponent,
     LoginComponent,
-    FormEmployeeComponent,
+    UserFormComponent,
     FormWarehousesComponent,
     ViewEmployeeComponent,
     ListOrdersComponent,

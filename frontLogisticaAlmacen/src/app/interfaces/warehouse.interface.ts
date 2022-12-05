@@ -2,5 +2,5 @@ export interface Warehouse {
     id?: number,
     description: string,
     address: string,
-    isSelected: boolean
+    user_warehouse_id?: number
 }

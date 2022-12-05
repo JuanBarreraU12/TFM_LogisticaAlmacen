@@ -1,4 +1,5 @@
 GET http://localhost:3000/api/orders
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwidXNlcl9yb2xlIjoiT3BlcmFyaW8iLCJleHBpcmF0aW9uX2RhdGUiOjE2NzAxMDQ3OTMsImlhdCI6MTY3MDEwNDQ5M30.RMlCKyyJ4kuFNn-pphrSiLC_cNZb1CY4p2S_UMKujvw
 
 ###
 GET http://localhost:3000/api/orders/5

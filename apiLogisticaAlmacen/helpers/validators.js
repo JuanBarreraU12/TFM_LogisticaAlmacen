@@ -4,8 +4,8 @@ const badRequest = (req, res, next) => {
     const error = validationResult(req)
     const arr = error.errors.map((err) => {
         return {
-            campo: err.param,
-            error: err.msg
+            field: err.param,
+            message: err.msg
         }
     });
 
@@ -23,8 +23,13 @@ const notFound = (res, msg) => {
     res.status(404).json({ error: msg });
 }
 
+const unauthorize = (res, msg) => {
+    res.status(401).json({ error: msg });
+}
+
 module.exports = {
     badRequest,
     serverError,
-    notFound
+    notFound,
+    unauthorize
 }

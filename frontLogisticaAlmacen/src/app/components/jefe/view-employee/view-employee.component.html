@@ -1,40 +1,57 @@
 <div class="card">
-    <div class="card-body">
-        <h1 class="card-title">Employee list</h1>
-        <p></p>
-        <!-- Bordered Table -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Cellphone</th>
-                    <th scope="col">Birthday</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Warehouse</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+  <div class="card-body">
+    <h1 class="card-title">Users List</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Role</th>
+            <th scope="col">Warehouse</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-            <tbody>
-                <tr *ngFor="let employee of arrEmployee">
-                    <th scope="row"></th>
-                    <td>{{employee.name}} {{employee.first_last_name}}</td>
-                    <td>{{employee.dni}}</td>
-                    <td>{{employee.email}} </td>
-                    <td>{{employee.cell_phone}}</td>
-                    <td>{{employee.birth_date}}</td>
-                    <td>{{employee.rol.name}}</td>
-                    <td class="text-center"><button class="btn btn-info btn-sm" [routerLink]="['/home', 'listEmployeeWarehouse', employee.id]"><i class="fa-solid fa-magnifying-glass"></i></button></td>
-                    <td>
-                        <button class="btn btn-danger me-2 btn-sm" (click)="deleteEmployee(employee.id)"><i class="fa-solid fa-trash"></i></button>
+        <tbody>
+          <tr *ngFor="let user of arrUsers">
+            <th scope="row"></th>
+            <td>{{ user.name }} {{ user.first_last_name }}</td>
+            <td>{{ user.dni }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.birth_date }}</td>
+            <td>{{ user.role }}</td>
+            <td class="text-center">
+              <button
+                class="btn btn-info btn-sm"
+                [routerLink]="['/home', 'user', user.id, 'warehouses']"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-danger me-2 btn-sm"
+                (click)="deleteEmployee(user.id)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
 
-                        <button class="btn btn-dark btn-sm" [routerLink]="['/home','updateEmployee', employee.id]"><i class="fa-solid fa-rotate-right"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+              <button
+                class="btn btn-dark btn-sm"
+                [routerLink]="['/home', 'updateuser', user.id]"
+              >
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

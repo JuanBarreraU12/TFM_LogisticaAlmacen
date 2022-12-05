@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { Util } from '../classes/util';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,6 @@ export class MaterialsLocationsService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(pWarehouseId: Number): Promise<any>{
-    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}${pWarehouseId}`));
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}${pWarehouseId}`, Util.getHttpOptions()));
   }
 }

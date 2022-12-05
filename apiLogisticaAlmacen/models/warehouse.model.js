@@ -2,35 +2,35 @@ const { executeQuery, executeQueryOne } = require('../helpers/utils');
 
 
 const getAll = () => {
-  return executeQuery('select * from gestion_almacen.warehouses');
+  return executeQuery('SELECT * FROM warehouses');
 }
 
-const getWareHouseById = (warehouseId) => {
-  return executeQueryOne('select * from gestion_almacen.warehouses where id= ?', [warehouseId]);
+const getById = (warehouseId) => {
+  return executeQueryOne('SELECT * FROM warehouses WHERE id= ?', [warehouseId]);
 }
 
 const create = ({ description, address }) => {
-  return executeQuery('INSERT INTO warehouses(description, address) values(?, ?)', [description, address]);
+  return executeQuery('INSERT INTO warehouses(description, address) VALUES(?, ?)', [description, address]);
 }
 
 const deleteById = (warehouseId) => {
   return executeQuery('DELETE FROM warehouses WHERE id = ?', [warehouseId]);
 }
 
-const update = ({description, address, id }) => {
-  return executeQuery('UPDATE gestion_almacen.warehouses SET description = ?, address =? where id =?',[description, address, id]);
+const update = (warehouseId, {description, address}) => {
+  return executeQuery('UPDATE warehouses SET description = ?, address =? WHERE id =?',[description, address, warehouseId]);
 }
 
-const getWarehousebyIdEmployee = (employeeId) => { 
-  return executeQuery('select w.id, w.description, w.address from gestion_almacen.employees as e inner join gestion_almacen.users as u on e.id=u.employees_id inner join gestion_almacen.users_warehouses as uw on u.id=uw.users_id inner join gestion_almacen.warehouses as w on w.id=uw.warehouses_id where e.id= ?', [employeeId]);
+const getByUser = (userId) => { 
+  return executeQuery('SELECT w.id, w.description, w.address, uw.id as user_warehouse_id FROM warehouses w JOIN users_warehouses uw ON uw.warehouses_id = w.id WHERE uw.users_id = ?', [userId]);
 }
 
 
 module.exports = {
   getAll,
-  getWareHouseById,
+  getById,
+  getByUser,
   create,
   update,  
-  deleteById,
-  getWarehousebyIdEmployee
+  deleteById
 }

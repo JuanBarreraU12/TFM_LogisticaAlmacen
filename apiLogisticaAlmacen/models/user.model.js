@@ -1,25 +1,34 @@
 const { executeQuery, executeQueryOne } = require('../helpers/utils');
 
+const getAll = () => {
+    return executeQuery('SELECT u.id, u.name, u.first_last_name, u.second_last_name, u.dni, u.phone, u.birth_date, u.email, u.password, r.id as roleId, r.name as role FROM gestion_almacen.users u JOIN roles r ON u.roles_id = r.id');
+}
 
-const register = ({ username, email, password, role_id, employee_id}) => {
-    return executeQuery('INSERT INTO users(username, email, password, roles_id, employees_id) VALUES(?, ?, ?, ?, ?)', [username, email, password, role_id, employee_id]);
+const getById = (userId) => {
+    return executeQueryOne('SELECT u.id, u.name, u.first_last_name, u.second_last_name, u.dni, u.phone, u.birth_date, u.email, u.password, r.id as roleId, r.name as role FROM gestion_almacen.users u JOIN roles r ON u.roles_id = r.id WHERE u.id = ?', [userId]);
 }
 
 const getByEmail = (email) => {
-    return executeQueryOne('SELECT * FROM users WHERE email = ?', [email]);
+    return executeQueryOne('SELECT u.id, u.name, u.first_last_name, u.second_last_name, u.dni, u.phone, u.birth_date, u.email, u.password, r.id as roleId, r.name as role FROM gestion_almacen.users u JOIN roles r ON u.roles_id = r.id WHERE u.email = ?', [email]);
 }
 
-const getByUserId = (userId) => {
-    return executeQueryOne('SELECT * FROM users WHERE id = ?', [userId]);
+const create = ({ name, first_last_name, second_last_name, dni, phone, birth_date, email, password, roleId}) => {
+    return executeQuery('INSERT INTO users(name, first_last_name, second_last_name, dni, phone, birth_date, email, password, roles_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, first_last_name, second_last_name, dni, phone, birth_date, email, password, roleId]);
 }
 
-const getuserByIdEmployee = (employeeId) => {
-    return executeQueryOne('select * from users where employees_id = ?', [employeeId]);
+const update = (userId, { name, first_last_name, second_last_name, dni, phone, birth_date, email, password, roleId }) => {
+    return executeQuery('UPDATE users SET name = ?, first_last_name = ?, second_last_name = ?, dni = ?, phone = ?, birth_date = ?, email = ?, password = ?, roles_id = ? WHERE id = ?', [name, first_last_name, second_last_name, dni, phone, birth_date, email, password, roleId, userId]);
 }
- 
+
+const deleteById = (userId) => {
+    return executeQuery('DELETE FROM users WHERE id = ?', [userId]);
+}
+
 module.exports = {
-    register,
+    getAll,
     getByEmail,
-    getByUserId, 
-    getuserByIdEmployee
+    getById,
+    create,
+    update,
+    deleteById
 }

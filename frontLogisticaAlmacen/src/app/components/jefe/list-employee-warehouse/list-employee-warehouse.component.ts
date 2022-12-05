@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
-import { WarehouseService } from 'src/app/services/warehouse.service';
+import { WarehousesService } from 'src/app/services/warehouses.service';
 
 @Component({
   selector: 'app-list-employee-warehouse',
   templateUrl: './list-employee-warehouse.component.html',
-  styleUrls: ['./list-employee-warehouse.component.css']
+  styleUrls: ['./list-employee-warehouse.component.css'],
 })
 export class ListEmployeeWarehouseComponent implements OnInit {
-
-  arrWarehouse: Warehouse[] = []
+  arrWarehouse: Warehouse[] = [];
   constructor(
-    private warehouseServices: WarehouseService,
+    private warehousesService: WarehousesService,
     private activateRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe(async (params: any) => {
-      let id: number = parseInt(params.idemployee);
-      let response = await this.warehouseServices.getWarehousebyIdEmployee(id);
-      this.arrWarehouse = response;
-    } )
+      let userId: number = parseInt(params.userId);
+      try {
+        let response = await this.warehousesService.getByUser(userId);
+        this.arrWarehouse = response;
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 }

@@ -1,47 +1,47 @@
 const newMaterial = {
-    name: {
-        exists: {
-            errorMessage: 'El nombre del material es obligatorio'
-        },
-        isLength: {
-            errorMessage: 'El nombre del material solo permite 45 caracteres',
-            options: { max: 45 }
-        }
+  name: {
+    exists: {
+      errorMessage: "Material's name is required",
     },
-    price: {
-        exists: {
-            errorMessage: 'El precio del material es obligatorio'
-        }
+    isLength: {
+      errorMessage: "The maximum length of the material's name must be 45 characters",
+      options: { max: 45 },
     },
-    sku: {
-        exists: {
-            errorMessage: 'El sku del material es obligatorio'
-        },
-        isLength: {
-            options: { max: 10 },
-            errorMessage: 'El sku del material solo puede contener 10 caracteres'
-        }
+  },
+  price: {
+    exists: {
+      errorMessage: "Material's price is required",
     },
-    material_type_id: {
-        exists: {
-            errorMessage: 'El tipo de material es obligatorio'
-        },
-        isInt: {
-            errorMessage: 'El tipo de material debe ser un número entero'
-        }
-    }
-}
+  },
+  sku: {
+    exists: {
+      errorMessage: "Material's sku is required",
+    },
+    isLength: {
+      options: { max: 10 },
+      errorMessage: "The maximum length of the material's sku must be 10 characters",
+    },
+  },
+  material_type_id: {
+    exists: {
+      errorMessage: "Material's type is required",
+    },
+    isInt: {
+      errorMessage: "Material's type must be an integer number",
+    },
+  },
+};
 
 const materialId = {
-    materialId: {
-        in: [ 'params' ],
-        isInt: true,
-        errorMessage: 'El id del material no es un número',
-        toInt: true
-    }
-}
+  materialId: {
+    in: ["params"],
+    isInt: true,
+    errorMessage: "Material's ID must be an integer number",
+    toInt: true,
+  },
+};
 
 module.exports = {
-    newMaterial,
-    materialId
-}
+  newMaterial,
+  materialId,
+};

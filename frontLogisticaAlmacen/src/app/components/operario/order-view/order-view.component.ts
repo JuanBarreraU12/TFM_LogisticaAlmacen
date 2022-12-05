@@ -1,6 +1,5 @@
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { identity } from 'rxjs';
 import { OrderDetail } from 'src/app/interfaces/order-detail.interface';
 import { Order } from 'src/app/interfaces/order.interface';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
@@ -17,7 +16,7 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
   order: Order | any;
   orderDetails: OrderDetail[] = [];
   newOrderDetails: OrderDetail[] = [];
-  orderDetailsDeleted: Number[] = [];
+  orderDetailsDeleted: any[] = [];
   anyUpdate: Boolean = false;
   isValid: Boolean = true;
   controlDisable: boolean = false;
@@ -78,7 +77,10 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
     let materialLocationId = parseInt(row.dataset.detailMlId);
 
     if (id) {
-      this.orderDetailsDeleted.push(id);
+      this.orderDetailsDeleted.push({
+        id,
+        materialLocationId,
+      });
       let tempArray = this.orderDetails.filter((od) => od.id !== id);
       this.orderDetails = tempArray;
     } else {
@@ -144,15 +146,30 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
     let index = 0;
     if (updatedRows) {
       while (ok && index < updatedRows.length) {
-        const id = parseInt(updatedRows[index].getAttribute('data-detail-id')!);
+        let id = parseInt(updatedRows[index].getAttribute('data-detail-id')!);
         const materialLocationId = parseInt(
           updatedRows[index].getAttribute('data-detail-ml-id')!
         );
+
+        if (!id) {
+          let od = this.orderDetailsDeleted.find(od => od.materialLocationId === materialLocationId); 
+          if (od)
+            id = od.id;
+        }
+
         let quantity = (<HTMLInputElement>(
           updatedRows[index].querySelector('#quantity')
         )).value;
 
         if (id) {
+          let tempArray = this.newOrderDetails.filter(
+            (od) => od.materialLocationId !== materialLocationId
+          );
+          this.newOrderDetails = tempArray;
+
+          tempArray = this.orderDetailsDeleted.filter(od => od.id !== id);
+          this.orderDetailsDeleted = tempArray; 
+
           let orderDetail: OrderDetail = {
             materialLocationId: materialLocationId,
             quantity: parseInt(quantity),
@@ -209,7 +226,7 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
       try {
         let response = await this.ordersDetailsService.deleteById(
           this.order.id,
-          this.orderDetailsDeleted[index]
+          this.orderDetailsDeleted[index].id
         );
         if (response.affectedRows > 0) console.log('Eliminación correcta');
       } catch (error) {

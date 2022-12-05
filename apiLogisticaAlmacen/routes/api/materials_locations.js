@@ -3,8 +3,10 @@ const { checkSchema } = require('express-validator');
 const { badRequest, serverError } = require('../../helpers/validators');
 const { newMaterialLocation, warehouseParam, locationParam } = require('../../helpers/schemas/material_location.schema');
 const { create, getAll, getByLocationWithPages } = require('../../models/material_location.model');
+const { checkRole } = require('../../helpers/middlewares/user.middleware');
 
 router.get('/:warehouseId',
+    checkRole(['Operario']),
     checkSchema(warehouseParam),
     badRequest,
     async (req, res) => {

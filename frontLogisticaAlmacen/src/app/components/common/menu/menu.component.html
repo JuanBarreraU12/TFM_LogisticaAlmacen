@@ -6,14 +6,14 @@
     </a>
   </li>
   <!-- ROL JEFE -->
-  <div *ngIf="jefe">
+  <div *ngIf="role && role === 'Jefe'">
     <li class="nav-item">
       <a
         class="nav-link collapsed"
         data-bs-target="#components-nav"
         data-bs-toggle="collapse"
       >
-        <i class="bi bi-menu-button-wide"></i><span>Employees</span
+        <i class="bi bi-menu-button-wide"></i><span>Users</span
         ><i class="bi bi-chevron-down ms-auto"></i>
       </a>
 
@@ -23,14 +23,14 @@
         data-bs-parent="#sidebar-nav"
       >
         <li>
-          <a routerLinkActive="active" [routerLink]="['/home', 'newEmployee']">
-            <i class="bi bi-circle"></i><span>New Employee</span>
+          <a routerLinkActive="active" [routerLink]="['/home', 'newuser']">
+            <i class="bi bi-circle"></i><span>New User</span>
           </a>
         </li>
 
         <li>
-          <a routerLinkActive="active" [routerLink]="['/home', 'viewEmployee']">
-            <i class="bi bi-circle"></i><span>Employees List</span>
+          <a routerLinkActive="active" [routerLink]="['/home', 'userslist']">
+            <i class="bi bi-circle"></i><span>Users List</span>
           </a>
         </li>
       </ul>
@@ -52,14 +52,14 @@
         data-bs-parent="#sidebar-nav"
       >
         <li>
-          <a routerLinkActive="active" [routerLink]="['/home', 'newWerehouse']">
+          <a routerLinkActive="active" [routerLink]="['/home', 'newarehouse']">
             <i class="bi bi-circle"></i><span>New Warehouse</span>
           </a>
         </li>
         <li>
           <a
             routerLinkActive="active"
-            [routerLink]="['/home', 'viewWarehouse']"
+            [routerLink]="['/home', 'warehouseslist']"
           >
             <i class="bi bi-circle"></i><span>Warehouses List</span>
           </a>
@@ -69,7 +69,7 @@
   </div>
 
   <!-- ROL OPERARIO -->
-  <div *ngIf="operario">
+  <div *ngIf="role && role === 'Operario'">
     <li class="nav-item">
       <a
         class="nav-link collapsed"
@@ -102,7 +102,7 @@
   </div>
 
   <!-- ROL ENCARGADO -->
-  <div *ngIf="encargado">
+  <div *ngIf="role && role === 'Encargado'">
     <li class="nav-item">
       <a
         class="nav-link collapsed"
@@ -118,13 +118,13 @@
         data-bs-parent="#sidebar-nav"
       >
         <li>
-          <a [routerLink]="['/home', 'in-orders', 0]" routerLinkActive="active">
+          <a [routerLink]="['/home', 'in-orders']" routerLinkActive="active">
             <i class="bi bi-circle"></i><span>In</span>
           </a>
         </li>
         <li>
           <a
-            [routerLink]="['/home', 'out-orders', 0]"
+            [routerLink]="['/home', 'out-orders']"
             routerLinkActive="active"
           >
             <i class="bi bi-circle"></i><span>Out</span>

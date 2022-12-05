@@ -1,0 +1,14 @@
+GET http://localhost:3000/api/users-warehouses
+
+###
+POST http://localhost:3000/api/users-warehouses
+Content-Type: application/json
+
+{
+    "user_id":17,
+    "warehouse_id":1
+}
+
+###
+DELETE http://localhost:3000/api/users-warehouses/11
+

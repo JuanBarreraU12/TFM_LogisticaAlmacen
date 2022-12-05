@@ -1,7 +1,7 @@
 const newEmployee = {
     name: {
         exists: true,
-        errorMessage: 'El campo name es obligatorio'
+        errorMessage: "Employee's name is required"
     },
 }
 

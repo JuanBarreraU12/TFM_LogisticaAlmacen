@@ -1,52 +1,107 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
 
-const { register, getByEmail, getByUserId } = require('../../models/user.model');
-const { getRolById } = require('../../models/role.model');
-const { getEmployeeById, getById } = require('../../models/employee.model');
+const {
+  create,
+  getByEmail,
+  getById,
+  getAll,
+  update,
+  deleteById,
+} = require("../../models/user.model");
+const {
+  serverError,
+  unauthorize,
+  badRequest,
+} = require("../../helpers/validators");
+const { createToken } = require("../../helpers/utils");
+const { checkSchema } = require("express-validator");
+const { loginUser } = require("../../helpers/schemas/user.schema");
+const { checkToken, checkRole } = require("../../helpers/middlewares/user.middleware");
 
-router.post('/register', async (req, res) => {
-    try {
-      req.body.password = bcrypt.hashSync(req.body.password, 8);
-      const result = await register(req.body);
-      console.log(result);
-      const regist = await getByUserId(result.insertId)
-        res.json(regist);
-    } catch (error) {
-        res.json({ fatal: error.message });
-    }
+router.get("/",
+  checkToken,
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    const users = await getAll();
+    res.json(users);
+  } catch (error) {
+    serverError(res, error.message);
+  }
 });
 
-router.post('/login', async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS"); 
-  
-  const { email, password } = req.body;
-  const user = await getByEmail(email);
-  const iguales = bcrypt.compareSync(password, user.password);
-    if (!iguales) {
-      return res.json({ fatal: 'Error en email y/o contraseña2'})
+router.get("/:userId",
+  checkToken,
+  async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await getById(userId);
+    res.json(user);
+  } catch (error) {
+    serverError(res, error.message);
   }
+});
 
-  if(user)
-  {
-    const rol = await getRolById(user.roles_id);
-    const employee = await getEmployeeById(user.employees_id);
-    const response = {
-      "userName" : user.username,
-      "email": user.email,
-      "rol":rol,
-      "employee":employee
-    }
-    res.json(response);
+router.post("/register",
+  checkToken,
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    req.body.password = bcrypt.hashSync(req.body.password, 8);
+    const result = await create(req.body);
+    const user = await getById(result.insertId);
+    res.json(user);
+  } catch (error) {
+    serverError(res, error.message);
   }
-  else {
-      return res.json({ fatal: 'Error en email y/o contraseña'})
+});
+
+router.put('/:userId',
+  checkToken,
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    const { userId } = req.params;
+    req.body.password = bcrypt.hashSync(req.body.password, 8);
+    const result = await update(userId, req.body);
+    res.json(result);
+  } catch (error) {
+    serverError(res, error.message);
   }
 })
 
+router.post("/login",
+  checkSchema(loginUser),
+  badRequest, async (req, res) => {
+  const { email, password } = req.body;
+  const user = await getByEmail(email);
+  if (!user) return unauthorize(res, "Incorrect email and/or password");
+
+  const iguales = bcrypt.compareSync(password, user.password);
+  if (!iguales) {
+    return unauthorize(res, "Incorrect email and/or password");
+  }
+
+  const response = {
+    success: true,
+    token: createToken(user),
+  };
+
+  res.json(response);
+});
+
+router.delete('/:userId',
+  checkToken,
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const result = await deleteById(userId);
+    res.json(result);
+  } catch (error) {
+    serverError(res, error.message);
+  }
+})
 
 module.exports = router;

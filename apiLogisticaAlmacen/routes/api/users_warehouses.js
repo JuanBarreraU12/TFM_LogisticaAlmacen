@@ -1,33 +1,41 @@
 const router = require('express').Router();
 
-const { register, getByIdUwarehouse, getAll } = require('../../models/users_warehouses.model');
+const { checkRole } = require('../../helpers/middlewares/user.middleware');
+const { serverError } = require('../../helpers/validators');
+const { create, getById, getAll, deleteById } = require('../../models/users_warehouses.model');
 
 
-router.get('/', (req, res) => {
-  getAll()
-    .then(async (users_warehouses) => {
-      res.json(users_warehouses);
-    })
-    .catch((error) => {
-      res.json({ fatal: error.message });
-    })
-})
-
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const arrWarehouses=[];
-    for (let item of req.body.users_warehouses) {
-      console.log(item);
-      const result = await register(item);
-      const uwarehouse = await getByIdUwarehouse(result.insertId)
-      arrWarehouses.push(uwarehouse);
-    }
-    res.json(arrWarehouses);
+    const usersWarehouses = await getAll();
+    res.json(usersWarehouses);
   } catch (error) {
-      res.json({ fatal: error.message });
+    serverError(res, error.message);
   }
 });
 
+router.post('/',
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    const result = await create(req.body);
+    const userWarehouse = await getById(result.insertId);
+    res.json(userWarehouse);
+  } catch (error) {
+    serverError(res, error.message);
+  }
+});
 
+router.delete('/:userWarehouseId',
+  checkRole(['Jefe']),
+  async (req, res) => {
+  try {
+    const { userWarehouseId } = req.params
+    const result = await deleteById(userWarehouseId);
+    res.json(result);
+  } catch (error) {
+    serverError(res, error.message);
+  }
+})
 
 module.exports = router;

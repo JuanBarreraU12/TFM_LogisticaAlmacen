@@ -1,69 +1,93 @@
-const router = require('express').Router();
-const { serverError, notFound } = require('../../helpers/validators');
-const { create, getById, getAll, update, deleteById, updateState } = require('../../models/order.model');
-const { existsOrder } = require('../../helpers/middlewares/order.middleware');
-const { body } = require('express-validator');
+const router = require("express").Router();
+const { serverError, notFound } = require("../../helpers/validators");
+const {
+  create,
+  getById,
+  getAll,
+  update,
+  deleteById,
+  updateState,
+} = require("../../models/order.model");
+const { existsOrder } = require("../../helpers/middlewares/order.middleware");
+const { checkRole } = require("../../helpers/middlewares/user.middleware");
 
-router.get('/', async (req, res) => {
-    try {
-        const orders = await getAll();
-        res.json(orders);
-    } catch (error) {
-        serverError(res, error.message);
-    }
+router.get("/", checkRole(["Operario", "Encargado"]), async (req, res) => {
+  try {
+    const orders = await getAll();
+    res.json(orders);
+  } catch (error) {
+    serverError(res, error.message);
+  }
 });
 
-router.get('/:orderId', async (req, res) => {
+router.get(
+  "/:orderId",
+  checkRole(["Operario", "Encargado"]),
+  async (req, res) => {
     const { orderId } = req.params;
     try {
-        const order = await getById(orderId);
-        if (!order) return notFound(res, 'El pedido no existe');
-        res.json(order);
+      const order = await getById(orderId);
+      if (!order) return notFound(res, "El pedido no existe");
+      res.json(order);
     } catch (error) {
-        serverError(res, error.message);
+      serverError(res, error.message);
     }
+  }
+);
+
+router.post("/", checkRole(["Operario"]), async (req, res) => {
+  try {
+    const result = await create(req.body);
+    const order = await getById(result.insertId);
+    res.json(order);
+  } catch (error) {
+    serverError(res, error.message);
+  }
 });
 
-router.post('/', async (req, res) => {
-    try {
-        const result = await create(req.body);
-        const order = await getById(result.insertId);
-        res.json(order);
-    } catch (error) {
-        serverError(res, error.message);
-    }
-});
-
-router.put('/:orderId', existsOrder, async (req, res) => {
+router.put(
+  "/:orderId",
+  checkRole(["Operario", "Encargado"]),
+  existsOrder,
+  async (req, res) => {
     const { orderId } = req.params;
     try {
-        const result = await update(orderId, req.body);
-        res.json(result);
+      const result = await update(orderId, req.body);
+      res.json(result);
     } catch (error) {
-        serverError(res, error.message);
+      serverError(res, error.message);
     }
-});
+  }
+);
 
-router.patch('/:orderId', existsOrder, async (req, res) => {
+router.patch(
+  "/:orderId",
+  checkRole(["Operario", "Encargado"]),
+  existsOrder,
+  async (req, res) => {
     const { orderId } = req.params;
     try {
-        const result = await updateState(orderId, req.body);
-        res.json(result);
+      const result = await updateState(orderId, req.body);
+      res.json(result);
     } catch (error) {
-        serverError(res, error.message);
+      serverError(res, error.message);
     }
-})
+  }
+);
 
-router.delete('/:orderId',
-    existsOrder,
-    async (req, res) => {
+router.delete(
+  "/:orderId",
+  checkRole(["Operario"]),
+  existsOrder,
+  async (req, res) => {
     const { orderId } = req.params;
     try {
-        const result = await deleteById(orderId);
-        res.json(result);
+      const result = await deleteById(orderId);
+      res.json(result);
     } catch (error) {
-        serverError(res, error.message);
+      serverError(res, error.message);
     }
-});
+  }
+);
 
 module.exports = router;
