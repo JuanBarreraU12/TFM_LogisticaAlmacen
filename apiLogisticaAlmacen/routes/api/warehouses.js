@@ -27,9 +27,71 @@ router.get("/",
   }
 });
 
-router.get("/:warehouseId",
-  checkRole(['Jefe']),
-  async (req, res) => {
+router.get('/', (req, res) =>  {
+  getAll()
+      .then(async (warehouse) => {
+        let respuesta= [];
+        for(let element of warehouse) {
+          const locations = await getLocationByWarehouseId(element.id);
+          const item={
+            "id" : element.id,
+            "description": element.description,
+            "address":element.address,
+            locations
+          }
+          respuesta.push(item);
+        };
+        res.json(respuesta);
+      })
+      .catch((error) => {
+          res.json({ fatal: error.message });
+      });
+});
+
+router.get('/employee/:employeeId', async (req, res) => {
+  const { employeeId } = req.params;
+  const warehouse = await getWarehousebyIdEmployee(employeeId);
+  console.log(warehouse)
+  let respuesta = [];
+  for (let item of warehouse) {
+    console.log(item)
+   
+
+    const response = {
+      "id": item.id,
+      "description": item.description,
+      "address": item.address
+    }
+    respuesta.push(response)     
+  }
+  res.json(respuesta)
+  
+})
+
+router.post('/',
+  checkSchema(newWarehouse), badRequest , async (req, res) => {
+    try {
+      const result = await create(req.body);
+      const warehouse = await getWareHouseById(result.insertId);
+      res.json(warehouse);
+    } catch (error) {
+      res.json({ fatal: error.message });
+    }
+});
+
+router.put('/', async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS"); 
+  
+  const warehouse = req.body;
+  const result = await update(warehouse);
+  res.json(result);
+});
+
+router.delete('/:warehouseId', async (req, res) => {
   const { warehouseId } = req.params;
   try {
     const warehouse = await getById(warehouseId);

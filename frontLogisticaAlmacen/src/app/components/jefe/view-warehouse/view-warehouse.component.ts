@@ -1,63 +1,84 @@
 import { Component, OnInit } from '@angular/core';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
-import { WarehousesService } from 'src/app/services/warehouses.service';
+import { WarehouseService } from 'src/app/services/warehouse.service';
 import Swal from 'sweetalert2';
+import { LocationsService } from 'src/app/services/locations.service';
+import { Location } from 'src/app/interfaces/location.interface';
 
 @Component({
   selector: 'app-view-warehouse',
   templateUrl: './view-warehouse.component.html',
-  styleUrls: ['./view-warehouse.component.css'],
+  styleUrls: ['./view-warehouse.component.css']
 })
 export class ViewWarehouseComponent implements OnInit {
-  arrWarehouse: Warehouse[] = [];
 
-  constructor(private warehousesService: WarehousesService) {}
+  arrWarehouse: Warehouse[] = []
+  warehouseId : number = 0;
+  arrLocations: Location[] = [];
+
+  constructor(
+    private werehouseServices: WarehouseService,
+    private locationService: LocationsService
+  ) { }
 
   ngOnInit(): void {
-    this.getWarehouse();
+    this.getWarehouse()
   }
 
-  async getWarehouse(): Promise<void> {
+  async getWarehouse(): Promise<void>{
     try {
-      let response = await this.warehousesService.getAll();
-      this.arrWarehouse = response;
-    } catch (err) {
-      console.log(err);
-    }
+      let response = await this.werehouseServices.getAllWarehouse()
+      this.arrWarehouse = response
+    } catch (err) { }
   }
 
   deleteWarehouse(pWarehouse: number | undefined): void {
     Swal.fire({
-      title: `¿Do you want to delete the warehouse #${pWarehouse}?`,
-      text: '¡This action is irreversible!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0d6efd',
-      cancelButtonColor: '#6c757d',
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Delete',
-      heightAuto: false,
-    }).then(async (result) => {
+      title: "Deseas borrar al Warehouse",
+      showDenyButton: true,
+      confirmButtonText: 'Aceptar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
       if (result.isConfirmed) {
-        try {
-          if (pWarehouse) {
-            let response = await this.warehousesService.delete(pWarehouse);
-            if (response.affectedRows > 0) {
-              Swal.fire({
-                title: 'Deleted!',
-                text: `The warehouse #${pWarehouse} was deleted`,
-                icon: 'success',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#6c757d',
-                heightAuto: false,
-              });
-              this.getWarehouse();
+        if (pWarehouse !== undefined) {
+          this.werehouseServices.delete(pWarehouse).then(response => {
+            if (response != null) {
+              Swal.fire(
+              'OK!',
+              'Warehouse borrado',
+              'success')
+              this.getWarehouse()
             }
-          }
-        } catch (error) {
-          console.log(error);
+          })
         }
       }
-    });
+    })
   }
+
+  async viewWarehouse(warehouseId : number| undefined)
+  {
+    try {
+      if (warehouseId !== undefined)
+      {
+        this.warehouseId=warehouseId;
+        let response = await this.locationService.getLocationByWarehouseId(this.warehouseId);
+        this.arrLocations = response;
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async addWarehouse(warehouseId : number| undefined)
+  {
+    try {
+      if (warehouseId !== undefined)
+      {
+        this.warehouseId=warehouseId;
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 }

@@ -10,5 +10,6 @@ router.use('/orders-details', checkToken, require('./api/orders_details'));
 router.use('/warehouses', checkToken, require('./api/warehouses'));
 router.use('/roles', checkToken, require('./api/roles'));
 router.use('/users-warehouses', checkToken, require('./api/users_warehouses'));
+router.use('/locations', require('./api/locations'));
 
 module.exports = router;
