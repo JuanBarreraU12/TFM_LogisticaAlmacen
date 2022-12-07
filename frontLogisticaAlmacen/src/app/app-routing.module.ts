@@ -15,10 +15,14 @@ import { InOrdersComponent } from './components/encargado/in-orders/in-orders.co
 import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
 import { ViewLocationComponent } from './components/jefe/view-location/view-location.component';
 import { FormLocationComponent } from './components/jefe/form-location/form-location.component';
+import { RecuperarPasswordComponent } from './components/jefe/recuperar-password/recuperar-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
+  { path: 'newPassword', component: RecuperarPasswordComponent }, 
+  
+
   {
     path: 'home',
     component: HomeComponent,

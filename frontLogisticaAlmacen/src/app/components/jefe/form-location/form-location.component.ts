@@ -77,7 +77,7 @@ export class FormLocationComponent implements OnInit {
       else {
         Swal.fire(
           'Error!',
-          'Hubo un error',
+          'There is an error',
           'error')
           .then((result) => {
             this.router.navigate(['/home', 'viewLocation']);
@@ -91,7 +91,7 @@ export class FormLocationComponent implements OnInit {
       this.idLocation = params.idLocation;
       let id: number = parseInt(params.idLocation);
       if (id) {
-        this.type = 'Actualizar'
+        this.type = 'Update'
         const response = await this.locationService.getById(id)
         const location: Location = response;
         this.userForm = new FormGroup({

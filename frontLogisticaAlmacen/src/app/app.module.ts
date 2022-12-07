@@ -30,6 +30,7 @@ import { ViewLocationComponent } from './components/jefe/view-location/view-loca
 
 import { ModalViewLocationsComponent } from './components/jefe/modal-view-locations/modal-view-locations.component';
 import { ModalAddLocationsComponent } from './components/jefe/modal-add-locations/modal-add-locations.component';
+import { RecuperarPasswordComponent } from './components/jefe/recuperar-password/recuperar-password.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ModalAddLocationsComponent } from './components/jefe/modal-add-location
     FormLocationComponent,
     ViewLocationComponent,
     ModalViewLocationsComponent,
-    ModalAddLocationsComponent
+    ModalAddLocationsComponent,
+    RecuperarPasswordComponent
   ],
   imports: [
     BrowserModule,

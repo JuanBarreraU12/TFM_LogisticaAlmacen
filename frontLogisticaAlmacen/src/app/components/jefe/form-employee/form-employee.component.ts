@@ -21,7 +21,7 @@ export class FormEmployeeComponent implements OnInit {
   arrRol: Rol[] = [];
   arrWarehouse: Warehouse[] = [];
   userForm: FormGroup;
-  type: string = 'Registrar';
+  type: string = 'Register';
   rolSelected: number = 0;
   warehouseSelected: number = 0;
   arrawarehouseSelected: User_warehouse[] = [];
@@ -152,13 +152,13 @@ export class FormEmployeeComponent implements OnInit {
                 infoFormulario
               );
               if (userWarehouseResponse != null) {
-                Swal.fire('OK!', 'Usuario creado', 'success').then((result) => {
+                Swal.fire('OK!', 'Employee created', 'success').then((result) => {
                   this.router.navigate(['/home', 'viewEmployee']);
                 });
               }
             }
           } else {
-            Swal.fire('Error!', 'Hubo un error', 'error').then((result) => {});
+            Swal.fire('Error!', 'There is an error', 'error').then((result) => {});
           }
         } else {
           Swal.fire('Error!', 'Debe seleccionar un rol', 'error').then(
@@ -181,7 +181,7 @@ export class FormEmployeeComponent implements OnInit {
     this.activateRoute.params.subscribe(async (params: any) => {
       let id: number = parseInt(params.idemployee);
       if (id) {
-        this.type = 'Actualizar';
+        this.type = 'Update';
         const response = await this.employeeServices.getById(id);
         const employee: Employee = response;
         this.rolSelected = employee?.rol.id || 0;

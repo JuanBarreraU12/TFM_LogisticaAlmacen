@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class FormWarehousesComponent implements OnInit {
 
   userForm: FormGroup
-  type: string = 'Nuevo';
+  type: string = 'New';
   idWarehouse: number = 0;
 
   constructor(
@@ -52,7 +52,7 @@ export class FormWarehousesComponent implements OnInit {
       if (response.affectedRows>0) {
         Swal.fire(
           'OK!',
-          'Almacen actualizado',
+          'Updated warehouse',
           'success')
           .then((result) => {
             this.router.navigate(['/home', 'viewWarehouse'])
@@ -75,7 +75,7 @@ export class FormWarehousesComponent implements OnInit {
       if (warehouseResponse.id) {
         Swal.fire(
           'OK!',
-          'Almacen creado',
+          'Warehouse created',
           'success')
           .then((result) => {
           this.router.navigate(['/home','viewWarehouse'])
@@ -84,7 +84,7 @@ export class FormWarehousesComponent implements OnInit {
       else {
         Swal.fire(
           'Error!',
-          'Hubo un error',
+          'There is an error',
           'error')
           .then((result) => {
             this.router.navigate(['/home','viewWarehouse']);
@@ -98,7 +98,7 @@ export class FormWarehousesComponent implements OnInit {
       this.idWarehouse=params.idwarehouse;
       let id: number = parseInt(params.idwarehouse);
       if (id) {
-        this.type = 'Actualizar'
+        this.type = 'Update'
         const response = await this.warehouseService.getById(id)
         const warehouse: Warehouse = response
         this.userForm = new FormGroup({

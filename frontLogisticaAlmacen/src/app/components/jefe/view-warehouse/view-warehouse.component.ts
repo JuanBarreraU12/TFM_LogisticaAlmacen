@@ -34,10 +34,10 @@ export class ViewWarehouseComponent implements OnInit {
 
   deleteWarehouse(pWarehouse: number | undefined): void {
     Swal.fire({
-      title: "Deseas borrar al Warehouse",
+      title: "Do you want to delete the warehouse?",
       showDenyButton: true,
-      confirmButtonText: 'Aceptar',
-      denyButtonText: `Cancelar`,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
         if (pWarehouse !== undefined) {
@@ -45,7 +45,7 @@ export class ViewWarehouseComponent implements OnInit {
             if (response != null) {
               Swal.fire(
               'OK!',
-              'Warehouse borrado',
+              'warehouse removed',
               'success')
               this.getWarehouse()
             }

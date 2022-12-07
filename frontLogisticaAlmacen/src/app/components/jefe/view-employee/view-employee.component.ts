@@ -33,10 +33,10 @@ async getEmployee(): Promise<void> {
 
   deleteEmployee(pEmployee: number | undefined): void {
     Swal.fire({
-      title: "Deseas borrar al Employee",
+      title: "Do you want to delete this employee?",
       showDenyButton: true,
-      confirmButtonText: 'Aceptar',
-      denyButtonText: `Cancelar`,
+      confirmButtonText: 'YES',
+      denyButtonText: `NO`,
     }).then((result) => {
       if (result.isConfirmed) {
         if (pEmployee !== undefined) {
@@ -44,7 +44,7 @@ async getEmployee(): Promise<void> {
             if (response != null) {
               Swal.fire(
               'OK!',
-              'Usuario borrado',
+              'Employee removed',
               'success')
               this.getEmployee()
             }
