@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
-import { WarehouseService } from 'src/app/services/warehouse.service';
+import { WarehouseService } from 'src/app/services/warehouses.service';
 import Swal from 'sweetalert2';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Location } from 'src/app/interfaces/location.interface';

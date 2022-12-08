@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
-import { WarehousesService } from 'src/app/services/warehouses.service';
+import { WarehouseService } from 'src/app/services/warehouses.service';
 
 @Component({
   selector: 'app-list-employee-warehouse',
@@ -11,7 +11,7 @@ import { WarehousesService } from 'src/app/services/warehouses.service';
 export class ListEmployeeWarehouseComponent implements OnInit {
   arrWarehouse: Warehouse[] = [];
   constructor(
-    private warehousesService: WarehousesService,
+    private warehousesService: WarehouseService,
     private activateRoute: ActivatedRoute
   ) {}
 

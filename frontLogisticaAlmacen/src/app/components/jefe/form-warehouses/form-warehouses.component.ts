@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
-import { WarehousesService } from 'src/app/services/warehouses.service';
+import { WarehouseService } from 'src/app/services/warehouses.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ export class FormWarehousesComponent implements OnInit {
   idWarehouse: number = 0;
 
   constructor(
-    private warehouseService: WarehousesService,
+    private warehouseService: WarehouseService,
     private router: Router,
     private activateRoute: ActivatedRoute
   ) {
@@ -68,17 +68,16 @@ export class FormWarehousesComponent implements OnInit {
         });
       }
     }
-
-
     else {
       let warehouseResponse = await this.warehouseService.create(newWarehouse);
+      console.log(warehouseResponse)
       if (warehouseResponse.id) {
         Swal.fire(
           'OK!',
           'Almacen creado',
           'success')
           .then((result) => {
-          this.router.navigate(['/home','viewWarehouse'])
+          this.router.navigate(['/home','warehouseslist'])
         })
       }
       else {
@@ -87,7 +86,7 @@ export class FormWarehousesComponent implements OnInit {
           'Hubo un error',
           'error')
           .then((result) => {
-            this.router.navigate(['/home','viewWarehouse']);
+
         });
       }
     }

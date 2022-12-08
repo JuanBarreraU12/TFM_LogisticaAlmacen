@@ -24,7 +24,9 @@ const update = (warehouseId, {description, address}) => {
 const getByUser = (userId) => { 
   return executeQuery('SELECT w.id, w.description, w.address, uw.id as user_warehouse_id FROM warehouses w JOIN users_warehouses uw ON uw.warehouses_id = w.id WHERE uw.users_id = ?', [userId]);
 }
-
+const getWareHouseById = (warehouseId) => {
+  return executeQueryOne('select * from gestion_almacen.warehouses where id= ?', [warehouseId]);
+}
 
 module.exports = {
   getAll,
@@ -32,5 +34,6 @@ module.exports = {
   getByUser,
   create,
   update,  
-  deleteById
+  deleteById,
+  getWareHouseById
 }

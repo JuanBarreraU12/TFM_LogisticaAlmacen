@@ -35,7 +35,7 @@ const routes: Routes = [
         data: { expectedRole: 'Jefe' },
       },
       {
-        path: 'newWerehouse',
+        path: 'newWarehouse',
         component: FormWarehousesComponent,
         canActivate: [RoleGuard],
         data: { expectedRole: 'Jefe' },
@@ -70,7 +70,6 @@ const routes: Routes = [
         canActivate: [RoleGuard],
         data: { expectedRole: 'Jefe' },
       },
-      { path: 'newWerehouse', component: FormWarehousesComponent },
       { path: 'viewEmployee', component: ViewEmployeeComponent },
       { path: 'viewLocation', component: ViewLocationComponent },
       { path: 'newLocation', component: FormLocationComponent },

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { RolesService } from 'src/app/services/roles.service';
-import { WarehousesService } from 'src/app/services/warehouses.service';
+import { WarehouseService } from 'src/app/services/warehouses.service';
 import { UsersService } from 'src/app/services/users.service';
 import * as dayjs from 'dayjs';
 import { UserWarehouse } from 'src/app/interfaces/user-warehouse.interface';
@@ -27,10 +27,12 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
   type: string = 'Create';
   arrUsersWarehouses: Warehouse[] = [];
+  arrWarehouse: Warehouse[] = [];
+  arrWarehouseSelected: Warehouse[] = [];
 
   constructor(
     private rolesService: RolesService,
-    private warehousesService: WarehousesService,
+    private warehousesService: WarehouseService,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private usersService: UsersService,
@@ -85,23 +87,13 @@ export class UserFormComponent implements OnInit {
     };
 
     if (user.id) {
-      // ACTUALIZACIÓN
-      try {
         let response = await this.usersService.update(user.id, user);
         if (response.affectedRows > 0)
           ok = await this.saveUsersWarehouses(user.id);
-      } catch (error) {
-        console.log(error);
-      }
     } else {
-      //CREACION
-      console.log(user);
-      try {
+
         let response = await this.usersService.register(user);
         if (response.id) ok = await this.saveUsersWarehouses(response.id);
-      } catch (error) {
-        console.log(error);
-      }
     }
 
     if (ok) this.router.navigate(['/home', 'userslist']);
@@ -117,13 +109,23 @@ export class UserFormComponent implements OnInit {
         try {
           let user = await this.usersService.getById(id);
           if (user.id) {
-            try {
-              let response = await this.warehousesService.getByUser(user.id);
-              this.arrUsersWarehouses = response;
-              this.selectCheckbox();
-            } catch (error) {
-              console.log(error);
-            }
+              const warehouseSelected = await this.warehousesService.getByUser(user.id);
+              for(let item of warehouseSelected)
+              {
+                item.isSelected=true;
+                this.arrWarehouseSelected.push(item);
+              }
+
+              for(let item of this.arrWarehouse)
+              {
+                for(let item2 of this.arrWarehouseSelected)
+                {
+                  if(item.id===item2.id)
+                  {
+                    item.isSelected=true;
+                  }
+                }
+              }
             this.userForm = new FormGroup(
               {
                 id: new FormControl(id, []),
@@ -143,7 +145,7 @@ export class UserFormComponent implements OnInit {
                   Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
                 ]),
                 dni: new FormControl(user?.dni, [Validators.required]),
-                phone: new FormControl(user?.cell_phone, []),
+                phone: new FormControl(user?.phone, []),
                 birth_date: new FormControl(
                   dayjs(user?.birth_date).format('YYYY-MM-DD'),
                   []
@@ -182,8 +184,8 @@ export class UserFormComponent implements OnInit {
 
   async getWarehouses(): Promise<void> {
     try {
-      let response = await this.warehousesService.getAll();
-      this.warehouses = response;
+      let response = await this.warehousesService.getAllWarehouse();
+      this.arrWarehouse = response;
     } catch (err) {
       console.log(err);
     }
@@ -198,18 +200,6 @@ export class UserFormComponent implements OnInit {
 
   seleccionarRol(event: any) {
     this.userForm.value.role = event.target.value;
-  }
-
-  selectCheckbox() {
-    const checkGroup = document.querySelector('#checkGroup');
-    const checkbox = checkGroup?.querySelectorAll('input[type="checkbox"]');
-    if (checkbox) {
-      checkbox.forEach((check) => {
-        let index = this.arrUsersWarehouses.findIndex((w => w.id === parseInt((<HTMLInputElement>(check)).value)));
-        if (index !== -1)
-          (<HTMLInputElement>(check)).checked = true;
-      })
-    }
   }
 
   async saveUsersWarehouses(pUserId: number): Promise<boolean> {
@@ -282,7 +272,15 @@ export class UserFormComponent implements OnInit {
     return ok;
   }
 
-  Actualizar() {}
+  isAllSelected(warehouse: Warehouse) {
+    const index: number = this.arrWarehouse.indexOf(warehouse);
+    if (index !== -1) {
+      const newElement = warehouse;
+      if (newElement.isSelected) newElement.isSelected = false;
+      else newElement.isSelected = true;
+      this.arrWarehouse[index] = newElement;
+    }
+    return warehouse;
+  }
 
-  Crear() {}
 }
