@@ -35,6 +35,11 @@ constructor(private httpClient: HttpClient) { }
     return lastValueFrom(this.httpClient.patch<any>(`${this.baseUrl}${pId}`, pOrder, Util.getHttpOptions()));
   }
 
+  updateComment(pId: Number, pComment: String): Promise<any>{
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}${pId}/c`, {comment: pComment},Util.getHttpOptions()     ));
+  }
+
+
   delete(pId: Number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
   }

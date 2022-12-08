@@ -10,14 +10,14 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">out_date</th>
-            <th scope="col"> as</th>
-            <th scope="col">comment</th>
-            <th scope="col">destiny</th>
-            <th scope="col">origin </th>
+            <th scope="col">Out Date</th>
+            <th scope="col ">Truck Plate</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Destiny</th>
+            <th scope="col">Origin </th>
             <th scope="col">Status</th>
-            <th scope="col" *ngIf=" salida == 'pararevision'|| entrada == 'enviado' ">show</th>
-            <th scope="col" *ngIf=" salida == 'pararevision'|| entrada == 'enviado' ">edit
+            <th  scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">show</th>
+            <th scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">edit
             </th>
           </tr>
         </thead>
@@ -26,17 +26,17 @@
           <!--<tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder | paginate: { itemsPerPage: 10, currentPage: p}">-->
             <tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder ">
             <td>{{order?.id}}</td>
-            <td>{{order?.out_date}}</td>
+            <td>{{order?.out_date | date }}  </td>
             <td>{{order?.truck_plate}}</td>
             <td>{{order?.comment}}</td>
             <td>{{order?.destiny}}</td>
             <td>{{order?.origin}}</td>
 
-            <td ngClass=" badge {{order.state}}">{{order.state}}</td>
-            <td *ngIf="  entrada == 'enviado' "><button type="button"   class="btn btn-info btn-sm"  data-bs-toggle="modal"       [routerLink]="['/home', 'in-orders', order?.id]"    data-bs-target="#exampleModal">show</button></td>
-            <td *ngIf="  salida == 'pararevision' " ><button type="button"   class="btn btn-info btn-sm"  data-bs-toggle="modal" [routerLink]="['/home', 'out-orders', order?.id]"    data-bs-target="#exampleModal">show</button></td>
-            <td *ngIf="  entrada == 'enviado' "  ><button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal"     [routerLink]="['/home', 'in-orders', order?.id]"   data-bs-target="#editModal" >edit</button></td>
-            <td *ngIf="  salida == 'pararevision' " ><button type="button" class="btn btn-primary btn-sm"  data-bs-toggle="modal" [routerLink]="['/home', 'out-orders', order?.id]"   data-bs-target="#editModal" >edit</button></td>
+            <td class= " badge {{order.state}}">{{order.state}}</td>
+            <td  *ngIf="  entrada == 'Shiped' "><button      class="btn btn-info btn-sm bi bi-search "  type="button"     data-bs-toggle="modal"       [routerLink]="['/home','in-orders', order?.id] "data-bs-target="#exampleModal">show</button></td>
+            <td     *ngIf="  salida == 'Review' " ><button   class="btn btn-info btn-sm bi bi-search "  data-bs-toggle="modal"  [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#exampleModal">show</button></td>
+            <td   *ngIf="  entrada == 'Shiped' "  ><button   type="button" class="btn btn-primary btn-sm bi bi-pencil-square"  data-bs-toggle="modal"    [routerLink]="['/home','in-orders', order?.id]"  data-bs-target="#editModal" >edit</button></td>
+            <td  *ngIf="     salida == 'Review' " ><button  type="button" class="btn btn-primary btn-sm bi bi-pencil-square"   data-bs-toggle="modal" [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#editModal" >edit</button></td>
 
 
           </tr>
@@ -102,8 +102,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <!--modal para enviados-->
-      <div class="modal-body" *ngIf="  entrada == 'enviado'">
+      <!--modal para Shipeds-->
+      <div class="modal-body" *ngIf="  entrada == 'Shiped'">
 
         <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
           <option value="0">Seleccione una opción</option>
@@ -113,11 +113,23 @@
 
           </option>
       </select>
+
+      <form>
+      
+        <div class="form-group">
+          <label for="message-text" class="col-form-label">comment:</label>
+          <textarea class="form-control" id="message-text"  [(ngModel)]='this.comment'  [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+      </form>
+
+
+
+
       <!-- Prueba para ver la opción seleccionado -->
-      <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}</p>
+      <p [hidden]="opcionSeleccionado == '0'">Selected # {{ verSeleccion }}</p>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)" [disabled]=" ids==0 || ids ==null  || ids ==undefined  ">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"  (click)="updateComment(ruta, comment)"  [disabled]=" ids==0 || ids ==null  || ids ==undefined  "                >Save changes</button>
       </div>
 
 
@@ -126,7 +138,7 @@
 
 
       <!--modal para revision-->
-      <div class="modal-body" *ngIf="  salida == 'pararevision' ">
+      <div class="modal-body" *ngIf="  salida == 'Review'">
 
         <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
           <option value="0">*Selecciona una opción</option>
@@ -136,17 +148,28 @@
 
           </option>
       </select>
-      <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}</p>
+
+      <form>
+     
+        <div class="form-group">
+          <label for="message-text" class="col-form-label">Comment:</label>
+          <textarea class="form-control" id="message-text" [(ngModel)]='this.comment'  [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+      </form>
+
+      <p [hidden]="opcionSeleccionado == '0'">Selected # {{ verSeleccion }}</p>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"   [disabled]=" ids==0 || ids ==null  || ids ==undefined  " >Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"  (click)="updateComment(ruta, comment)"        [disabled]=" ids==0 || ids ==null  || ids ==undefined  " >Save changes</button>
 
 
       </div>
     </div>
 
+    
 
 
   </div>
 </div>
+
 </div>

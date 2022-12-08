@@ -7,6 +7,7 @@ const {
   update,
   deleteById,
   updateState,
+  updateComment,
 } = require("../../models/order.model");
 const { existsOrder } = require("../../helpers/middlewares/order.middleware");
 const { checkRole } = require("../../helpers/middlewares/user.middleware");
@@ -59,6 +60,24 @@ router.put(
     }
   }
 );
+
+
+
+
+router.put('/:orderId/c', checkRole(["Encargado"]), existsOrder, async (req, res) => {
+  const { orderId } = req.params;
+  try {
+      const result = await updateComment(orderId, req.body);
+      res.json(result);
+  } catch (error) {
+      serverError(res, error.message);
+  }
+});
+
+
+
+
+
 
 router.patch(
   "/:orderId",

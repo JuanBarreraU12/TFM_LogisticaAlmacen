@@ -20,6 +20,10 @@ const updateState = (orderId, { stateId }) => {
     return executeQuery('UPDATE orders SET order_states_id = ? WHERE id = ?', [stateId, orderId]);
 }
 
+const updateComment = (orderId, { comment }) => {
+    return executeQuery('UPDATE orders SET comment = ? WHERE id = ?', [comment, orderId]);
+}
+
 const deleteById = (orderId) => {
   return executeQuery('DELETE FROM orders WHERE id = ?', [orderId]);
 }
@@ -30,5 +34,6 @@ module.exports = {
     create,
     update,
     updateState,
-    deleteById
+    deleteById,
+    updateComment
 }
