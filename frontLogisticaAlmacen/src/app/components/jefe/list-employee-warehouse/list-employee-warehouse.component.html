@@ -8,12 +8,14 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Direccion</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <tr *ngFor="let warehouse of arrWarehouse">
+                <tr *ngFor="let warehouse of arrWarehouse;let indice=index">
+                    <th scope="row">{{indice+1}}</th>
                     <td>{{warehouse.description}} </td>
                     <td>{{warehouse.address}}</td>
                 </tr>
