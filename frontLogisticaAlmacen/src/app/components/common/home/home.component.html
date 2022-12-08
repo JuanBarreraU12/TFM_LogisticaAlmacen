@@ -20,3 +20,10 @@
     <app-footer id="footer" class="footer mt-auto"></app-footer>
   </footer>
 </div>
+<script>
+  if (select('.toggle-sidebar-btn')) {
+  on('click', '.toggle-sidebar-btn', function(e) {
+    select('body').classList.toggle('toggle-sidebar')
+  })
+}
+</script>
