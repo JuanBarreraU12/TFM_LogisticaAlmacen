@@ -15,6 +15,7 @@ export class ListOrdersComponent implements OnInit {
 
   optionsin: any = [];
   optionsout: any = [];
+  comment: String = '';
 
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
@@ -32,8 +33,8 @@ export class ListOrdersComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.optionsout = ['ParaEntrega', 'Devuelto'];
-    this.optionsin = ['Recibido'];
+    this.optionsout = ['For Deliver', 'Returned'];
+    this.optionsin = ['Deliver'];
 
     this.OrdersService.getOrders().subscribe((orders) => {
       this.orderdata = orders;
@@ -52,7 +53,7 @@ export class ListOrdersComponent implements OnInit {
       if (id) {
         let response = await this.OrdersService.getById(id);
         this.ruta = response?.id;
-        console.log(this.ruta);
+        //console.log(this.ruta);
       }
     });
   }
@@ -70,14 +71,23 @@ export class ListOrdersComponent implements OnInit {
       });
   }
 
+  updateComment(pId: Number, pComment: String){
+    this.OrdersService.updateComment(pId, pComment).then((response) => {
+    }).catch((error) => {
+      console.log(error);
+    }
+    );
+  }
+  
+
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.opcionSeleccionado;
-    if (this.verSeleccion == 'ParaEntrega') {
+    if (this.verSeleccion == 'For Deliver') {
       this.ids = 4;
-    } else if (this.verSeleccion == 'Devuelto') {
+    } else if (this.verSeleccion == 'Returned') {
       this.ids = 3;
-    } else if (this.verSeleccion == 'Recibido') {
+    } else if (this.verSeleccion == 'Deliver') {
       this.ids = 6;
     } else if (
       this.verSeleccion == '0' ||

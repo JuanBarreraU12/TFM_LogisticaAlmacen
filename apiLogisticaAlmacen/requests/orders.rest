@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/orders
+git pull origin master --allow-unrelated-historiesGET http://localhost:3000/api/orders
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwidXNlcl9yb2xlIjoiT3BlcmFyaW8iLCJleHBpcmF0aW9uX2RhdGUiOjE2NzAxMDQ3OTMsImlhdCI6MTY3MDEwNDQ5M30.RMlCKyyJ4kuFNn-pphrSiLC_cNZb1CY4p2S_UMKujvw
 
 ###
@@ -38,3 +38,20 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/orders/6
+
+###
+PUT http://localhost:3000/api/orders/s/2
+Content-Type: application/json
+
+{
+    "stateId": 2
+}
+
+###
+
+PUT http://localhost:3000/api/orders/c/3
+Content-Type: application/json
+
+{
+     "comment": "El pedido se encuentra en la ciudad de Córdoba"
+}
