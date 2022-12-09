@@ -57,7 +57,7 @@ export class ModalAddLocationsComponent implements OnInit {
     else {
       Swal.fire(
         'Error!',
-        'Hubo un error',
+        'There is an error',
         'error')
         .then((result) => {
           window.location.reload();
