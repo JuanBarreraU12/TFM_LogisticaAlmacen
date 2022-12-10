@@ -27,7 +27,11 @@ const deleteById = (userId) => {
 const updateRol = (rolId, employeeId) => {
   return executeQuery('UPDATE gestion_almacen.users SET roles_id = ? WHERE employees_id = ?', [rolId, employeeId]);
 }
- 
+
+const updatePassword = (password, userId) => {
+  return executeQuery('update gestion_almacen.users set password=? where id=?', [password, userId]);
+}
+
 module.exports = {
     getAll,
     getByEmail,
@@ -35,5 +39,6 @@ module.exports = {
     create,
     update,
     deleteById,
-    updateRol
+    updateRol,
+    updatePassword
 }
