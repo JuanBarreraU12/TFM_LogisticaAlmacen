@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { checkRole } = require('../../helpers/middlewares/user.middleware');
 const { serverError } = require('../../helpers/validators');
-const { create, getById, getAll, deleteById } = require('../../models/users_warehouses.model');
+const { create, getById, getAll, deleteById, deleteWarehousesByUserId } = require('../../models/users_warehouses.model');
 
 
 router.get('/', async (req, res) => {
@@ -18,6 +18,26 @@ router.post('/',
   async (req, res) => {
   try {
     const array=[];
+    for(let item of req.body.users_warehouses)
+    {
+      const result = await create(item);
+      const userWarehouse = await getById(result.insertId);
+      array.push(userWarehouse);
+    }
+    res.json(array);
+  } catch (error) {
+    serverError(res, error.message);
+  }
+});
+
+router.put('/',
+  async (req, res) => {
+  try {
+    const array=[];
+    const userId=req.body.userId;
+    const deleteWarehouses=await deleteWarehousesByUserId(userId);
+    console.log(deleteWarehouses);
+
     for(let item of req.body.users_warehouses)
     {
       const result = await create(item);
