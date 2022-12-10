@@ -1,41 +1,41 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { Util } from '../classes/util';
 import { Warehouse } from '../interfaces/warehouse.interface';
+import { Util } from '../classes/util';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class WarehousesService {
-  baseUrl: string = 'http://localhost:3000/api/warehouses/';
-  constructor(private httClient: HttpClient) {}
+export class WarehouseService {
 
-  getAll(): Promise<any> {
-    return lastValueFrom(this.httClient.get<any>(`${this.baseUrl}`, Util.getHttpOptions()));
+  urlWarehouse: string = "http://localhost:3000/api/warehouses/"
+  urlWarehouseEmployee: string = "http://localhost:3000/api/warehouses/employee/"
+  constructor(private httClient: HttpClient) { }
+
+  getAllWarehouse(): Promise<any> {
+    return lastValueFrom(this.httClient.get<any>(`${this.urlWarehouse}`))
   }
 
-  update(pId: number, pWarehouse: Warehouse): Promise<any> {
-    return lastValueFrom(
-      this.httClient.put<any>(`${this.baseUrl}${pId}`, pWarehouse, Util.getHttpOptions())
-    );
+  update(pwarehouse: Warehouse): Promise<any> {
+    return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}`, pwarehouse))
   }
 
   getById(pId: number): Promise<any> {
-    return lastValueFrom(this.httClient.get<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
+    return lastValueFrom(this.httClient.get<Warehouse | any> (`${this.urlWarehouse}${pId}`))
   }
 
-  create(pWarehouse: Warehouse): Promise<any> {
-    return lastValueFrom(this.httClient.post<any>(this.baseUrl, pWarehouse, Util.getHttpOptions()));
+  create(pWarehouse: Warehouse): Promise<Warehouse> {
+    return lastValueFrom(this.httClient.post<Warehouse>(this.urlWarehouse, pWarehouse))
   }
 
-  delete(pId: Number): Promise<any> {
-    return lastValueFrom(this.httClient.delete<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
+  delete(pWarehouse: Number): Promise<any> {
+    return lastValueFrom(this.httClient.delete<any>(`${this.urlWarehouse}${pWarehouse}`));
   }
 
   getByUser(pUserId: Number): Promise<any> {
     return lastValueFrom(
-      this.httClient.get<any>(`${this.baseUrl}users/${pUserId}`, Util.getHttpOptions())
+      this.httClient.get<any>(`${this.urlWarehouse}users/${pUserId}`, Util.getHttpOptions())
     );
   }
 }

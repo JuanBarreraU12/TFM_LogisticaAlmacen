@@ -44,8 +44,6 @@ router.get("/:userId",
 });
 
 router.post("/register",
-  checkToken,
-  checkRole(['Jefe']),
   async (req, res) => {
   try {
     req.body.password = bcrypt.hashSync(req.body.password, 8);
@@ -76,9 +74,13 @@ router.post("/login",
   badRequest, async (req, res) => {
   const { email, password } = req.body;
   const user = await getByEmail(email);
+  console.log(user)
   if (!user) return unauthorize(res, "Incorrect email and/or password");
 
   const iguales = bcrypt.compareSync(password, user.password);
+  console.log(password);
+  console.log(user.password);
+  console.log(bcrypt.hashSync(password, 8));
   if (!iguales) {
     return unauthorize(res, "Incorrect email and/or password");
   }

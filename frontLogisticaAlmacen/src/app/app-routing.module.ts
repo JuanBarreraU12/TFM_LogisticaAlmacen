@@ -15,10 +15,16 @@ import { InOrdersComponent } from './components/encargado/in-orders/in-orders.co
 import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { ViewLocationComponent } from './components/jefe/view-location/view-location.component';
+import { FormLocationComponent } from './components/jefe/form-location/form-location.component';
+import { RecuperarPasswordComponent } from './components/jefe/recuperar-password/recuperar-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
+  { path: 'newPassword', component: RecuperarPasswordComponent }, 
+  
+
   {
     path: 'home',
     component: HomeComponent,
@@ -33,7 +39,7 @@ const routes: Routes = [
         data: { expectedRole: 'Jefe' },
       },
       {
-        path: 'newarehouse',
+        path: 'newWarehouse',
         component: FormWarehousesComponent,
         canActivate: [RoleGuard],
         data: { expectedRole: 'Jefe' },
@@ -68,6 +74,11 @@ const routes: Routes = [
         canActivate: [RoleGuard],
         data: { expectedRole: 'Jefe' },
       },
+      { path: 'viewEmployee', component: ViewEmployeeComponent },
+      { path: 'viewLocation', component: ViewLocationComponent },
+      { path: 'newLocation', component: FormLocationComponent },
+      { path: 'updateWarehouse/:idwarehouse', component: FormWarehousesComponent },
+      { path: 'listEmployeeWarehouse/:idemployee', component: ListEmployeeWarehouseComponent },
       //OPERARIO
       {
         path: 'neworder',

@@ -7,6 +7,9 @@ const getRolById = (rolId) => {
 const getAll = () => {
   return executeQuery('select * from gestion_almacen.roles');
 }
+
+
+
 module.exports = {
   getRolById,
   getAll

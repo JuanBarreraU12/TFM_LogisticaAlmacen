@@ -8,8 +8,12 @@ const getById = (userWarehouseId) => {
   return executeQueryOne('SELECT * FROM users_warehouses WHERE id = ?', [userWarehouseId]);
 }
 
-const create = ({ user_id, warehouse_id}) => {
-  return executeQuery('INSERT INTO users_warehouses(users_id,warehouses_id) VALUES(?,?)', [user_id, warehouse_id]);
+const deleteWarehousesByUserId = (userId) => {
+  return executeQuery('delete FROM gestion_almacen.users_warehouses WHERE users_id = ?', [userId]);
+}
+
+const create = ({ users_id, warehouse_id}) => {
+  return executeQuery('INSERT INTO users_warehouses(users_id,warehouses_id) VALUES(?,?)', [users_id, warehouse_id]);
 }
 
 const deleteById = (userWarehouseId) => {
@@ -20,5 +24,6 @@ module.exports = {
   create,
   getById,
   getAll,
-  deleteById
+  deleteById,
+  deleteWarehousesByUserId
 }

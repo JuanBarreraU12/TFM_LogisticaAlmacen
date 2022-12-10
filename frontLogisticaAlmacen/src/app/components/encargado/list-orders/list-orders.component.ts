@@ -64,7 +64,6 @@ export class ListOrdersComponent implements OnInit {
     }
     this.OrdersService.updateState(pId, order)
       .then((response) => {
-        console.log(response);
         window.location.reload();
       })
       .catch((error) => {

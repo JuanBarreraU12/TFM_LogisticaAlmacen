@@ -24,11 +24,16 @@ const deleteById = (userId) => {
     return executeQuery('DELETE FROM users WHERE id = ?', [userId]);
 }
 
+const updateRol = (rolId, employeeId) => {
+  return executeQuery('UPDATE gestion_almacen.users SET roles_id = ? WHERE employees_id = ?', [rolId, employeeId]);
+}
+ 
 module.exports = {
     getAll,
     getByEmail,
     getById,
     create,
     update,
-    deleteById
+    deleteById,
+    updateRol
 }

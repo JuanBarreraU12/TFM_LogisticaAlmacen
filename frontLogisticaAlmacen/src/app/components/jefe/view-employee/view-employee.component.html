@@ -18,8 +18,8 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let user of arrUsers">
-            <th scope="row"></th>
+          <tr *ngFor="let user of arrUsers;let indice=index">
+            <th scope="row">{{indice+1}}</th>
             <td>{{ user.name }} {{ user.first_last_name }}</td>
             <td>{{ user.dni }}</td>
             <td>{{ user.email }}</td>

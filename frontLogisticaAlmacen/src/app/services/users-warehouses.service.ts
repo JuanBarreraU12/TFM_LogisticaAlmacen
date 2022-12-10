@@ -12,8 +12,12 @@ export class UsersWarehousesService {
   baseUrl: string = 'http://localhost:3000/api/users-warehouses/'
   constructor(private httpClient: HttpClient) { }
 
-  create(pUserWarehouse: UserWarehouse): Promise<any> {
+  create(pUserWarehouse: any): Promise<any> {
     return lastValueFrom(this.httpClient.post<any>(this.baseUrl, pUserWarehouse, Util.getHttpOptions()));
+  }
+
+  update(pUserWarehouse: any): Promise<any> {
+    return lastValueFrom(this.httpClient.put<any>(this.baseUrl, pUserWarehouse, Util.getHttpOptions()));
   }
 
   delete(pId: number): Promise<any>{
