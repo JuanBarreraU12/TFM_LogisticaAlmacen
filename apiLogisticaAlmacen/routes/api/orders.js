@@ -11,6 +11,7 @@ const {
 } = require("../../models/order.model");
 const { existsOrder } = require("../../helpers/middlewares/order.middleware");
 const { checkRole } = require("../../helpers/middlewares/user.middleware");
+const { sendEmail } = require("../../helpers/utils");
 
 router.get("/", checkRole(["Operario", "Encargado"]), async (req, res) => {
   try {
@@ -87,6 +88,8 @@ router.patch(
     const { orderId } = req.params;
     try {
       const result = await updateState(orderId, req.body);
+      const info = await sendEmail(req.user);
+      console.log(info);
       res.json(result);
     } catch (error) {
       serverError(res, error.message);
