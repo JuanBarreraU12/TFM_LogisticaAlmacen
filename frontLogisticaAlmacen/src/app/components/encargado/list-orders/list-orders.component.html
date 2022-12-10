@@ -16,8 +16,8 @@
             <th scope="col">Destiny</th>
             <th scope="col">Origin </th>
             <th scope="col">Status</th>
-            <th  scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">show</th>
-            <th scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">edit
+            <th  scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' "></th>
+            <th scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">
             </th>
           </tr>
         </thead>
@@ -26,17 +26,17 @@
           <!--<tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder | paginate: { itemsPerPage: 10, currentPage: p}">-->
             <tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder ">
             <td>{{order?.id}}</td>
-            <td>{{order?.out_date | date }}  </td>
+            <td>{{order?.out_date | date:'MM/dd/yyyy'    }}  </td>
             <td>{{order?.truck_plate}}</td>
             <td>{{order?.comment}}</td>
             <td>{{order?.destiny}}</td>
             <td>{{order?.origin}}</td>
 
-            <td class= " badge {{order.state}}">{{order.state}}</td>
-            <td  *ngIf="  entrada == 'Shiped' "><button      class="btn btn-info btn-sm bi bi-search "  type="button"     data-bs-toggle="modal"       [routerLink]="['/home','in-orders', order?.id] "data-bs-target="#exampleModal">show</button></td>
-            <td     *ngIf="  salida == 'Review' " ><button   class="btn btn-info btn-sm bi bi-search "  data-bs-toggle="modal"  [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#exampleModal">show</button></td>
-            <td   *ngIf="  entrada == 'Shiped' "  ><button   type="button" class="btn btn-primary btn-sm bi bi-pencil-square"  data-bs-toggle="modal"    [routerLink]="['/home','in-orders', order?.id]"  data-bs-target="#editModal" >edit</button></td>
-            <td  *ngIf="     salida == 'Review' " ><button  type="button" class="btn btn-primary btn-sm bi bi-pencil-square"   data-bs-toggle="modal" [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#editModal" >edit</button></td>
+            <td class= " badge  {{order.state}}">{{order.state}}</td>
+            <td  *ngIf="  entrada == 'Shiped' "     class="tdbutton"><button      class="btn btn-info btn-sm bi bi-search "  type="button"     data-bs-toggle="modal"       [routerLink]="['/home','in-orders', order?.id] "data-bs-target="#exampleModal"></button></td>
+            <td     *ngIf="  salida == 'Review' "    class="tdbutton" ><button   class="btn btn-info btn-sm bi bi-search "  data-bs-toggle="modal"  [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#exampleModal"></button></td>
+            <td   *ngIf="  entrada == 'Shiped' "    class="tdbutton" ><button   type="button" class=" btn btn-primary btn-sm bi bi-pencil-square"  data-bs-toggle="modal"    [routerLink]="['/home','in-orders', order?.id]"  data-bs-target="#Modal" ></button></td>
+            <td  *ngIf="     salida == 'Review' "   class="tdbutton"  ><button  type="button" class="  btn  btn-primary btn-sm bi bi-pencil-square"   data-bs-toggle="modal" [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#Modal" ></button></td>
 
 
           </tr>
@@ -92,13 +92,13 @@
 
 
 
-<!-- Modal para editar  -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal para ar  -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
 
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 

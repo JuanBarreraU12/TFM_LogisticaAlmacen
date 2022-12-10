@@ -213,27 +213,37 @@ h6 {
 
 
 td[class~="Delivered"] {
+  margin-top: 0.5rem !important;
   background-color:  #198754;
   border-color: #d1e7dd;
 }
 
 td[class~="Review"] {
+  margin-top: 0.5rem !important;
   background-color:  #ffc107;
   border-color: #d1e7dd;
 }
 
 td[class~="Entered"] {
+  margin-top: 0.5rem !important;
   background-color: red;
   border-color: #d1e7dd;
 }
 
 td[class~="Shiped"] {
+  margin-top: 0.5rem !important;
   background-color: #0d6efd;
   border-color: #d1e7dd;
 }
  
 td[class~="Recibido"] {
+  margin-top: 0.5rem !important;
   background-color: #0d6efd;
+  border-color: #d1e7dd;
+}
+
+.tdbutton {
+  margin-top: 0.5rem !important;
   border-color: #d1e7dd;
 }
  
