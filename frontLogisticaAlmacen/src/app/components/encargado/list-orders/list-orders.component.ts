@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrdersService } from '../../../services/orders.service';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
+import { UsersService } from 'src/app/services/users.service';
+import { UsersWarehousesService } from 'src/app/services/users-warehouses.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/interfaces/user.interface';
+import { Util } from 'src/app/classes/util';
 
 @Component({
   selector: 'app-list-ordes',
@@ -12,10 +16,14 @@ export class ListOrdersComponent implements OnInit {
   orderdata: any = [];
   orderdetails: any = [];
   ruta: any = [];
-
   optionsin: any = [];
   optionsout: any = [];
   comment: String = '';
+  user: User | any;
+  logedUser: any ;
+ warehouseid: any;
+@Input() warehouseIn: any;
+@Input() warehouseOut: any;
 
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
@@ -28,20 +36,27 @@ export class ListOrdersComponent implements OnInit {
   @Input() idOrder: number = 0;
 
   constructor(
+    
     private OrdersService: OrdersService,
     private OrdersDetailsService: OrdersDetailsService,
     private activateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService,
+    private usersWarehousesService: UsersWarehousesService
   ) {
     this.optionsout = ['For Deliver', 'Returned'];
     this.optionsin = ['Deliver'];
 
     this.OrdersService.getOrders().subscribe((orders) => {
       this.orderdata = orders;
+      console.log(this.orderdata);
+  
     });
   }
 
   ngOnInit(): void {
+    
+    
     this.activateRoute.params.subscribe(async (params: any) => {
       let id: number = parseInt(params.id);
       let response = await this.OrdersDetailsService.getAll(id);
@@ -56,6 +71,12 @@ export class ListOrdersComponent implements OnInit {
         //console.log(this.ruta);
       }
     });
+     
+  
+
+   
+
+
   }
   //ordenes con el mismo id retorna el mismo detalle
   updateState(pId: Number, pState: Number) {
@@ -97,4 +118,6 @@ export class ListOrdersComponent implements OnInit {
     ) {
     }
   }
+
+
 }

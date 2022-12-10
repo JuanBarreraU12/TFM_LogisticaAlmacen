@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filtro'
+  name: 'origin'
 })
-export class FiltroPipe implements PipeTransform {
-// quiero hacer un pagiando
-  transform(value: any, arg: any): any {
+export class OriginPipe implements PipeTransform {
+  transform(value: any,arg: any): any {
     const resultorders = [];
 
     function filtraracentos(texto:any){
@@ -32,7 +31,7 @@ export class FiltroPipe implements PipeTransform {
     for (const order of value) {
        
 
-   if (filtraracentos (order.state).indexOf(filtraracentos(arg)) > -1 || order.id.toString().indexOf(arg) > -1 || filtraracentos(order.truck_plate).indexOf(filtraracentos(arg)) > -1  || filtraracentos(order.out_date).indexOf(filtraracentos(arg))>-1 ||filtraracentos (order.destiny).indexOf(filtraracentos(arg)) > -1  )
+   if ( filtraracentos (order.origin).indexOf(filtraracentos(arg)) > -1  )
 
 
 
@@ -51,4 +50,9 @@ export class FiltroPipe implements PipeTransform {
     return resultorders;
   }
 
-}
+  }
+
+
+
+
+
