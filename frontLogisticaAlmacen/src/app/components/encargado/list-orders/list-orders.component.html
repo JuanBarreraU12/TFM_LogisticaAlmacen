@@ -24,7 +24,7 @@
         <tbody>
 
           <!--<tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder | paginate: { itemsPerPage: 10, currentPage: p}">-->
-            <tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder ">
+            <tr *ngFor="let order of orderdata   | filtro: filterOrder | filtro: salida | filtro: entrada | filtro: warehouseIn | origin: warehouseOut  ">
             <td>{{order?.id}}</td>
             <td>{{order?.out_date | date:'MM/dd/yyyy'    }}  </td>
             <td>{{order?.truck_plate}}</td>
@@ -173,3 +173,4 @@
 </div>
 
 </div>
+

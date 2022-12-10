@@ -23,4 +23,11 @@ export class UsersWarehousesService {
   delete(pId: number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
   }
+
+  getByUserId(pId: number): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/${pId}`, Util.getHttpOptions()));
+  }
+  
+
+
 }
