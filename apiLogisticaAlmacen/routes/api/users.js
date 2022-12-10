@@ -44,8 +44,6 @@ router.get("/:userId",
 });
 
 router.post("/register",
-  checkToken,
-  checkRole(['Jefe']),
   async (req, res) => {
   try {
     req.body.password = bcrypt.hashSync(req.body.password, 8);

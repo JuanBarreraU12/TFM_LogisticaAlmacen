@@ -9,7 +9,7 @@ router.use('/orders', checkToken, require('./api/orders'));
 router.use('/orders-details', checkToken, require('./api/orders_details'));
 router.use('/warehouses',  require('./api/warehouses'));
 router.use('/roles', checkToken, require('./api/roles'));
-router.use('/users-warehouses', checkToken, require('./api/users_warehouses'));
+router.use('/users-warehouses', require('./api/users_warehouses'));
 
 router.use('/locations', require('./api/locations'));
 

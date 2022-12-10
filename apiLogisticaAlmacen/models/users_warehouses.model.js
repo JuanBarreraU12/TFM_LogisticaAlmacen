@@ -8,8 +8,8 @@ const getById = (userWarehouseId) => {
   return executeQueryOne('SELECT * FROM users_warehouses WHERE id = ?', [userWarehouseId]);
 }
 
-const create = ({ user_id, warehouse_id}) => {
-  return executeQuery('INSERT INTO users_warehouses(users_id,warehouses_id) VALUES(?,?)', [user_id, warehouse_id]);
+const create = ({ users_id, warehouse_id}) => {
+  return executeQuery('INSERT INTO users_warehouses(users_id,warehouses_id) VALUES(?,?)', [users_id, warehouse_id]);
 }
 
 const deleteById = (userWarehouseId) => {

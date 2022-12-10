@@ -15,12 +15,16 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/',
-  checkRole(['Jefe']),
   async (req, res) => {
   try {
-    const result = await create(req.body);
-    const userWarehouse = await getById(result.insertId);
-    res.json(userWarehouse);
+    const array=[];
+    for(let item of req.body.users_warehouses)
+    {
+      const result = await create(item);
+      const userWarehouse = await getById(result.insertId);
+      array.push(userWarehouse);
+    }
+    res.json(array);
   } catch (error) {
     serverError(res, error.message);
   }

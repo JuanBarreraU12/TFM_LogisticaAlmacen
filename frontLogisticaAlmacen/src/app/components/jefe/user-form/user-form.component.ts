@@ -91,8 +91,8 @@ export class UserFormComponent implements OnInit {
         if (response.affectedRows > 0)
           ok = await this.saveUsersWarehouses(user.id);
     } else {
-
         let response = await this.usersService.register(user);
+        console.log(response);
         if (response.id) ok = await this.saveUsersWarehouses(response.id);
     }
 
@@ -243,29 +243,27 @@ export class UserFormComponent implements OnInit {
           index++;
         }
       } else {
+        console.log(this.arrWarehouseSelected)
         // Es inserción
-        while (ok && index < checkbox.length) {
-          let isChecked = (<HTMLInputElement>checkbox[index]).checked;
-          let val = parseInt((<HTMLInputElement>checkbox[index]).value);
-          if (isChecked) {
-            // Se agrega
             try {
-              let newUserWarehouse: UserWarehouse = {
-                user_id: pUserId,
-                warehouse_id: val,
-              };
+              const users_warehouses=[];
 
-              let response = await this.usersWarehousesService.create(
-                newUserWarehouse
-              );
+              for(let item of this.arrWarehouseSelected)
+              {
+                console.log(item);
+                /*let newUserWarehouse: UserWarehouse = {
+                  user_id: pUserId,
+                  warehouse_id: item.id
+                };
+                users_warehouses.push(newUserWarehouse);*/
+              }
+
+                //console.log(newUserWarehouse);
+              //let response = await this.usersWarehousesService.create(newUserWarehouse);
             } catch (error) {
               ok = false;
               console.log(error);
             }
-          }
-
-          index++;
-        }
       }
     }
 
