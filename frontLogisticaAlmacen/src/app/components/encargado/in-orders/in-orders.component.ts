@@ -37,7 +37,7 @@ export class InOrdersComponent implements OnInit {
     this.usersWarehousesService.getByUserId(this.logedUser).then((response) => {
       this.warehouseid = response[0].warehouses_id;
       this.warehouseIn = response[0].description;
-      console.log(this.warehouseIn);
+      //console.log(this.warehouseIn);
 
     });
  

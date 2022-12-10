@@ -49,8 +49,7 @@ export class ListOrdersComponent implements OnInit {
 
     this.OrdersService.getOrders().subscribe((orders) => {
       this.orderdata = orders;
-      console.log(this.orderdata);
-  
+    
     });
   }
 

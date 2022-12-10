@@ -34,7 +34,7 @@ export class OutOrdersComponent implements OnInit {
     this.usersWarehousesService.getByUserId(this.logedUser).then((response) => {
       this.warehouseid = response[0].warehouses_id;
       this.warehouseOut = response[0].description;
-      console.log(this.warehouseOut);
+      //console.log(this.warehouseOut);
 
     });
   }
