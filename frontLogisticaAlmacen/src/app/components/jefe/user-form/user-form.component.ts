@@ -223,9 +223,9 @@ export class UserFormComponent implements OnInit {
                 warehouse_id: val,
               };
 
-              let response = await this.usersWarehousesService.create(
+              /*let response = await this.usersWarehousesService.create(
                 newUserWarehouse
-              );
+              );*/
             } catch (error) {
               ok = false;
               console.log(error);
@@ -243,23 +243,21 @@ export class UserFormComponent implements OnInit {
           index++;
         }
       } else {
-        console.log(this.arrWarehouseSelected)
         // Es inserción
             try {
               const users_warehouses=[];
-
-              for(let item of this.arrWarehouseSelected)
+              for(let item of this.arrWarehouse)
               {
-                console.log(item);
-                /*let newUserWarehouse: UserWarehouse = {
-                  user_id: pUserId,
-                  warehouse_id: item.id
+                const newUserWarehouse = {
+                  "users_id" : pUserId,
+                  "warehouse_id": item.id
                 };
-                users_warehouses.push(newUserWarehouse);*/
+                users_warehouses.push(newUserWarehouse);
               }
-
-                //console.log(newUserWarehouse);
-              //let response = await this.usersWarehousesService.create(newUserWarehouse);
+              const array= { "users_warehouses": users_warehouses };
+              console.log(array);
+              let response = await this.usersWarehousesService.create(array);
+              console.log(response);
             } catch (error) {
               ok = false;
               console.log(error);
