@@ -18,7 +18,6 @@ export class WarehouseService {
   }
 
   update(pwarehouse: Warehouse): Promise<any> {
-    console.log(pwarehouse)
     return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}`, pwarehouse))
   }
 

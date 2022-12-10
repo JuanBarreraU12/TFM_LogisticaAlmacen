@@ -15,6 +15,7 @@ import * as dayjs from 'dayjs';
 import { UserWarehouse } from 'src/app/interfaces/user-warehouse.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersWarehousesService } from 'src/app/services/users-warehouses.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -88,7 +89,6 @@ export class UserFormComponent implements OnInit {
 
     if (user.id) {
         let response = await this.usersService.update(user.id, user);
-        console.log(response);
         if (response.affectedRows > 0)
           ok = await this.updateUsersWarehouses(user.id);
     } else {
@@ -216,6 +216,25 @@ export class UserFormComponent implements OnInit {
       }
       const array= { "users_warehouses": users_warehouses };
       let response = await this.usersWarehousesService.create(array);
+
+      console.log(response);
+      if(response){
+        Swal.fire(
+          'OK!',
+          'Saved user',
+          'success')
+          .then((result) => {
+            this.router.navigate(['/home', 'userslist'])
+        });
+      }
+      else {
+        Swal.fire(
+          'Error!',
+          response.error,
+          'error')
+          .then((result) => {
+        });
+      }
       return true;
     } catch (error) {
       return false;
@@ -225,9 +244,7 @@ export class UserFormComponent implements OnInit {
 
   async updateUsersWarehouses(pUserId: number): Promise<boolean> {
     try {
-      console.log("update")
       const users_warehouses=[];
-      console.log(this.arrWarehouse);
       for(let item of this.arrWarehouse)
       {
         if(item.isSelected===true)
@@ -243,8 +260,24 @@ export class UserFormComponent implements OnInit {
         "userId": pUserId,
         "users_warehouses": users_warehouses
       };
-      console.log(array);
       let response = await this.usersWarehousesService.update(array);
+      if(response){
+        Swal.fire(
+          'OK!',
+          'Updated user',
+          'success')
+          .then((result) => {
+            this.router.navigate(['/home', 'userslist'])
+        });
+      }
+      else {
+        Swal.fire(
+          'Error!',
+          response.error,
+          'error')
+          .then((result) => {
+        });
+      }
       return true;
     } catch (error) {
       return false;
