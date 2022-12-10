@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetail } from 'src/app/interfaces/order-detail.interface';
 import { Order } from 'src/app/interfaces/order.interface';

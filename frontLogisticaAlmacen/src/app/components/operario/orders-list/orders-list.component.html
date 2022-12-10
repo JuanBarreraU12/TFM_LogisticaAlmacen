@@ -1,8 +1,8 @@
 <section class="container my-3">
     <h1 class="h1 mb-1">Orders List</h1>
     <div class="row gy-3">
-        <article class="col-12 col-md-6 col-xl-4" *ngFor="let order of orders">
-            <app-order-card [myOrder]="order" (orderIdDeleted)="deleteOrder($event)" (orderUpdated)="getOrderUpdated($event)"></app-order-card>
+        <article class="col-12 col-md-6 col-xl-4" *ngFor="let order of orders; let i = index">
+            <app-order-card [index]="i + 1" [myOrder]="order" (orderIdDeleted)="deleteOrder($event)" (orderUpdated)="getOrderUpdated($event)"></app-order-card>
         </article>
     </div>
 </section>

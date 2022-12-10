@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class OrderCardComponent implements OnInit {
 
   @Input() myOrder!: Order;
+  @Input() index: number = 0;
   @Output() orderIdDeleted: EventEmitter<Number>;
   @Output() orderUpdated: EventEmitter<Order[]>;
   actionState: string = '';
@@ -24,15 +25,15 @@ export class OrderCardComponent implements OnInit {
   ngOnInit(): void {
     switch (this.myOrder.stateId) {
       case 1:
-        this.actionState = 'Revisar';
+        this.actionState = 'Revise';
         this.newState = 2;
         break;
       case 3:
-        this.actionState = 'Revisar';
+        this.actionState = 'Revise';
         this.newState = 2;
         break;
       case 4:
-        this.actionState = 'Enviar';
+        this.actionState = 'Send';
         this.newState = 5;
         break;
       default:
@@ -44,7 +45,7 @@ export class OrderCardComponent implements OnInit {
 
   deleteOrder(): void {
     Swal.fire({
-      title: `Do you want to delete the order #${this.myOrder.id}?`,
+      title: `Do you want to delete this order?`,
       text: "This action is irreversible!",
       icon: 'warning',
       showCancelButton: true,
@@ -60,7 +61,7 @@ export class OrderCardComponent implements OnInit {
           if (response.affectedRows > 0) {
             Swal.fire({
               title: 'Deleted!',
-              text: `The order #${this.myOrder.id} was deleted`,
+              text: `The order was deleted`,
               icon: 'success',
               confirmButtonText: 'Ok',
               confirmButtonColor: '#6c757d', 

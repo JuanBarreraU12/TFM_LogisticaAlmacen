@@ -10,7 +10,6 @@ import { ViewEmployeeComponent } from './components/jefe/view-employee/view-empl
 import { HomeComponent } from './components/common/home/home.component';
 import { ViewWarehouseComponent } from './components/jefe/view-warehouse/view-warehouse.component';
 import { OutOrdersComponent } from './components/encargado/out-orders/out-orders.component';
-import { PopupComponent } from './components/operario/popup/popup.component';
 import { InOrdersComponent } from './components/encargado/in-orders/in-orders.component';
 import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -22,8 +21,7 @@ import { RecuperarPasswordComponent } from './components/jefe/recuperar-password
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
-  { path: 'newPassword', component: RecuperarPasswordComponent }, 
-  
+  { path: 'newPassword', component: RecuperarPasswordComponent },
 
   {
     path: 'home',
@@ -77,8 +75,14 @@ const routes: Routes = [
       { path: 'viewEmployee', component: ViewEmployeeComponent },
       { path: 'viewLocation', component: ViewLocationComponent },
       { path: 'newLocation', component: FormLocationComponent },
-      { path: 'updateWarehouse/:idwarehouse', component: FormWarehousesComponent },
-      { path: 'listEmployeeWarehouse/:idemployee', component: ListEmployeeWarehouseComponent },
+      {
+        path: 'updateWarehouse/:idwarehouse',
+        component: FormWarehousesComponent,
+      },
+      {
+        path: 'listEmployeeWarehouse/:idemployee',
+        component: ListEmployeeWarehouseComponent,
+      },
       //OPERARIO
       {
         path: 'neworder',
@@ -135,7 +139,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

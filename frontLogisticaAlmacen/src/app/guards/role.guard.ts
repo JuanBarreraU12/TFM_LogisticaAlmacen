@@ -11,15 +11,17 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     let ok: boolean = true;
     let userSession = Util.getUserSession();
-    if (!userSession)
-      ok = false;
+    if (!userSession) ok = false;
 
     if (ok) {
       const role = route.data['expectedRole'];
       if (role !== userSession.user_role) ok = false;
     }
 
-    if (!ok) this.router.getCurrentNavigation();
+    if (!ok) {
+      this.router.navigate(['/login']);
+      localStorage.removeItem('token');
+    }
     return ok;
   }
 }

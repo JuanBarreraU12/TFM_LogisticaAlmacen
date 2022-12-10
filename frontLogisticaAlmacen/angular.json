@@ -33,7 +33,8 @@
               "src/assets/css/style.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
               "src/assets/vendor/apexcharts/apexcharts.min.js",
               "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "src/assets/vendor/chart.js/chart.min.js",
@@ -42,9 +43,7 @@
               "src/assets/vendor/simple-datatables/simple-datatables.js",
               "src/assets/vendor/tinymce/tinymce.min.js",
               "src/assets/vendor/php-email-form/validate.js",
-              "src/assets/js/main.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/jquery/dist/jquery.min.js"
+              "src/assets/js/main.js"
             ]
           },
           "configurations": {

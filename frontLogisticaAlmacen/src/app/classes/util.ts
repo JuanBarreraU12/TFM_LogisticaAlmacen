@@ -17,7 +17,7 @@ export class Util {
   }
   
   static getUserSession(): any {
-    let usersSession = {};
+    let usersSession;
     const token = localStorage.getItem('token');
     if (token) usersSession = jwt_decode(token);
 
