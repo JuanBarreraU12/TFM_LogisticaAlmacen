@@ -12,3 +12,6 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/api/users-warehouses/11
 
+
+### Users-warehouses
+GET http://localhost:3000/api/users-warehouses/17

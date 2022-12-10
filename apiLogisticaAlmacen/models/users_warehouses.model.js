@@ -20,10 +20,15 @@ const deleteById = (userWarehouseId) => {
   return executeQuery('DELETE FROM users_warehouses WHERE id = ?', [userWarehouseId]);
 }
 
+const getbyuserId = (userId) => {
+  return executeQuery('SELECT * FROM users_warehouses, warehouses WHERE users_warehouses.warehouses_id = warehouses.id AND users_warehouses.users_id = ?', [userId]);
+}
+
 module.exports = {
   create,
   getById,
   getAll,
   deleteById,
-  deleteWarehousesByUserId
+  deleteWarehousesByUserId,
+  getbyuserId
 }
