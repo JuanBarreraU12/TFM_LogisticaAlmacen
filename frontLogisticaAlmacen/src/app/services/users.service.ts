@@ -22,6 +22,11 @@ export class UsersService {
       this.httpClient.post<any>(`${this.baseUrl}register`, pUser, Util.getHttpOptions())
     );
   }
+  changepassword(pUser: any): Promise<any> {
+    return lastValueFrom(
+      this.httpClient.post<any>(`${this.baseUrl}changepassword`, pUser, Util.getHttpOptions())
+    );
+  }
 
   getAll(): Promise<any> {
     return lastValueFrom(this.httpClient.get<any>(this.baseUrl, Util.getHttpOptions()));

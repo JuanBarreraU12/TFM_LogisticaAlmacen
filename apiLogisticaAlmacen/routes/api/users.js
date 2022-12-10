@@ -8,6 +8,7 @@ const {
   getAll,
   update,
   deleteById,
+  updatePassword
 } = require("../../models/user.model");
 const {
   serverError,
@@ -17,6 +18,7 @@ const {
 const { createToken } = require("../../helpers/utils");
 const { checkSchema } = require("express-validator");
 const { loginUser } = require("../../helpers/schemas/user.schema");
+const { passwordChange } = require("../../helpers/schemas/password");
 const { checkToken, checkRole } = require("../../helpers/middlewares/user.middleware");
 
 router.get("/",
@@ -79,7 +81,6 @@ router.post("/login",
 
   const iguales = bcrypt.compareSync(password, user.password);
   console.log(password);
-  console.log(user.password);
   console.log(bcrypt.hashSync(password, 8));
   if (!iguales) {
     return unauthorize(res, "Incorrect email and/or password");
@@ -91,6 +92,32 @@ router.post("/login",
   };
 
   res.json(response);
+});
+
+router.post("/changepassword",
+  checkSchema(passwordChange),
+  badRequest, async (req, res) => {
+  const { email,dni, password,new_password } = req.body;
+  const user = await getByEmail(email);
+  if (!user) return unauthorize(res, "Incorrect email and/or password");
+  if (user.dni===dni) 
+  {
+    if(password===new_password)
+    {
+      const new_pass=bcrypt.hashSync(password, 8);
+      const result = await updatePassword(new_pass,user.id);
+      res.json(result);
+    }
+    else
+    {
+      return unauthorize(res, "Incorrect password.");
+    }
+  }
+  else
+  {
+    return unauthorize(res, "Incorrect Dni.");
+  }
+  
 });
 
 router.delete('/:userId',
