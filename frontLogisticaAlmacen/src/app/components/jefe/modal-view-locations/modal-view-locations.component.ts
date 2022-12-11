@@ -18,10 +18,10 @@ export class ModalViewLocationsComponent implements OnInit {
 
   deleteLocation(locationId: number | undefined, warehouseId: number | undefined): void {
     Swal.fire({
-      title: "Deseas borrar este location",
+      title: "Do you want to remove this location?",
       showDenyButton: true,
-      confirmButtonText: 'Aceptar',
-      denyButtonText: 'Cancelar',
+      confirmButtonText: 'YES',
+      denyButtonText: 'NO',
     }).then((result) => {
       if (result.isConfirmed) {
         if (locationId !== undefined) {
@@ -29,7 +29,7 @@ export class ModalViewLocationsComponent implements OnInit {
             if (response != null) {
               Swal.fire(
               'OK!',
-              'Location borrado',
+              'location removed',
               'success');
               if(warehouseId)
                 this.arrLocations = await this.locationService.getLocationByWarehouseId(warehouseId);

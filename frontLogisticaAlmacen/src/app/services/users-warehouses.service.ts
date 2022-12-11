@@ -16,7 +16,18 @@ export class UsersWarehousesService {
     return lastValueFrom(this.httpClient.post<any>(this.baseUrl, pUserWarehouse, Util.getHttpOptions()));
   }
 
+  update(pUserWarehouse: any): Promise<any> {
+    return lastValueFrom(this.httpClient.put<any>(this.baseUrl, pUserWarehouse, Util.getHttpOptions()));
+  }
+
   delete(pId: number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
   }
+
+  getByUserId(pId: number): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/${pId}`, Util.getHttpOptions()));
+  }
+  
+
+
 }

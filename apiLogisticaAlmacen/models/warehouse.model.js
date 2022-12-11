@@ -17,8 +17,8 @@ const deleteById = (warehouseId) => {
   return executeQuery('DELETE FROM warehouses WHERE id = ?', [warehouseId]);
 }
 
-const update = (warehouseId, {description, address}) => {
-  return executeQuery('UPDATE warehouses SET description = ?, address =? WHERE id =?',[description, address, warehouseId]);
+const update = ({id, description, address}) => {
+  return executeQuery('UPDATE warehouses SET description = ?, address =? WHERE id =?',[description, address, id]);
 }
 
 const getByUser = (userId) => { 

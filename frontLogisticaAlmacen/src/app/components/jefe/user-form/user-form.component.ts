@@ -15,6 +15,7 @@ import * as dayjs from 'dayjs';
 import { UserWarehouse } from 'src/app/interfaces/user-warehouse.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersWarehousesService } from 'src/app/services/users-warehouses.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -89,10 +90,9 @@ export class UserFormComponent implements OnInit {
     if (user.id) {
         let response = await this.usersService.update(user.id, user);
         if (response.affectedRows > 0)
-          ok = await this.saveUsersWarehouses(user.id);
+          ok = await this.updateUsersWarehouses(user.id);
     } else {
         let response = await this.usersService.register(user);
-        console.log(response);
         if (response.id) ok = await this.saveUsersWarehouses(response.id);
     }
 
@@ -203,69 +203,86 @@ export class UserFormComponent implements OnInit {
   }
 
   async saveUsersWarehouses(pUserId: number): Promise<boolean> {
-    let ok = true;
-    const checkGroup = document.querySelector('#checkGroup');
-    const checkbox = checkGroup?.querySelectorAll('input[type="checkbox"]');
-    let index = 0;
-
-    if (checkbox) {
-      if (this.arrUsersWarehouses.length > 0) {
-        // Es actualización
-        while (ok && index < checkbox.length) {
-          let isChecked = (<HTMLInputElement>checkbox[index]).checked;
-          let val = parseInt((<HTMLInputElement>checkbox[index]).value);
-          let warehouse = this.arrUsersWarehouses.find((x) => x.id === val);
-          if (isChecked && !warehouse) {
-            // Se agrega
-            try {
-              let newUserWarehouse: UserWarehouse = {
-                user_id: pUserId,
-                warehouse_id: val,
-              };
-
-              /*let response = await this.usersWarehousesService.create(
-                newUserWarehouse
-              );*/
-            } catch (error) {
-              ok = false;
-              console.log(error);
-            }
-          } else if (!isChecked && warehouse) {
-            // Se elimina
-            try {
-              let response = await this.usersWarehousesService.delete(warehouse.user_warehouse_id!);
-            } catch (error) {
-              ok = false;
-              console.log(error);
-            }
-          }
-
-          index++;
-        }
-      } else {
-        // Es inserción
-            try {
-              const users_warehouses=[];
-              for(let item of this.arrWarehouse)
-              {
-                const newUserWarehouse = {
-                  "users_id" : pUserId,
-                  "warehouse_id": item.id
-                };
-                users_warehouses.push(newUserWarehouse);
-              }
-              const array= { "users_warehouses": users_warehouses };
-              console.log(array);
-              let response = await this.usersWarehousesService.create(array);
-              console.log(response);
-            } catch (error) {
-              ok = false;
-              console.log(error);
-            }
+    // Es inserción
+    try {
+      const users_warehouses=[];
+      for(let item of this.arrWarehouse)
+      {
+        const newUserWarehouse = {
+          "users_id" : pUserId,
+          "warehouse_id": item.id
+        };
+        users_warehouses.push(newUserWarehouse);
       }
-    }
+      const array= { "users_warehouses": users_warehouses };
+      let response = await this.usersWarehousesService.create(array);
 
-    return ok;
+      console.log(response);
+      if(response){
+        Swal.fire(
+          'OK!',
+          'Saved user',
+          'success')
+          .then((result) => {
+            this.router.navigate(['/home', 'userslist'])
+        });
+      }
+      else {
+        Swal.fire(
+          'Error!',
+          response.error,
+          'error')
+          .then((result) => {
+        });
+      }
+      return true;
+    } catch (error) {
+      return false;
+      console.log(error);
+    }
+  }
+
+  async updateUsersWarehouses(pUserId: number): Promise<boolean> {
+    try {
+      const users_warehouses=[];
+      for(let item of this.arrWarehouse)
+      {
+        if(item.isSelected===true)
+        {
+          const newUserWarehouse = {
+            "users_id" : pUserId,
+            "warehouse_id": item.id
+          };
+          users_warehouses.push(newUserWarehouse);
+        }
+      }
+      const array= {
+        "userId": pUserId,
+        "users_warehouses": users_warehouses
+      };
+      let response = await this.usersWarehousesService.update(array);
+      if(response){
+        Swal.fire(
+          'OK!',
+          'Updated user',
+          'success')
+          .then((result) => {
+            this.router.navigate(['/home', 'userslist'])
+        });
+      }
+      else {
+        Swal.fire(
+          'Error!',
+          response.error,
+          'error')
+          .then((result) => {
+        });
+      }
+      return true;
+    } catch (error) {
+      return false;
+      console.log(error);
+    }
   }
 
   isAllSelected(warehouse: Warehouse) {

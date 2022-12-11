@@ -47,7 +47,7 @@ export class FormWarehousesComponent implements OnInit {
       'info');
     }
     let newWarehouse = this.userForm.value;
-    if (this.idWarehouse>0) {
+    if (newWarehouse.id>0) {
       let response = await this.warehouseService.update(newWarehouse);
       if (response.affectedRows>0) {
         Swal.fire(
@@ -55,7 +55,7 @@ export class FormWarehousesComponent implements OnInit {
           'Updated warehouse',
           'success')
           .then((result) => {
-            this.router.navigate(['/home', 'viewWarehouse'])
+            this.router.navigate(['/home', 'warehouseslist'])
         });
       }
       else {
@@ -64,13 +64,11 @@ export class FormWarehousesComponent implements OnInit {
           response.error,
           'error')
           .then((result) => {
-            this.router.navigate(['/home','viewWarehouse']);
         });
       }
     }
     else {
       let warehouseResponse = await this.warehouseService.create(newWarehouse);
-      console.log(warehouseResponse)
       if (warehouseResponse.id) {
         Swal.fire(
           'OK!',

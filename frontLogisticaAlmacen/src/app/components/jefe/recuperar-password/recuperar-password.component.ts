@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-recuperar-password',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecuperarPasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersService: UsersService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+  async changePassword(pForm: any): Promise<void> {
+    try {
+      let response = await this.usersService.changepassword(pForm.value);
+      console.log(response);
+      if (response.affectedRows>0) {
+        Swal.fire(
+          'OK!',
+          'Change password',
+          'success')
+          .then((result) => {
+            this.router.navigate(['/login'])
+        });
+      }
+    } catch (err: any) {
+      if (err.status === 401) {
+        Swal.fire(err.error.error, '', 'error');
+      }
+    }
   }
 
 }
