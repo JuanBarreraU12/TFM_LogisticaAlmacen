@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Util } from 'src/app/classes/util';
 import { Order } from 'src/app/interfaces/order.interface';
 import { OrdersService } from 'src/app/services/orders.service';
 import Swal from 'sweetalert2';
@@ -15,7 +16,8 @@ export class OrdersListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.orders = await this.ordersService.getAll();
+      let userSession = Util.getUserSession();
+      this.orders = await this.ordersService.getByUser(userSession.user_id);
     } catch (error: any) {
       Swal.fire(error.message, '', 'error');
     }

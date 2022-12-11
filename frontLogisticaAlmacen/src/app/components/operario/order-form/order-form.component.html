@@ -1,51 +1,98 @@
 <div class="card">
-    <div class="card-body">
-        <h1 class="card-title">{{ action }} Order</h1>
-        <form [formGroup]="orderForm" (ngSubmit)="getDataForm()">
-            <div class="row mb-3">
-                <div class="col-12 col-md-6">
-                    <label class="form-label" for="outDate">Out Date</label>
-                    <input class="form-control" type="date" formControlName="outDate" id="outDate">
-                    <p class="error" *ngIf="checkControl('outDate', 'required')">This field is required</p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label class="form-label" for="truckPlate">Truck Plate</label>
-                    <input class="form-control" type="text" formControlName="truckPlate" id="truckPlate">
-                    <p class="error" *ngIf="checkControl('truckPlate', 'required')">This field is required</p>
-                    <p class="error" *ngIf="checkControl('truckPlate', 'minlength')">The length of the field must be at least 5 characters</p>
-                    <p class="error" *ngIf="checkControl('truckPlate', 'maxlength')">The length of the field must be at least 10 characters</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-12 col-md-6">
-                    <label class="form-label" for="origin">Origin</label>
-                    <select class="form-select" formControlName="origin" id="origin" (change)="changeOrigin($event)">
-                        <option value="">---</option>
-                        <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
-                            {{ warehouse.description }}
-                        </option>
-                    </select>
-                    <p class="error" *ngIf="checkControl('origin', 'warehouseValidator')">{{ orderForm.get('origin')?.errors?.['warehouseValidator']}}</p>
-                    <p class="error" *ngIf="orderForm.hasError('checkwarehouses')">Origin warehouse can't be equal to the destiny warehouse</p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <label class="form-label" for="destiny">Destiny</label>
-                    <select class="form-select" formControlName="destiny" id="destiny" (change)="changeDestiny($event)">
-                        <option value="">---</option>
-                        <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
-                            {{ warehouse.description }}
-                        </option>
-                    </select>
-                    <p class="error" *ngIf="checkControl('destiny', 'warehouseValidator')">{{ orderForm.get('destiny')?.errors?.['warehouseValidator']}}</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-12">
-                    <label class="form-label" for="comment">Comment</label>
-                    <textarea class="form-control" formControlName="comment" id="comment" rows="3"></textarea>
-                </div>
-            </div>
-            <input class="btn btn-primary me-2" type="submit" [disabled]="!orderForm.valid || controlDisable" [value]="this.action">
-        </form>
-    </div>
+  <div class="card-body">
+    <h1 class="card-title">{{ action }} Order</h1>
+    <form [formGroup]="orderForm" (ngSubmit)="getDataForm()">
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="outDate">Out Date</label>
+          <input
+            class="form-control"
+            type="date"
+            formControlName="outDate"
+            id="outDate"
+          />
+          <p class="error" *ngIf="checkControl('outDate', 'required')">
+            This field is required
+          </p>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="truckPlate">Truck Plate</label>
+          <input
+            class="form-control"
+            type="text"
+            formControlName="truckPlate"
+            id="truckPlate"
+          />
+          <p class="error" *ngIf="checkControl('truckPlate', 'required')">
+            This field is required
+          </p>
+          <p class="error" *ngIf="checkControl('truckPlate', 'minlength')">
+            The length of the field must be at least 5 characters
+          </p>
+          <p class="error" *ngIf="checkControl('truckPlate', 'maxlength')">
+            The length of the field must be at least 10 characters
+          </p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="origin">Origin</label>
+          <select
+            class="form-select"
+            formControlName="origin"
+            id="origin"
+            (change)="changeOrigin($event)"
+          >
+            <option value="">---</option>
+            <option *ngFor="let warehouse of warehousesByUser" [value]="warehouse.id">
+              {{ warehouse.description }}
+            </option>
+          </select>
+          <p class="error" *ngIf="checkControl('origin', 'warehouseValidator')">
+            {{ orderForm.get('origin')?.errors?.['warehouseValidator']}}
+          </p>
+          <p class="error" *ngIf="orderForm.hasError('checkwarehouses')">
+            Origin warehouse can't be equal to the destiny warehouse
+          </p>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="destiny">Destiny</label>
+          <select
+            class="form-select"
+            formControlName="destiny"
+            id="destiny"
+            (change)="changeDestiny($event)"
+          >
+            <option value="">---</option>
+            <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+              {{ warehouse.description }}
+            </option>
+          </select>
+          <p
+            class="error"
+            *ngIf="checkControl('destiny', 'warehouseValidator')"
+          >
+            {{ orderForm.get('destiny')?.errors?.['warehouseValidator']}}
+          </p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="form-label" for="comment">Comment</label>
+          <textarea
+            class="form-control"
+            formControlName="comment"
+            id="comment"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+      <input
+        class="btn btn-primary me-2"
+        type="submit"
+        [disabled]="!orderForm.valid || controlDisable"
+        [value]="this.action"
+      />
+    </form>
+  </div>
 </div>

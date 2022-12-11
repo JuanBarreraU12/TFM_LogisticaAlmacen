@@ -75,6 +75,7 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
     const row = control.closest('[data-detail-ml-id]');
     let id = parseInt(row.dataset.detailId);
     let materialLocationId = parseInt(row.dataset.detailMlId);
+    this.isValid = true;
 
     if (id) {
       this.orderDetailsDeleted.push({
@@ -106,11 +107,11 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
     const input = row.querySelector("td input[type='number']");
 
     if (isNaN(quantity)) {
-      this.addTooltip(input, 'El campo es requerido');
+      this.addTooltip(input, 'This field is required');
     } else if (quantity <= 0) {
-      this.addTooltip(input, 'La cantidad debe ser mayor que 0');
+      this.addTooltip(input, 'The quantity must be greater than 0');
     } else if (quantity > stock) {
-      this.addTooltip(input, 'La cantidad no puede ser mayor al stock');
+      this.addTooltip(input, "The quantity must not be greater than the stock");
     } else {
       this.removeTootip(input);
     }

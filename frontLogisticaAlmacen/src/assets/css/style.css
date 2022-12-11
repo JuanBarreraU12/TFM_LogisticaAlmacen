@@ -1278,3 +1278,17 @@ select.ng-invalid.ng-touched{
   font-size: 12px;
   margin: 0;
 }
+
+td span[class~="Review"] {
+  margin-top: 0 !important;
+  padding: 0.5rem;
+  background-color: #ffc107;
+  border-color: #d1e7dd;
+}
+
+td span[class~="Shiped"] {
+  margin-top: 0 !important;
+  padding: 0.5rem;
+  background-color: #0d6efd;
+  border-color: #d1e7dd;
+}

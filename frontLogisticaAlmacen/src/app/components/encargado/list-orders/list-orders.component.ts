@@ -1,11 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrdersService } from '../../../services/orders.service';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
-import { UsersService } from 'src/app/services/users.service';
-import { UsersWarehousesService } from 'src/app/services/users-warehouses.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/interfaces/user.interface';
-import { Util } from 'src/app/classes/util';
+import { Order } from 'src/app/interfaces/order.interface';
 
 @Component({
   selector: 'app-list-ordes',
@@ -13,49 +10,28 @@ import { Util } from 'src/app/classes/util';
   styleUrls: ['./list-orders.component.css'],
 })
 export class ListOrdersComponent implements OnInit {
-  orderdata: any = [];
   orderdetails: any = [];
   ruta: any = [];
   optionsin: any = [];
   optionsout: any = [];
   comment: String = '';
-  user: User | any;
-  logedUser: any ;
- warehouseid: any;
-@Input() warehouseIn: any;
-@Input() warehouseOut: any;
-
   opcionSeleccionado: string = '0';
   verSeleccion: string = '';
   ids: number = 0;
-
-  public p!: number;
-  filterOrder = '';
   @Input() entrada: string = '';
   @Input() salida: string = '';
-  @Input() idOrder: number = 0;
+  @Input() orders: Order[] = [];
 
   constructor(
-    
     private OrdersService: OrdersService,
     private OrdersDetailsService: OrdersDetailsService,
-    private activateRoute: ActivatedRoute,
-    private router: Router,
-    private usersService: UsersService,
-    private usersWarehousesService: UsersWarehousesService
+    private activateRoute: ActivatedRoute
   ) {
     this.optionsout = ['For Deliver', 'Returned'];
     this.optionsin = ['Deliver'];
-
-    this.OrdersService.getOrders().subscribe((orders) => {
-      this.orderdata = orders;
-    
-    });
   }
 
   ngOnInit(): void {
-    
-    
     this.activateRoute.params.subscribe(async (params: any) => {
       let id: number = parseInt(params.id);
       let response = await this.OrdersDetailsService.getAll(id);
@@ -67,21 +43,14 @@ export class ListOrdersComponent implements OnInit {
       if (id) {
         let response = await this.OrdersService.getById(id);
         this.ruta = response?.id;
-        //console.log(this.ruta);
       }
     });
-     
-  
-
-   
-
-
   }
   //ordenes con el mismo id retorna el mismo detalle
   updateState(pId: Number, pState: Number) {
     let order: any = {
-      stateId: pState
-    }
+      stateId: pState,
+    };
     this.OrdersService.updateState(pId, order)
       .then((response) => {
         window.location.reload();
@@ -91,14 +60,13 @@ export class ListOrdersComponent implements OnInit {
       });
   }
 
-  updateComment(pId: Number, pComment: String){
-    this.OrdersService.updateComment(pId, pComment).then((response) => {
-    }).catch((error) => {
-      console.log(error);
-    }
-    );
+  updateComment(pId: Number, pComment: String) {
+    this.OrdersService.updateComment(pId, pComment)
+      .then((response) => {})
+      .catch((error) => {
+        console.log(error);
+      });
   }
-  
 
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
@@ -115,8 +83,7 @@ export class ListOrdersComponent implements OnInit {
       this.verSeleccion == null ||
       this.verSeleccion == undefined
     ) {
+      this.ids = 0;
     }
   }
-
-
 }

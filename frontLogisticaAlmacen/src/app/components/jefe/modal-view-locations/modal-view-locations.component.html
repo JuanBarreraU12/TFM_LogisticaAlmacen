@@ -1,35 +1,54 @@
-<div class="modal fade" [id]="'modalViewLocations'" tabindex="-1" aria-labelledby="'modal'+ order.originId + 'Label'" aria-hidden="true">
+<div
+  class="modal fade"
+  [id]="'modalViewLocations'"
+  tabindex="-1"
+  aria-labelledby="'modal'+ order.originId + 'Label'"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" [id]="'modal'">View Locations</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div class="row">
           <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Actions</th>
-                </tr>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+              </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of arrLocations;let indice=index">
-                    <th scope="row">{{indice+1}}</th>
-                    <td>{{item.description}}</td>
-                    <td>
-                      <button class="btn btn-danger me-2 btn-sm" (click)="deleteLocation(item.id, item.warehouses_id)"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-
+              <tr *ngFor="let item of arrLocations; let indice = index">
+                <th scope="row">{{ indice + 1 }}</th>
+                <td>{{ item.description }}</td>
+                <td>
+                  <div class="d-flex justify-content-center">
+                    <button
+                    class="btn btn-danger me-2 btn-sm"
+                    (click)="deleteLocation(item.id, item.warehouses_id)"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">to close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>

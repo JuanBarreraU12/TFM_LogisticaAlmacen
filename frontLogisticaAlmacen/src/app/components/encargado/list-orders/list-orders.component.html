@@ -1,176 +1,246 @@
-<div class="col-12">
-  <div class="card recent-sales overflow-auto">
-
-    <div class="card-body">
-      <h5 class="card-title">Recent Sales <span>| Today</span></h5>
-      <input type="text" class="form-control" name ="filterOrder" placeholder="Search" [(ngModel)]="filterOrder" >
-      <hr>
-      <table class="table table-borderless datatable">
-
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Orders List</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Out Date</th>
-            <th scope="col ">Truck Plate</th>
+            <th scope="col">Truck Plate</th>
             <th scope="col">Comment</th>
             <th scope="col">Destiny</th>
-            <th scope="col">Origin </th>
+            <th scope="col">Origin</th>
             <th scope="col">Status</th>
-            <th  scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' "></th>
-            <th scope="col" *ngIf=" salida == 'Review'|| entrada == 'Shiped' ">
+            <th scope="col" *ngIf="salida == 'Review' || entrada == 'Shiped'">
+              Details
+            </th>
+            <th scope="col" *ngIf="salida == 'Review' || entrada == 'Shiped'">
+              Actions
             </th>
           </tr>
         </thead>
         <tbody>
-
           <!--<tr *ngFor="let order of orderdata | filtro: salida | filtro: entrada   | filtro: filterOrder | paginate: { itemsPerPage: 10, currentPage: p}">-->
-            <tr *ngFor="let order of orderdata   | filtro: filterOrder | filtro: salida | filtro: entrada | filtro: warehouseIn | origin: warehouseOut  ">
-            <td>{{order?.id}}</td>
-            <td>{{order?.out_date | date:'MM/dd/yyyy'    }}  </td>
-            <td>{{order?.truck_plate}}</td>
-            <td>{{order?.comment}}</td>
-            <td>{{order?.destiny}}</td>
-            <td>{{order?.origin}}</td>
+          <tr *ngFor="let order of orders; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ order?.out_date | date : "MM/dd/yyyy" }}</td>
+            <td>{{ order?.truck_plate }}</td>
+            <td>{{ order?.comment }}</td>
+            <td>{{ order?.destiny }}</td>
+            <td>{{ order?.origin }}</td>
 
-            <td class= " badge  {{order.state}}">{{order.state}}</td>
-            <td  *ngIf="  entrada == 'Shiped' "     class="tdbutton"><button      class="btn btn-info btn-sm bi bi-search "  type="button"     data-bs-toggle="modal"       [routerLink]="['/home','in-orders', order?.id] "data-bs-target="#exampleModal"></button></td>
-            <td     *ngIf="  salida == 'Review' "    class="tdbutton" ><button   class="btn btn-info btn-sm bi bi-search "  data-bs-toggle="modal"  [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#exampleModal"></button></td>
-            <td   *ngIf="  entrada == 'Shiped' "    class="tdbutton" ><button   type="button" class=" btn btn-primary btn-sm bi bi-pencil-square"  data-bs-toggle="modal"    [routerLink]="['/home','in-orders', order?.id]"  data-bs-target="#Modal" ></button></td>
-            <td  *ngIf="     salida == 'Review' "   class="tdbutton"  ><button  type="button" class="  btn  btn-primary btn-sm bi bi-pencil-square"   data-bs-toggle="modal" [routerLink]="['/home','out-orders', order?.id]"  data-bs-target="#Modal" ></button></td>
-
-
+            <td>
+              <span class=" badge  {{ order.state }}">{{ order.state }}</span>
+            </td>
+            <td *ngIf="entrada == 'Shiped'">
+              <button
+                class="btn btn-secondary btn-sm"
+                type="button"
+                data-bs-toggle="modal"
+                [routerLink]="['/home', 'in-orders', order?.id]"
+                data-bs-target="#exampleModal"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </td>
+            <td *ngIf="salida == 'Review'">
+              <button
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="modal"
+                [routerLink]="['/home', 'out-orders', order?.id]"
+                data-bs-target="#exampleModal"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </td>
+            <td *ngIf="entrada == 'Shiped'">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                [routerLink]="['/home', 'in-orders', order?.id]"
+                data-bs-target="#Modal"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </td>
+            <td *ngIf="salida == 'Review'">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                [routerLink]="['/home', 'out-orders', order?.id]"
+                data-bs-target="#Modal"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </td>
           </tr>
-
         </tbody>
-
       </table>
-      <!--<pagination-controls (pageChange)="p = $event"></pagination-controls>-->
     </div>
+    <!--<pagination-controls (pageChange)="p = $event"></pagination-controls>-->
   </div>
 </div>
 
-
-
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-      <div class="modal-body" >
-
-     <table class="table table-borderless datatable">
-
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Material locations</th>
-            <th scope="col"> location</th>
-            <th scope="col">quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr *ngFor="let orders of orderdetails ">
-            <td>{{orders?.id}}</td>
-            <td>{{orders?.material}}</td>
-            <td>{{orders?.location}}</td>
-            <td>{{orders?.quantity}}</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-
+      <div class="modal-body">
+        <table class="table table-borderless datatable">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Material</th>
+              <th scope="col">Location</th>
+              <th scope="col">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let orders of orderdetails; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ orders?.material }}</td>
+              <td>{{ orders?.location }}</td>
+              <td>{{ orders?.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-
-
-
-
+</div>
 
 <!-- Modal para ar  -->
-<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="Modal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-
         <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
 
       <!--modal para Shipeds-->
-      <div class="modal-body" *ngIf="  entrada == 'Shiped'">
-
-        <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
-          <option value="0">Seleccione una opción</option>
+      <div class="modal-body" *ngIf="entrada == 'Shiped'">
+        <select
+          class="form-select"
+          [(ngModel)]="opcionSeleccionado"
+          (change)="capturar()"
+        >
+          <option value="0">---</option>
           <option *ngFor="let dato of optionsin">
-
-            {{dato}}
-
+            {{ dato }}
           </option>
-      </select>
+        </select>
 
-      <form>
-      
-        <div class="form-group">
-          <label for="message-text" class="col-form-label">comment:</label>
-          <textarea class="form-control" id="message-text"  [(ngModel)]='this.comment'  [ngModelOptions]="{standalone: true}"></textarea>
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Comment:</label>
+            <textarea
+              class="form-control"
+              id="message-text"
+              [(ngModel)]="this.comment"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+        </form>
+
+        <!-- Prueba para ver la opción seleccionado -->
+        <p [hidden]="opcionSeleccionado == '0'">Selected: {{ verSeleccion }}</p>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateState(ruta, ids)"
+            (click)="updateComment(ruta, comment)"
+            [disabled]="ids == 0 || ids == null || ids == undefined"
+          >
+            Save
+          </button>
         </div>
-      </form>
-
-
-
-
-      <!-- Prueba para ver la opción seleccionado -->
-      <p [hidden]="opcionSeleccionado == '0'">Selected # {{ verSeleccion }}</p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"  (click)="updateComment(ruta, comment)"  [disabled]=" ids==0 || ids ==null  || ids ==undefined  "                >Save changes</button>
       </div>
-
-
-
-      </div>
-
 
       <!--modal para revision-->
-      <div class="modal-body" *ngIf="  salida == 'Review'">
-
-        <select [(ngModel)]="opcionSeleccionado" (change)="capturar()">
-          <option value="0">*Selecciona una opción</option>
+      <div class="modal-body" *ngIf="salida == 'Review'">
+        <select
+          class="form-select"
+          [(ngModel)]="opcionSeleccionado"
+          (change)="capturar()"
+        >
+          <option value="0">---</option>
           <option *ngFor="let data of optionsout">
-
-            {{data}}
-
+            {{ data }}
           </option>
-      </select>
+        </select>
 
-      <form>
-     
-        <div class="form-group">
-          <label for="message-text" class="col-form-label">Comment:</label>
-          <textarea class="form-control" id="message-text" [(ngModel)]='this.comment'  [ngModelOptions]="{standalone: true}"></textarea>
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Comment:</label>
+            <textarea
+              class="form-control"
+              id="message-text"
+              [(ngModel)]="this.comment"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+        </form>
+
+        <p [hidden]="opcionSeleccionado == '0'">Selected: {{ verSeleccion }}</p>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateState(ruta, ids)"
+            (click)="updateComment(ruta, comment)"
+            [disabled]="ids == 0 || ids == null || ids == undefined"
+          >
+            Save
+          </button>
         </div>
-      </form>
-
-      <p [hidden]="opcionSeleccionado == '0'">Selected # {{ verSeleccion }}</p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-        <button type="button" class="btn btn-primary" (click)="updateState(ruta,ids)"  (click)="updateComment(ruta, comment)"        [disabled]=" ids==0 || ids ==null  || ids ==undefined  " >Save changes</button>
-
-
       </div>
     </div>
-
-    
-
-
   </div>
 </div>
-
-</div>
-

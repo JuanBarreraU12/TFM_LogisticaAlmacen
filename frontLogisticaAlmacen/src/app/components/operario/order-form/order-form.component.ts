@@ -12,6 +12,7 @@ import { OrdersService } from 'src/app/services/orders.service';
 import * as dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { WarehouseService } from 'src/app/services/warehouses.service';
+import { Util } from 'src/app/classes/util';
 
 @Component({
   selector: 'app-order-form',
@@ -21,6 +22,7 @@ import { WarehouseService } from 'src/app/services/warehouses.service';
 export class OrderFormComponent implements OnInit {
   action: String = 'Create';
   warehouses: Warehouse[] = [];
+  warehousesByUser: Warehouse[] = [];
   orderForm: FormGroup;
   controlDisable: boolean = false;
   constructor(
@@ -46,7 +48,10 @@ export class OrderFormComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    let userSession = Util.getUserSession();
     this.warehouses = await this.warehousesService.getAllWarehouse();
+    this.warehousesByUser = await this.warehousesService.getByUser(userSession.user_id);
+    console.log(this.warehousesByUser);
     this.activatedRoute.params.subscribe(async (params: any) => {
       let id = parseInt(params.orderId);
       if (id) {

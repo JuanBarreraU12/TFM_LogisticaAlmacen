@@ -83,17 +83,19 @@ export class UserFormComponent implements OnInit {
       phone: this.userForm.value.phone,
       birth_date: this.userForm.value.birth_date,
       email: this.userForm.value.email,
-      password: this.userForm.value.dni,
+      password: this.userForm.value.password,
       roleId: this.userForm.value.role,
     };
+    console.log(user);
 
     if (user.id) {
-        let response = await this.usersService.update(user.id, user);
-        if (response.affectedRows > 0)
-          ok = await this.updateUsersWarehouses(user.id);
+      let response = await this.usersService.update(user.id, user);
+      if (response.affectedRows > 0)
+        ok = await this.updateUsersWarehouses(user.id);
     } else {
-        let response = await this.usersService.register(user);
-        if (response.id) ok = await this.saveUsersWarehouses(response.id);
+      user.password = this.userForm.value.dni;
+      let response = await this.usersService.register(user);
+      if (response.id) ok = await this.saveUsersWarehouses(response.id);
     }
 
     if (ok) this.router.navigate(['/home', 'userslist']);
@@ -109,23 +111,21 @@ export class UserFormComponent implements OnInit {
         try {
           let user = await this.usersService.getById(id);
           if (user.id) {
-              const warehouseSelected = await this.warehousesService.getByUser(user.id);
-              for(let item of warehouseSelected)
-              {
-                item.isSelected=true;
-                this.arrWarehouseSelected.push(item);
-              }
+            const warehouseSelected = await this.warehousesService.getByUser(
+              user.id
+            );
+            for (let item of warehouseSelected) {
+              item.isSelected = true;
+              this.arrWarehouseSelected.push(item);
+            }
 
-              for(let item of this.arrWarehouse)
-              {
-                for(let item2 of this.arrWarehouseSelected)
-                {
-                  if(item.id===item2.id)
-                  {
-                    item.isSelected=true;
-                  }
+            for (let item of this.arrWarehouse) {
+              for (let item2 of this.arrWarehouseSelected) {
+                if (item.id === item2.id) {
+                  item.isSelected = true;
                 }
               }
+            }
             this.userForm = new FormGroup(
               {
                 id: new FormControl(id, []),
@@ -151,6 +151,7 @@ export class UserFormComponent implements OnInit {
                   []
                 ),
                 role: new FormControl(user?.roleId, [this.roleValidator]),
+                password: new FormControl(user?.password, []),
               },
               []
             );
@@ -205,83 +206,63 @@ export class UserFormComponent implements OnInit {
   async saveUsersWarehouses(pUserId: number): Promise<boolean> {
     // Es inserción
     try {
-      const users_warehouses=[];
-      for(let item of this.arrWarehouse)
-      {
-        const newUserWarehouse = {
-          "users_id" : pUserId,
-          "warehouse_id": item.id
-        };
-        users_warehouses.push(newUserWarehouse);
+      const users_warehouses = [];
+      console.log(this.arrWarehouse);
+      for (let item of this.arrWarehouse) {
+        if (item.isSelected) {
+          const newUserWarehouse = {
+            users_id: pUserId,
+            warehouse_id: item.id,
+          };
+          users_warehouses.push(newUserWarehouse);
+        }
       }
-      const array= { "users_warehouses": users_warehouses };
+      const array = { users_warehouses: users_warehouses };
       let response = await this.usersWarehousesService.create(array);
 
       console.log(response);
-      if(response){
-        Swal.fire(
-          'OK!',
-          'Saved user',
-          'success')
-          .then((result) => {
-            this.router.navigate(['/home', 'userslist'])
-        });
-      }
-      else {
-        Swal.fire(
-          'Error!',
-          response.error,
-          'error')
-          .then((result) => {
-        });
+      if (response) {
+        this.router.navigate(['/home', 'userslist']);
+        // Swal.fire('OK!', 'Saved user', 'success').then((result) => {
+        // });
+      } else {
+        // Swal.fire('Error!', response.error, 'error').then((result) => {});
       }
       return true;
     } catch (error) {
-      return false;
       console.log(error);
+      return false;
     }
   }
 
   async updateUsersWarehouses(pUserId: number): Promise<boolean> {
     try {
-      const users_warehouses=[];
-      for(let item of this.arrWarehouse)
-      {
-        if(item.isSelected===true)
-        {
+      const users_warehouses = [];
+      for (let item of this.arrWarehouse) {
+        if (item.isSelected) {
           const newUserWarehouse = {
-            "users_id" : pUserId,
-            "warehouse_id": item.id
+            users_id: pUserId,
+            warehouse_id: item.id,
           };
           users_warehouses.push(newUserWarehouse);
         }
       }
-      const array= {
-        "userId": pUserId,
-        "users_warehouses": users_warehouses
+      const array = {
+        userId: pUserId,
+        users_warehouses: users_warehouses,
       };
       let response = await this.usersWarehousesService.update(array);
-      if(response){
-        Swal.fire(
-          'OK!',
-          'Updated user',
-          'success')
-          .then((result) => {
-            this.router.navigate(['/home', 'userslist'])
-        });
-      }
-      else {
-        Swal.fire(
-          'Error!',
-          response.error,
-          'error')
-          .then((result) => {
-        });
+      if (response) {
+        this.router.navigate(['/home', 'userslist']);
+        // Swal.fire('OK!', 'Updated user', 'success').then((result) => {
+        // });
+      } else {
+        // Swal.fire('Error!', response.error, 'error').then((result) => {});
       }
       return true;
     } catch (error) {
-      return false;
       console.log(error);
+      return false;
     }
   }
 
@@ -295,5 +276,4 @@ export class UserFormComponent implements OnInit {
     }
     return warehouse;
   }
-
 }

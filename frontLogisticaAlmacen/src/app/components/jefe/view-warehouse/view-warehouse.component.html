@@ -1,48 +1,68 @@
 <div class="card">
   <div class="card-body">
-      <h1 class="card-title">Warehouse list</h1>
-      <p></p>
-      <!-- Bordered Table -->
-      <table class="table table-bordered">
-          <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Address</th>
-                  <th>Actions</th>
-                  <th>Locations</th>
-              </tr>
-          </thead>
+    <h1 class="card-title">Warehouses List</h1>
+    <!-- Bordered Table -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Description</th>
+          <th scope="col">Address</th>
+          <th>Locations</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-          <tbody class="table-group-divider">
-              <tr *ngFor="let warehouse of arrWarehouse;let indice=index">
-                  <th scope="row">{{indice+1}}</th>
-                  <td>{{warehouse.description}} </td>
-                  <td>{{warehouse.address}}</td>
-                  <td class="text-center">
-                      <button class="btn btn-danger me-2 btn-sm" (click)="deleteWarehouse(warehouse.id)"><i class="fa-solid fa-trash"></i></button>
-                      <button class="btn btn-primary btn-sm" [routerLink]="['/home','updateWarehouse', warehouse.id]"><i class="fa-solid fa-rotate-right"></i></button>
-                  </td>
+      <tbody>
+        <tr *ngFor="let warehouse of arrWarehouse; let indice = index">
+          <th scope="row">{{ indice + 1 }}</th>
+          <td>{{ warehouse.description }}</td>
+          <td>{{ warehouse.address }}</td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button
+                class="btn btn-secondary me-2 btn-sm"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#modalViewLocations'"
+                (click)="viewWarehouse(warehouse.id)"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
 
-                  <td class="text-center">
-                      <button class="btn btn-info me-2 btn-sm" data-bs-toggle="modal"
-                      [attr.data-bs-target]="'#modalViewLocations'" (click)="viewWarehouse(warehouse.id)"><i class="fa-solid fa-magnifying-glass"></i></button>
-
-                      <button class="btn btn-success btn-sm" data-bs-toggle="modal"
-                      [attr.data-bs-target]="'#modalAddLocations'" (click)="addWarehouse(warehouse.id)"><i class="fa-solid fa-plus"></i></button>
-                  </td>
-
-              </tr>
-          </tbody>
-      </table>
-      <!-- End Bordered Table -->
-
+              <button
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#modalAddLocations'"
+                (click)="addWarehouse(warehouse.id)"
+              >
+                <i class="fa-solid fa-file"></i>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button
+                class="btn btn-danger me-2 btn-sm"
+                (click)="deleteWarehouse(warehouse.id)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+              <button
+                class="btn btn-primary btn-sm"
+                [routerLink]="['/home', 'updateWarehouse', warehouse.id]"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- End Bordered Table -->
   </div>
 </div>
 <app-modal-view-locations
-[arrLocations]="arrLocations"
+  [arrLocations]="arrLocations"
 ></app-modal-view-locations>
 
-<app-modal-add-locations
-[warehouseId]="warehouseId"
-></app-modal-add-locations>
+<app-modal-add-locations [warehouseId]="warehouseId"></app-modal-add-locations>

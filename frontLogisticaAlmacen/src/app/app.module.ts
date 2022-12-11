@@ -22,18 +22,10 @@ import { PopupComponent } from './components/operario/popup/popup.component';
 import { ViewWarehouseComponent } from './components/jefe/view-warehouse/view-warehouse.component';
 import { InOrdersComponent } from './components/encargado/in-orders/in-orders.component';
 import { OutOrdersComponent } from './components/encargado/out-orders/out-orders.component';
-import { FiltroPipe } from './pipes/filtro.pipe';
-import { WarehousesUsersPipe } from './pipes/warehouses-users.pipe';
 import { ListEmployeeWarehouseComponent } from './components/jefe/list-employee-warehouse/list-employee-warehouse.component';
-import { FormLocationComponent } from './components/jefe/form-location/form-location.component';
-import { ViewLocationComponent } from './components/jefe/view-location/view-location.component';
-
 import { ModalViewLocationsComponent } from './components/jefe/modal-view-locations/modal-view-locations.component';
 import { ModalAddLocationsComponent } from './components/jefe/modal-add-locations/modal-add-locations.component';
 import { RecuperarPasswordComponent } from './components/jefe/recuperar-password/recuperar-password.component';
-import { OriginPipe } from './pipes/origin.pipe';
-
-
 
 @NgModule({
   declarations: [
@@ -55,26 +47,19 @@ import { OriginPipe } from './pipes/origin.pipe';
     ViewWarehouseComponent,
     InOrdersComponent,
     OutOrdersComponent,
-    FiltroPipe,
-    WarehousesUsersPipe,
     ListEmployeeWarehouseComponent,
-    FormLocationComponent,
-    ViewLocationComponent,
     ModalViewLocationsComponent,
     ModalAddLocationsComponent,
     RecuperarPasswordComponent,
-    OriginPipe,
-    
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

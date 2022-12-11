@@ -23,7 +23,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   deleteEmployee(pEmployee: number | any): void {
     Swal.fire({
-      title: `Do you want to delete the user #${pEmployee}?`,
+      title: `Do you want to delete this user?`,
       text: 'This action is irreversible!',
       icon: 'warning',
       showCancelButton: true,
@@ -40,7 +40,7 @@ export class ViewEmployeeComponent implements OnInit {
             if (response.affectedRows > 0) {
               Swal.fire({
                 title: 'Deleted!',
-                text: `The user #${pEmployee} was deleted`,
+                text: `The user was deleted`,
                 icon: 'success',
                 confirmButtonText: 'Ok',
                 confirmButtonColor: '#6c757d',

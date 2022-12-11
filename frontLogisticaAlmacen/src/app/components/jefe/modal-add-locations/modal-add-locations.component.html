@@ -1,34 +1,60 @@
-<div class="modal fade" [id]="'modalAddLocations'" tabindex="-1" aria-labelledby="'modal'+ order.originId + 'Label'" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+<div
+  class="modal fade"
+  [id]="'modalAddLocations'"
+  tabindex="-1"
+  aria-labelledby="'modal'+ order.originId + 'Label'"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" [id]="'modal'">Add Locations</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" [id]="'modal'">Create Location</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div class="row">
-
-                <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="description">Description</label>
-                        <div class="col-sm-10">
-                            <p class="error" *ngIf="checkControl('name', 'required')">Campo requerido</p>
-                            <p class="error" *ngIf="checkControl('name', 'minlength')">La longitud del camo tiene que ser al menos de 3 caracteres</p>
-                            <input class="form-control" type="text" id="description" formControlName="description">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-11 col-form-label"></label>
-                        <div class="col-sm-1">
-                            <input type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
-                        </div>
-                    </div>
-                </form>
-
+          <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="description"
+                >Description</label
+              >
+              <div class="col-sm-10">
+                <input
+                class="form-control"
+                type="text"
+                id="description"
+                formControlName="description"
+                />
+                <p class="error" *ngIf="checkControl('description', 'required')">
+                  This field is required
+                </p>
+                <p class="error" *ngIf="checkControl('description', 'minlength')">
+                  The length of the field must be at least 3 characters
+                </p>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-sm-12">
+                <input
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!userForm.valid"
+                  value="Create"
+                />
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">to close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>

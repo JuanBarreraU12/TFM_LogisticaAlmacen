@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     let userSession = Util.getUserSession();
-    console.log(userSession);
     if (!userSession) {
       this.router.navigate(['/login']);
       return false;

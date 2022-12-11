@@ -63,7 +63,7 @@ router.put('/:userId',
   async (req, res) => {
   try {
     const { userId } = req.params;
-    req.body.password = bcrypt.hashSync(req.body.password, 8);
+    // req.body.password = bcrypt.hashSync(req.body.password, 8);
     const result = await update(userId, req.body);
     res.json(result);
   } catch (error) {
@@ -115,7 +115,7 @@ router.post("/changepassword",
   }
   else
   {
-    return unauthorize(res, "Incorrect Dni.");
+    return unauthorize(res, "Incorrect DNI.");
   }
   
 });

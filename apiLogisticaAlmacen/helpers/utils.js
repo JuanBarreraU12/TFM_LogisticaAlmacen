@@ -31,11 +31,9 @@ const createToken = (user) => {
     return jwt.sign(obj, process.env.SECRET_KEY);
 }
 
-const sendEmail = (user) => {
+const sendEmail = (user, order) => {
     let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: true,
+        service: 'gmail',
         auth: {
             user: process.env.MAIL_ACCOUNT,
             pass: process.env.MAIL_PASSWORD
@@ -45,11 +43,12 @@ const sendEmail = (user) => {
     const mailOptions = {
         from: process.env.MAIL_ACCOUNT,
         to: user.email,
-        subject: 'Test TFM',
+        subject: "TFM's Test",
         html: `
-            <strong>Name:</strong> ${user.name} <br/>
+            <strong>Name:</strong> ${user.name} ${user.first_last_name} <br/>
             <strong>Role:</strong> ${user.role} <br/>
-            <strong>Mensaje:</strong> Test del TFM por cambio de estado de los pedidos <br/>
+            <strong>Order:</strong> ${order.id} <br/>
+            <p>You have changed the order's state to <strong>${order.state}</strong></p>
         `
     }
 

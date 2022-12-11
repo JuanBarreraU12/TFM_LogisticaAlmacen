@@ -6,7 +6,7 @@
           <h2 class="card-title">Order's Information</h2>
           <h3 class="card-subtitle mb-3">{{ order?.state }}</h3>
           <p class="card-text m-0">
-            Out Date: {{ order?.out_date | date: "MM/dd/yyyy" }}
+            Out Date: {{ order?.out_date | date : "MM/dd/yyyy" }}
           </p>
           <p class="card-text m-0">Origin Warehouse: {{ order?.origin }}</p>
           <p class="card-text m-0">Destiny Warehouse: {{ order?.destiny }}</p>
@@ -16,23 +16,24 @@
       <div class="col-12 col-lg-8">
         <div class="d-flex justify-content-end mt-3" *ngIf="order">
           <button
-            class="btn btn-sm btn-primary me-2"
+            class="btn btn-sm btn-secondary me-2"
             [disabled]="
               (orderDetailsDeleted.length === 0 &&
-              newOrderDetails.length === 0 &&
-              !anyUpdate) || !isValid
+                newOrderDetails.length === 0 &&
+                !anyUpdate) ||
+              !isValid
             "
             (click)="saveDetails()"
           >
-          <i class="fa-solid fa-floppy-disk"></i>
+            <i class="fa-solid fa-floppy-disk"></i>
           </button>
           <button
-            class="btn btn-sm btn-secondary me-3"
+            class="btn btn-sm btn-primary me-3"
             data-bs-toggle="modal"
             [attr.data-bs-target]="'#modal' + order.originId"
             [disabled]="controlDisable"
           >
-          <i class="fa-solid fa-file"></i>
+            <i class="fa-solid fa-file"></i>
           </button>
         </div>
         <table class="table table-sm">
@@ -68,13 +69,15 @@
                 <!-- <span class="error">Error</span> -->
               </td>
               <td>
-                <button
-                  class="btn btn-sm btn-secondary"
-                  (click)="deleteDetail($event)"
-                  [disabled]="controlDisable"
-                >
-                <i class="fa-solid fa-trash"></i>
-                </button>
+                <div class="d-flex justify-content-center">
+                  <button
+                    class="btn btn-sm btn-danger"
+                    (click)="deleteDetail($event)"
+                    [disabled]="controlDisable"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

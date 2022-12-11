@@ -23,6 +23,18 @@ constructor(private httpClient: HttpClient) { }
     return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));
   }
 
+  getByUser(pUserId: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}users/${pUserId}`, Util.getHttpOptions()));
+  }
+
+  getOrdersIn(pUserId: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}in/${pUserId}`, Util.getHttpOptions()));
+  }
+
+  getOrdersOut(pUserId: Number): Promise<any>{
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}out/${pUserId}`, Util.getHttpOptions()));
+  }
+
   create(pOrder: Order): Promise<any>{
     return lastValueFrom(this.httpClient.post<any>(`${this.baseUrl}`, pOrder, Util.getHttpOptions()));
   }
@@ -38,7 +50,6 @@ constructor(private httpClient: HttpClient) { }
   updateComment(pId: Number, pComment: String): Promise<any>{
     return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}${pId}/c`, {comment: pComment},Util.getHttpOptions()     ));
   }
-
 
   delete(pId: Number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}${pId}`, Util.getHttpOptions()));

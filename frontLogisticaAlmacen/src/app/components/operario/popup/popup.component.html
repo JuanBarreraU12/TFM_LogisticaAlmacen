@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" [id]="'modal'+ order.originId">Materiales</h1>
+          <h1 class="modal-title fs-5" [id]="'modal'+ order.originId">Materials</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -19,7 +19,7 @@
                   
                   <div class="d-flex justify-content-center mt-3">
                     <input type="checkbox" class="btn-check" [id]="'btn-check-outlined' + materialLocation.id" [attr.data-material-selected]="materialLocation.id" (change)="materialSelected($event)">
-                    <label class="btn btn-outline-success" [for]="'btn-check-outlined' + materialLocation.id">Seleccionar</label>
+                    <label class="btn btn-outline-success" [for]="'btn-check-outlined' + materialLocation.id">Select</label>
                   </div>
                 </div>
               </div>
@@ -27,8 +27,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="loadDetails()">Cargar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="loadDetails()">Load</button>
         </div>
       </div>
     </div>
