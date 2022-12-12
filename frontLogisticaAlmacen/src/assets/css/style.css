@@ -1292,3 +1292,32 @@ td span[class~="Shiped"] {
   background-color: #0d6efd;
   border-color: #d1e7dd;
 }
+
+.bd-example-modal-lg .modal-dialog {
+  position: relative;
+  margin: 0 auto;
+  top: calc(50% - 24px);
+}
+
+.bd-example-modal-lg .modal-dialog .modal-content {
+  background-color: transparent;
+  border: none;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: .35em solid #f3f3f3;
+  border-radius: 50%;
+  border-top: .35em solid transparent;
+  animation: spin .75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg) }
+}

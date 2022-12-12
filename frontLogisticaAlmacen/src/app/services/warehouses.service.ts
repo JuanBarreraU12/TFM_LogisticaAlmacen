@@ -14,23 +14,23 @@ export class WarehouseService {
   constructor(private httClient: HttpClient) { }
 
   getAllWarehouse(): Promise<any> {
-    return lastValueFrom(this.httClient.get<any>(`${this.urlWarehouse}`))
+    return lastValueFrom(this.httClient.get<any>(`${this.urlWarehouse}`, Util.getHttpOptions()))
   }
 
   update(pwarehouse: Warehouse): Promise<any> {
-    return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}`, pwarehouse))
+    return lastValueFrom(this.httClient.put<any>(`${this.urlWarehouse}`, pwarehouse, Util.getHttpOptions()))
   }
 
   getById(pId: number): Promise<any> {
-    return lastValueFrom(this.httClient.get<Warehouse | any> (`${this.urlWarehouse}${pId}`))
+    return lastValueFrom(this.httClient.get<Warehouse | any> (`${this.urlWarehouse}${pId}`, Util.getHttpOptions()))
   }
 
-  create(pWarehouse: Warehouse): Promise<Warehouse> {
-    return lastValueFrom(this.httClient.post<Warehouse>(this.urlWarehouse, pWarehouse))
+  create(pWarehouse: Warehouse): Promise<any> {
+    return lastValueFrom(this.httClient.post<any>(this.urlWarehouse, pWarehouse, Util.getHttpOptions()));
   }
 
   delete(pWarehouse: Number): Promise<any> {
-    return lastValueFrom(this.httClient.delete<any>(`${this.urlWarehouse}${pWarehouse}`));
+    return lastValueFrom(this.httClient.delete<any>(`${this.urlWarehouse}${pWarehouse}`, Util.getHttpOptions()));
   }
 
   getByUser(pUserId: Number): Promise<any> {

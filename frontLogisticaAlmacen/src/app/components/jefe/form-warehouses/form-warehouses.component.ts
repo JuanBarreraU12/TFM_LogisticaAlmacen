@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Warehouse } from 'src/app/interfaces/warehouse.interface';
 import { WarehouseService } from 'src/app/services/warehouses.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-warehouses',
@@ -56,7 +55,7 @@ export class FormWarehousesComponent implements OnInit {
       this.idWarehouse = params.idwarehouse;
       let id: number = parseInt(params.idwarehouse);
       if (id) {
-        this.type = 'Update';
+        this.type = 'Edit';
         const response = await this.warehouseService.getById(id);
         const warehouse: Warehouse = response;
         this.userForm = new FormGroup(

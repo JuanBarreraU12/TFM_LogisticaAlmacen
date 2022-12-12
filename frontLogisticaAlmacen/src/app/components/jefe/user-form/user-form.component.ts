@@ -12,10 +12,8 @@ import { RolesService } from 'src/app/services/roles.service';
 import { WarehouseService } from 'src/app/services/warehouses.service';
 import { UsersService } from 'src/app/services/users.service';
 import * as dayjs from 'dayjs';
-import { UserWarehouse } from 'src/app/interfaces/user-warehouse.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersWarehousesService } from 'src/app/services/users-warehouses.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -86,7 +84,6 @@ export class UserFormComponent implements OnInit {
       password: this.userForm.value.password,
       roleId: this.userForm.value.role,
     };
-    console.log(user);
 
     if (user.id) {
       let response = await this.usersService.update(user.id, user);
@@ -126,6 +123,11 @@ export class UserFormComponent implements OnInit {
                 }
               }
             }
+
+            let birthDate: any;
+            if (user?.birth_date !== null)
+              birthDate = dayjs(user?.birth_date).format('YYYY-MM-DD');
+
             this.userForm = new FormGroup(
               {
                 id: new FormControl(id, []),
@@ -147,7 +149,7 @@ export class UserFormComponent implements OnInit {
                 dni: new FormControl(user?.dni, [Validators.required]),
                 phone: new FormControl(user?.phone, []),
                 birth_date: new FormControl(
-                  dayjs(user?.birth_date).format('YYYY-MM-DD'),
+                  birthDate,
                   []
                 ),
                 role: new FormControl(user?.roleId, [this.roleValidator]),
@@ -207,7 +209,6 @@ export class UserFormComponent implements OnInit {
     // Es inserción
     try {
       const users_warehouses = [];
-      console.log(this.arrWarehouse);
       for (let item of this.arrWarehouse) {
         if (item.isSelected) {
           const newUserWarehouse = {
@@ -219,8 +220,6 @@ export class UserFormComponent implements OnInit {
       }
       const array = { users_warehouses: users_warehouses };
       let response = await this.usersWarehousesService.create(array);
-
-      console.log(response);
       if (response) {
         this.router.navigate(['/home', 'userslist']);
         // Swal.fire('OK!', 'Saved user', 'success').then((result) => {

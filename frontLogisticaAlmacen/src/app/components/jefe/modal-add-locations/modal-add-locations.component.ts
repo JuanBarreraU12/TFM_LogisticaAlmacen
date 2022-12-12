@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationsService } from 'src/app/services/locations.service';
+declare var $: any;
 
 @Component({
   selector: 'app-modal-add-locations',
@@ -33,7 +34,8 @@ export class ModalAddLocationsComponent implements OnInit {
       warehouses_id: this.warehouseId,
     };
     let location = await this.locationService.create(request);
-    if (location) window.location.reload();
+    if (location) $('.modal').modal('hide');
+    this.userForm.reset();
   }
 
   checkControl(pControlWarehouse: string, pError: string): boolean {

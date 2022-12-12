@@ -182,8 +182,6 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
               id,
               orderDetail
             );
-            if (response.affectedRows > 0)
-              console.log('Actualización correcta');
           } catch (error) {
             ok = false;
             console.log(error);
@@ -204,8 +202,6 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
               this.order.id,
               orderDetail
             );
-            if (response.id)
-              console.log('Creación correcta con actualización de cantidades');
           } catch (error) {
             ok = false;
             console.log(error);
@@ -229,7 +225,6 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
           this.order.id,
           this.orderDetailsDeleted[index].id
         );
-        if (response.affectedRows > 0) console.log('Eliminación correcta');
       } catch (error) {
         ok = false;
         console.log(error);
@@ -250,8 +245,6 @@ export class OrderViewComponent implements OnInit, AfterViewChecked {
           this.order.id,
           this.newOrderDetails[index]
         );
-        if (response.id)
-          console.log('Creación correcta sin actualización de cantidades');
       } catch (error) {
         ok = false;
         console.log(error);

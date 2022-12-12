@@ -16,6 +16,6 @@ export class MaterialsLocationsService {
   }
 
   updateStock(pMaterialLocationId: number, pStock: any): Promise<any> {
-    return lastValueFrom(this.httpClient.patch<any>(`^${this.baseUrl}${pMaterialLocationId}`, pStock, Util.getHttpOptions()));
+    return lastValueFrom(this.httpClient.patch<any>(`${this.baseUrl}${pMaterialLocationId}`, pStock, Util.getHttpOptions()));
   }
 }

@@ -51,7 +51,6 @@ export class OrderFormComponent implements OnInit {
     let userSession = Util.getUserSession();
     this.warehouses = await this.warehousesService.getAllWarehouse();
     this.warehousesByUser = await this.warehousesService.getByUser(userSession.user_id);
-    console.log(this.warehousesByUser);
     this.activatedRoute.params.subscribe(async (params: any) => {
       let id = parseInt(params.orderId);
       if (id) {

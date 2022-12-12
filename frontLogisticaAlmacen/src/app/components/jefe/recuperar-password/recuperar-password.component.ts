@@ -17,11 +17,10 @@ export class RecuperarPasswordComponent implements OnInit {
   async changePassword(pForm: any): Promise<void> {
     try {
       let response = await this.usersService.changepassword(pForm.value);
-      console.log(response);
       if (response.affectedRows>0) {
         Swal.fire(
           'OK!',
-          'Change password',
+          'The password has been changed',
           'success')
           .then((result) => {
             this.router.navigate(['/login'])

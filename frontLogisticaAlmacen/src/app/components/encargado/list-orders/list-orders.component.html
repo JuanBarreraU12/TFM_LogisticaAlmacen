@@ -186,8 +186,8 @@
           <button
             type="button"
             class="btn btn-primary"
-            (click)="updateState(ruta, ids)"
-            (click)="updateComment(ruta, comment)"
+            data-bs-dismiss="modal"
+            (click)="updateValues(ruta, ids, comment)"
             [disabled]="ids == 0 || ids == null || ids == undefined"
           >
             Save
@@ -233,8 +233,8 @@
           <button
             type="button"
             class="btn btn-primary"
-            (click)="updateState(ruta, ids)"
-            (click)="updateComment(ruta, comment)"
+            data-bs-dismiss="modal"
+            (click)="updateValues(ruta, ids, comment)"
             [disabled]="ids == 0 || ids == null || ids == undefined"
           >
             Save
@@ -242,5 +242,13 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="modalSpinner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+          <span class="loader"></span>
+      </div>
   </div>
 </div>

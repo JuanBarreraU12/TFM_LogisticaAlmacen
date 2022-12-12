@@ -3,6 +3,7 @@ import { OrdersService } from '../../../services/orders.service';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/interfaces/order.interface';
+declare var $: any;
 
 @Component({
   selector: 'app-list-ordes',
@@ -47,25 +48,23 @@ export class ListOrdersComponent implements OnInit {
     });
   }
   //ordenes con el mismo id retorna el mismo detalle
-  updateState(pId: Number, pState: Number) {
+  async updateValues(pId: Number, pState: Number, pComment: String): Promise<void> {
+    $('#modalSpinner').modal('show');
     let order: any = {
       stateId: pState,
     };
-    this.OrdersService.updateState(pId, order)
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
-  updateComment(pId: Number, pComment: String) {
-    this.OrdersService.updateComment(pId, pComment)
-      .then((response) => {})
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      let response = await this.OrdersService.updateState(pId, order);
+      if (pComment) {
+        response = await this.OrdersService.updateComment(pId, pComment);
+      }
+      let tempArray = this.orders.filter((o => o.id !== pId));
+      this.orders = tempArray;
+    } catch (error) {
+      console.log(error);
+    }
+    $('#modalSpinner').modal('hide');
   }
 
   capturar() {

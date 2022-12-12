@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Util } from 'src/app/classes/util';
-import { MaterialLocation } from 'src/app/interfaces/material-location';
 import { OrderDetail } from 'src/app/interfaces/order-detail.interface';
 import { Order } from 'src/app/interfaces/order.interface';
 import { MaterialsLocationsService } from 'src/app/services/materials-locations.service';
 import { OrdersDetailsService } from 'src/app/services/orders-details.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
   selector: 'app-order-card',
@@ -24,7 +24,8 @@ export class OrderCardComponent implements OnInit {
   orderDetails: OrderDetail[] = [];
   constructor(
     private ordersService: OrdersService,
-    private ordersDetailsService: OrdersDetailsService
+    private ordersDetailsService: OrdersDetailsService,
+    private materialsLocationsService: MaterialsLocationsService
   ) {
     this.orderIdDeleted = new EventEmitter();
     this.orderUpdated = new EventEmitter();
@@ -85,6 +86,7 @@ export class OrderCardComponent implements OnInit {
   }
 
   async changeState(): Promise<void> {
+    $('#modalSpinner').modal('show');
     let order: any = {
       stateId: this.newState,
     };
@@ -94,10 +96,10 @@ export class OrderCardComponent implements OnInit {
         this.myOrder.id!,
         order
       );
-      if (response.affectedRows) {
+      if (response.affectedRows > 0) {
         order.orderId = this.myOrder.id;
 
-        if (order.stateId === 4) {
+        if (order.stateId === 5) {
           try {
             this.orderDetails = await this.ordersDetailsService.getAll(
               this.myOrder.id!
@@ -110,8 +112,19 @@ export class OrderCardComponent implements OnInit {
           let index: number = 0;
 
           while (ok && index < this.orderDetails.length) {
-            // let stock: Number = this.orderDetails[index].stock! - this.orderDetails[index].quantity;
+            let stock: Number =
+              Number(this.orderDetails[index].stock) -
+              Number(this.orderDetails[index].quantity);
 
+            let stockObj: any = {
+              stock
+            }
+            
+            response = await this.materialsLocationsService.updateStock(Number(this.orderDetails[index].materialLocationId), stockObj);
+            if (!(response.affectedRows > 0))
+              ok = false;
+            
+            index++;
           }
         }
 
@@ -126,5 +139,6 @@ export class OrderCardComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+    $('#modalSpinner').modal('hide');
   }
 }
